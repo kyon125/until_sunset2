@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7181f404f1447c0a7a17b3070b952b, type: 3}
+  m_Name: flat
+  m_EditorClassIdentifier: 
+  m_Angles:
+  - m_Start: -45
+    m_End: 45
+    m_Order: 4
+    m_Sprites:
+    - {fileID: 21300000, guid: 9b2ff92cec62663479c65023431bbf5c, type: 3}
+    - {fileID: 21300000, guid: ffc0f1400e546cd4bbb58388166dc0d7, type: 3}
+  - m_Start: -135
+    m_End: -45
+    m_Order: 3
+    m_Sprites:
+    - {fileID: 21300000, guid: dade3d600fd90474584f4d589197d8cb, type: 3}
+    - {fileID: 21300000, guid: 544867ce76f2dae40951793fd24a1e0d, type: 3}
+  - m_Start: 135
+    m_End: 225
+    m_Order: 2
+    m_Sprites:
+    - {fileID: 21300000, guid: 6b58f802e139128469920a060b392d67, type: 3}
+    - {fileID: 21300000, guid: 29629bf387e3a8942af1ab39d641c86f, type: 3}
+  - m_Start: 45
+    m_End: 135
+    m_Order: 1
+    m_Sprites:
+    - {fileID: 21300000, guid: 6bfd192bcb5ff774e91daa6fd8c3c6c2, type: 3}
+    - {fileID: 21300000, guid: 5c20e714b9e14694fbf8754202e1f461, type: 3}
+  m_FillTexture: {fileID: 2800000, guid: bc5d61525ab46764e9fd50594b79de79, type: 3}
+  m_CornerSprites:
+  - m_CornerType: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: b0824d934349501478c51410adc2fe99, type: 3}
+  - m_CornerType: 1
+    m_Sprites:
+    - {fileID: 21300000, guid: a059c23c451ec5a4a8d67b8767d83b78, type: 3}
+  - m_CornerType: 2
+    m_Sprites:
+    - {fileID: 21300000, guid: dc5d194864a6efc48828be55e1da2da3, type: 3}
+  - m_CornerType: 3
+    m_Sprites:
+    - {fileID: 21300000, guid: 178f6e11ff97963478ba7e28d9dcc026, type: 3}
+  - m_CornerType: 4
+    m_Sprites:
+    - {fileID: 0}
+  - m_CornerType: 5
+    m_Sprites:
+    - {fileID: 0}
+  - m_CornerType: 6
+    m_Sprites:
+    - {fileID: 0}
+  - m_CornerType: 7
+    m_Sprites:
+    - {fileID: 0}
+  m_FillOffset: 0.005
+  m_UseSpriteBorders: 1
