@@ -19,7 +19,11 @@ public class IgnoreCollider : MonoBehaviour
     {
         if (collision.transform.tag == "Water_flat")
         {
-            Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>() , collision.transform.GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+        }
+        else if (collision.transform.tag == "trap")
+        {
+            Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
         }
     }
 }
