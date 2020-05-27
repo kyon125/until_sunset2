@@ -21,10 +21,7 @@ public class bagusing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i <= player.bg.I_num.Count - 1; i++)
-        {
-            print(player.bg.I_item[i].show_name +  player.bg.I_num[i]);
-        }
+        
     }
     //道具的使用
     public void useitem()
@@ -64,23 +61,7 @@ public class bagusing : MonoBehaviour
     public void close()
     {
         Destroy(GameObject.Find("P_pack"));
-        //gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-        //switch (gameStatus.status)
-        //{
-        //    case GameStatus.Status.onBaging:
-        //        {
-        //            Destroy(GameObject.Find("P_pack"));
-        //            gameStatus.status = GameStatus.Status.onPlaying;                    
-        //            break;
-        //        }
-        //    case GameStatus.Status.onComposition:
-        //        {
-        //            player.comitem.Clear();
-        //            gameStatus.status = GameStatus.Status.onBaging;
-        //            Destroy(GameObject.Find("P_com"));
-        //            break;
-        //        }
-        //}
+        gameStatus.status = GameStatus.Status.onPlaying;
     }
     public void B_composite()
     {
@@ -104,7 +85,7 @@ public class bagusing : MonoBehaviour
     public void select()
     {
         num_select = this.gameObject.GetComponent<Itemset>().Item_id;
-
+        print(num_select);
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
 
         if (gameStatus.status == GameStatus.Status.onComposition)

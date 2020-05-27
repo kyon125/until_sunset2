@@ -15,23 +15,23 @@ public class Stone : MonoBehaviour
     private float dTime;// 時間
     private Vector3 currentAngle;
 
-    void Start()
-    {
-        // 載入外部全域參數
-        angle = ShootController.angle;
+    //void Start()
+    //{
+    //    // 載入外部全域參數
+    //    angle = ShootController.angle;
 
-        // 初速度向量 = 角度 * 力量
-        MoveSpeed = Quaternion.Euler(new Vector3(0, 0, ShootController.angle)) * Vector3.right * power;
-        currentAngle = Vector3.zero;
-    }
-    void FixedUpdate()
-    {
+    //    // 初速度向量 = 角度 * 力量
+    //    MoveSpeed = Quaternion.Euler(new Vector3(0, 0, ShootController.angle)) * Vector3.right * power;
+    //    currentAngle = Vector3.zero;
+    //}
+    //void FixedUpdate()
+    //{
 
-        // 重力速度 = at ;
-        GritySpeed.y = Gravity * (dTime += Time.fixedDeltaTime);
-        // 位移模擬軌跡
-        transform.position += (MoveSpeed + GritySpeed) * Time.fixedDeltaTime;
-        currentAngle.z = Mathf.Atan((MoveSpeed.y + GritySpeed.y) / MoveSpeed.x) * Mathf.Rad2Deg;
-        transform.eulerAngles = currentAngle;
-    }
+    //    // 重力速度 = at ;
+    //    GritySpeed.y = Gravity * (dTime += Time.fixedDeltaTime);
+    //    // 位移模擬軌跡
+    //    transform.position += (MoveSpeed + GritySpeed) * Time.fixedDeltaTime;
+    //    currentAngle.z = Mathf.Atan((MoveSpeed.y + GritySpeed.y) / MoveSpeed.x) * Mathf.Rad2Deg;
+    //    transform.eulerAngles = currentAngle;
+    //}
 }
