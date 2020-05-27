@@ -23,6 +23,9 @@ public class CharacterController2D : MonoBehaviour
     public Transform playerS;
 
     bool CrouchDown = false;
+
+    public GameObject sh; 
+    bool shot = false;
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
     void Start()
@@ -101,6 +104,17 @@ public class CharacterController2D : MonoBehaviour
             jump();
             unhitch();
             crouchDown();
+
+            if (Input.GetKeyDown(KeyCode.A) && shot == false)
+            {
+                sh.SetActive(true);
+                shot = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.A) && shot == true)
+            {
+                sh.SetActive(false);
+                shot = false;
+            }
         }        
     }
 

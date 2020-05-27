@@ -12,6 +12,8 @@ public class PlayerBag : MonoBehaviour
     private Itemclass _itemname;
     private GameObject tsf;    
     private GameStatus gameStatus;
+
+    public int select_itemid;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +94,7 @@ public class PlayerBag : MonoBehaviour
             selected();
             Destroy(other.gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.K)&& other.tag == "K_item")
+        else if (Input.GetKeyDown(KeyCode.F)&& other.tag == "K_item")
         {
             int num = other.gameObject.GetComponent<giveitem>().Item_id;
             other.transform.GetComponent<giveitem>().eventnews();

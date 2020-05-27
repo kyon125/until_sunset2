@@ -4,14 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class giveitem : MonoBehaviour
+public class simple_plot : MonoBehaviour
 {
-    List <Plotclass> plot;
+    List<Plotclass> plot;
 
     public int Item_id;
     public int start, end;
-    public string plotname;
     public float playspeed;
+    public GameObject A, B;
+
 
     private float speed;
     private Text contentext;
@@ -19,13 +20,14 @@ public class giveitem : MonoBehaviour
     private GameStatus gameStatus;
     private bool hasget = false;
 
-    public GameObject i_dia;
+    public GameObject i_dia , b_switch;
     // Start is called before the first frame update
     void Start()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
         contentext = GameObject.Find("DialogBox").GetComponent<Text>();
         An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
+        
 
         plot = Itemdateset.plot;
     }
@@ -33,17 +35,19 @@ public class giveitem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    public void eventnews()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (hasget == false)
+        if (Input.GetKeyDown(KeyCode.F)&& collision.tag =="Player")
         {
             i_dia.SetActive(true);
-            StartCoroutine(playplot());            
+            StartCoroutine(playplot());
             selected();
-        }        
+            b_switch.GetComponent<simplot2>().ready = true;
+        }
     }
+    
     void selected()
     {
         if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[Item_id]) == true)
@@ -79,10 +83,13 @@ public class giveitem : MonoBehaviour
                 contentext.text = plot[a].content;
                 speed = 1f + plot[a].content.Length * playspeed;
             }
-            yield return new WaitForSeconds(speed);            
+            yield return new WaitForSeconds(speed);
         }
 
-        i_dia.SetActive(false);        
+        i_dia.SetActive(false);
+        GameObject.Find("An").transform.position = new Vector3(292.1f, 130.25f, 0);
+        A.SetActive(false);
+        B.SetActive(true);
 
         contentext.text = "";
         gameStatus.status = GameStatus.Status.onPlaying;

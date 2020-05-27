@@ -32,7 +32,7 @@ public class Elevator_Set : MonoBehaviour
     {
         if (GameObject.Find("An").GetComponent<CharacterController2D>().isGrounded == true)
         {
-            if (Input.GetKeyDown(KeyCode.C) && collision.tag == "Player")
+            if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player")
             {
                 if (top == false)
                 {

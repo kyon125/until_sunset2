@@ -27,9 +27,10 @@ public class bagusing : MonoBehaviour
     public void useitem()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
+
         if (gameStatus.status == GameStatus.Status.onBaging)
         {
-            switch (num_select)
+            switch (player.select_itemid)
             {
                 case (3):
                     print("ggg");
@@ -84,8 +85,9 @@ public class bagusing : MonoBehaviour
     //選擇道具
     public void select()
     {
+        player.select_itemid = this.gameObject.GetComponent<Itemset>().Item_id;
         num_select = this.gameObject.GetComponent<Itemset>().Item_id;
-        print(num_select);
+
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
 
         if (gameStatus.status == GameStatus.Status.onComposition)

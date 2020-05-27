@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ChangeMaterials : MonoBehaviour
 {
     // Start is called before the first frame update
     SpriteRenderer r;
     public Material m1, m2;
+    public GameObject icon;
     GameStatus gameStatus;
     void Start()
     {
@@ -18,6 +20,16 @@ public class ChangeMaterials : MonoBehaviour
     void Update()
     {
         
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameStatus.status == GameStatus.Status.onPlaying)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                Tween t = icon.transform.DOScale(new Vector2(0.8f, 0.8f), 0.2f);
+            }
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -37,6 +49,7 @@ public class ChangeMaterials : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 re_change();
+                Tween t = icon.transform.DOScale(new Vector2(0f, 0f), 0.2f);
             }
         }        
     }
