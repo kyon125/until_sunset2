@@ -44,7 +44,6 @@ public class simple_plot : MonoBehaviour
             i_dia.SetActive(true);
             StartCoroutine(playplot());
             selected();
-            b_switch.GetComponent<simplot2>().ready = true;
         }
     }
     

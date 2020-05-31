@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_7E9911D9: 4
+    - Vector1_7E9911D9: 1
     - _EnableExternalAlpha: 0
     m_Colors:
     - Color_F66FCAD0: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}

@@ -8,30 +8,32 @@ public class simplot2 : MonoBehaviour
 {
     List<Plotclass> plot;
 
-    public int Item_id;
-    public int start, end;
-    public float playspeed;
-    public GameObject A, B;
+    public int start, end , i_start , i_end;
+    public float playspeed , UIdisapper_speed;
+    public GameObject reactionUI;
+    public Material mA, mB;
+    public Vector3 UIscale;
+    public bool ishaveitem = true;
 
 
     private float speed;
-    private Text contentext;
+    private Text contentext , itemcontext;
     private PlayerBag An_bag;
     private GameStatus gameStatus;
-    private bool hasget = false;
+    private Vector3 _uiscale;
 
-    public bool ready = false;
-    public GameObject i_dia;
-
-    public GameObject obj;
-    private Animator ani;
+    private GameObject i_dia , i_item;
     // Start is called before the first frame update
     void Start()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
+
         contentext = GameObject.Find("DialogBox").GetComponent<Text>();
-        An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
-        ani = obj.GetComponent<Animator>();
+        itemcontext = GameObject.Find("item_DialogBox").GetComponent<Text>();
+        i_dia = GameObject.Find("I_Dialogbox");
+        i_item = GameObject.Find("I_Itembox");
+
+        _uiscale = new Vector3 (0,0,1);        
 
         plot = Itemdateset.plot;
     }
@@ -39,53 +41,32 @@ public class simplot2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().material = mA;
+        Tween u = reactionUI.transform.DOScale(_uiscale, 0.2f);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player" && ready ==false)
+        this.gameObject.GetComponent<SpriteRenderer>().material = mB;
+        Tween u = reactionUI.transform.DOScale(UIscale, 0.2f);
+
+        if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player" && ishaveitem ==true)
         {
-            start = 36;
-            end = 36; 
-            i_dia.SetActive(true);
-            StartCoroutine(playplot());
-            selected();
+            StartCoroutine(playplot());                      
         }
 
-        else if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player" && ready == true)
+        else if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player" && ishaveitem == false)
         {
-            start = 38;
-            end = 38;
-            i_dia.SetActive(true);
             StartCoroutine(playplot());
-            selected();
-            ani.SetBool("switch", true);
         }
     }
-
-    void selected()
+   IEnumerator playplot()
     {
-        if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[Item_id]) == true)
-        {
-            int num = An_bag.bg.I_item.IndexOf(Itemdateset.itemdate[Item_id]);
-            An_bag.bg.I_num[num]++;
+        Tween t = i_dia.transform.DOScaleX(1, UIdisapper_speed);
 
-            gameStatus.status = GameStatus.Status.onPloting;
-            StartCoroutine(playplot());
-        }
-        else if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[Item_id]) == false)
-        {
-            An_bag.bg.I_item.Add(Itemdateset.itemdate[Item_id]);
-            An_bag.bg.I_num.Add(1);
-
-            gameStatus.status = GameStatus.Status.onPloting;
-            StartCoroutine(playplot());
-        }
-
-        hasget = true;
-    }
-    IEnumerator playplot()
-    {
         for (int a = start; a <= end; a++)
         {
             if (plot[a].target != "An")
@@ -101,9 +82,37 @@ public class simplot2 : MonoBehaviour
             yield return new WaitForSeconds(speed);
         }
 
-        i_dia.SetActive(false);
-
+        if (ishaveitem == true)
+        {
+            Tween i1 = i_item.transform.DOMoveX(1732.8F, 0.3f);
+            StartCoroutine(playgetitem());
+        }
+        
+        Tween t2 = i_dia.transform.DOScaleX(0, UIdisapper_speed);
         contentext.text = "";
         gameStatus.status = GameStatus.Status.onPlaying;
+    }
+    IEnumerator playgetitem()
+    {        
+
+        for (int a = i_start; a <= i_end; a++)
+        {
+            if (plot[a].target != "An")
+            {
+                itemcontext.text = plot[a].target + ":" + plot[a].content;
+                speed = 1f + plot[a].content.Length * playspeed;
+            }
+            else
+            {
+                itemcontext.text = plot[a].content;
+                speed = 1f + plot[a].content.Length * playspeed;
+            }
+            yield return new WaitForSeconds(speed);
+        }
+
+        yield return new WaitForSeconds(2f);
+        itemcontext.text = "";
+        Tween i2 = i_item.transform.DOMoveX(1990F, 0.3f);
+        ishaveitem = false;
     }
 }

@@ -20,7 +20,6 @@ public class Elevator_Set : MonoBehaviour
         CinemachineVirtualCamera cam2 = cam.GetComponent<CinemachineVirtualCamera>();
         g = GameObject.Find("An").GetComponent<Rigidbody2D>().gravityScale;
 
-        ele_block.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,7 +43,7 @@ public class Elevator_Set : MonoBehaviour
                     StartCoroutine(elevator_up());
                     StartCoroutine(player_up());
 
-                    ele_block.SetActive(true);
+
                     cam.SetActive(false);
                     cam2.SetActive(true);
                 }
@@ -57,7 +56,6 @@ public class Elevator_Set : MonoBehaviour
                     StartCoroutine(elevator_down());
                     StartCoroutine(player_down());
 
-                    ele_block.SetActive(false);
                     cam2.SetActive(false);
                     cam.SetActive(true);
                 }
