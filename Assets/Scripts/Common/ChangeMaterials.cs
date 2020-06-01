@@ -9,6 +9,7 @@ public class ChangeMaterials : MonoBehaviour
     SpriteRenderer r;
     public Material m1, m2;
     public GameObject icon;
+    public Vector3 iconscale;
     GameStatus gameStatus;
     void Start()
     {
@@ -27,7 +28,7 @@ public class ChangeMaterials : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
-                Tween t = icon.transform.DOScale(new Vector2(0.8f, 0.8f), 0.2f);
+                Tween t = icon.transform.DOScale(iconscale, 0.2f);
             }
         }
     }

@@ -11,13 +11,13 @@ public class Elevator_Set : MonoBehaviour
     public GameObject elevator;
     private GameStatus gameStatus;
     private float g;
-    private bool top = false;
+    private bool top = true;
 
-    public GameObject cam ,cam2 , ele_block;
+    public GameObject ele_block;
     void Start()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-        CinemachineVirtualCamera cam2 = cam.GetComponent<CinemachineVirtualCamera>();
+        
         g = GameObject.Find("An").GetComponent<Rigidbody2D>().gravityScale;
 
     }
@@ -43,9 +43,6 @@ public class Elevator_Set : MonoBehaviour
                     StartCoroutine(elevator_up());
                     StartCoroutine(player_up());
 
-
-                    cam.SetActive(false);
-                    cam2.SetActive(true);
                 }
                 else
                 {
@@ -55,9 +52,6 @@ public class Elevator_Set : MonoBehaviour
 
                     StartCoroutine(elevator_down());
                     StartCoroutine(player_down());
-
-                    cam2.SetActive(false);
-                    cam.SetActive(true);
                 }
             }
         }

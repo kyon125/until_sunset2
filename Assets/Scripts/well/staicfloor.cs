@@ -6,9 +6,12 @@ using UnityEngine.Tilemaps;
 public class staicfloor : MonoBehaviour
 {
     // Start is called before the first frame update
-    floor_status f;
+    public floor_status f;
+    public Collider2D c1,c2,c3;
+    private float y1 , y2;
     
-    private bool instaic = false;
+    public bool isup = false;
+    
     void Start()
     {
         f = new floor_status();
@@ -18,22 +21,83 @@ public class staicfloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (f)
+        y2 = GameObject.Find("An").transform.position.y - y1;
+        if (y2 < 0)
         {
-            case (floor_status.F0):
-            {
-                break;
-            }
-            case (floor_status.F1):
-            {
-                break;
-            }
+            isup = false;
         }
+        else if (y2 > 0) 
+        {
+            isup = true;
+        }
+        y1 = GameObject.Find("An").transform.position.y;
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
-    }    
+        switch (f)
+        {
+            case (floor_status.F0):
+                {
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        c1.enabled = true;
+                        f = floor_status.F1;
+                    }
+                    break;
+                }
+            case (floor_status.F3):
+                {
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        c2.enabled = true;
+                        c3.enabled = false;
+                        f = floor_status.F2;
+                    }
+                    break;
+                }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (f)
+        {
+            case (floor_status.F0):
+                {
+                    break;
+                }
+            case (floor_status.F1):
+                {
+                    if (isup == true)
+                    {
+                        c2.enabled = true;
+                        c1.enabled = false;
+                        f = floor_status.F2;
+                    }
+                    else if (isup == false)
+                    {
+                        c1.enabled = false;
+                        f = floor_status.F0;
+                    }
+                    break;
+                }
+            case (floor_status.F2):
+                {
+                    if (isup == true)
+                    {
+                        c3.enabled = true;
+                        c2.enabled = false;
+                        f = floor_status.F3;
+                    }
+                    else if (isup == false)
+                    {
+                        c1.enabled = true;
+                        c2.enabled = false;
+                        f = floor_status.F1;
+                    }                    
+                    break;
+                }
+        }
+    }
     //private void OnTriggerExit2D(Collider2D collision)
     //{
     //    if (tg.enabled == false && t2.enabled == true)
@@ -41,7 +105,7 @@ public class staicfloor : MonoBehaviour
     //        tg.enabled = true;
     //    }
     //}
-    enum floor_status
+    public enum floor_status
     {
         F0,
         F1,
