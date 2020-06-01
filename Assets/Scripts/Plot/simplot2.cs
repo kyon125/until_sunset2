@@ -44,7 +44,7 @@ public class simplot2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(i_item.transform.position);
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

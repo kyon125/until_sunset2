@@ -11,6 +11,7 @@ TagManager:
   - K_item
   - trap
   - Water_flat
+  - bullet
   layers:
   - Default
   - TransparentFX
