@@ -4,18 +4,19 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class bagusing : MonoBehaviour
 {
     // Start is called before the first frame update
     PlayerBag player;
-    public GameObject com;
+    public GameObject b_gocom;
     private GameStatus gameStatus;
     private int num_select;
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerBag>();
-        
+        gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
     }
 
     // Update is called once per frame
@@ -61,8 +62,8 @@ public class bagusing : MonoBehaviour
     }
     public void close()
     {
-        Destroy(GameObject.Find("P_pack"));
-        gameStatus.status = GameStatus.Status.onPlaying;
+        gameStatus.status = GameStatus.Status.onPlaying; 
+        Destroy(GameObject.Find("P_pack"));        
     }
     public void B_composite()
     {
@@ -72,7 +73,9 @@ public class bagusing : MonoBehaviour
             case GameStatus.Status.onBaging:
                 {
                     gameStatus.status = GameStatus.Status.onComposition;
-                    Destroy(GameObject.Find("I_block"));
+                    Tween t = GameObject.Find("C_background").transform.DOScaleX(0.39f, 0.2f);
+                    Tween t2 = GameObject.Find("C_background").transform.DOScaleY(1.115f, 0.2f);
+                    b_gocom.SetActive(true);
                     print(gameStatus.status);
                     break;
                 }
@@ -105,6 +108,11 @@ public class bagusing : MonoBehaviour
 
                 item.name = Itemdateset.itemdate[num_select].show_name;
             }
+        }
+        else if (gameStatus.status == GameStatus.Status.onBaging)
+        {
+            GameObject.Find("Itemname").GetComponent<Text>().text = Itemdateset.itemdate[num_select].show_name;
+            GameObject.Find("Itemimage").GetComponent<Image>().sprite = this.gameObject.GetComponent<Image>().sprite;
         }
     }
     public void composite()

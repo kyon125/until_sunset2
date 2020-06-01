@@ -10,8 +10,10 @@ public class PlayerBag : MonoBehaviour
     public c_bag bg = new c_bag();
     public List<Itemclass> comitem;
     private Itemclass _itemname;
-    private GameObject tsf;    
+    private int _itemname_num;
+    private GameObject tsf , hit_item;    
     private GameStatus gameStatus;
+    private bool isitem = false;
 
     public int select_itemid;
     // Start is called before the first frame update
@@ -28,6 +30,13 @@ public class PlayerBag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i <= bg.I_item.Count - 1; i++)
+        {
+            print("第"+i+"項:"+bg.I_num[i]);
+        }
+
+        getitem();
+
         callpack();
         for (int i = 0; i <= bg.I_num.Count - 1; i++)
         {
@@ -49,12 +58,6 @@ public class PlayerBag : MonoBehaviour
             Instantiate(pack).name = "P_pack";
             tsf = GameObject.Find("itemcreat");
             creatitem();
-        }
-        else if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onBaging)
-        {
-            gameStatus.status = GameStatus.Status.onPlaying;
-
-            Destroy(GameObject.Find("P_pack"));
         }
     }
 
@@ -85,20 +88,30 @@ public class PlayerBag : MonoBehaviour
             bg.I_num.Add(1);
         }
     }
-    private void OnTriggerStay2D(Collider2D other)
+    private void getitem()
     {
-        if (Input.GetKeyDown(KeyCode.C) && other.tag == "item")
+        if (Input.GetKeyDown(KeyCode.F) && isitem == true && hit_item.GetComponent<simplot2>().ishaveitem == true)
         {
-            int num = other.transform.GetComponent<Itemset>().Item_id;
-            _itemname = Itemdateset.itemdate[num];
-            selected();
-            Destroy(other.gameObject);
+            _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
+            _itemname_num = hit_item.GetComponent<simplot2>().item_num;
+            if (bg.I_item.Contains(Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id]) == true)
+            {                
+                int id_num = bg.I_item.IndexOf(_itemname);
+                bg.I_num[id_num] += _itemname_num;
+            }
+            else if (bg.I_item.Contains(_itemname) == false)
+            {
+                bg.I_item.Add(_itemname);
+                bg.I_num.Add(_itemname_num);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.F)&& other.tag == "K_item")
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {        
+        if (other.tag == "item")
         {
-            int num = other.gameObject.GetComponent<giveitem>().Item_id;
-            other.transform.GetComponent<giveitem>().eventnews();
-            print(other.gameObject.name);
+            isitem = true;
+            hit_item = other.gameObject;
         }
     }
 
