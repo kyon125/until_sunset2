@@ -104,7 +104,8 @@ public class simplot2 : MonoBehaviour
         gameStatus.status = GameStatus.Status.onPlaying;
     }
     IEnumerator playgetitem()
-    {        
+    {
+        ishaveitem = false;
         for (int a = i_start; a <= i_end; a++)
         {
             if (plot[a].target != "An")
@@ -122,7 +123,6 @@ public class simplot2 : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         itemcontext.text = "";
-        Tween i2 = i_item.transform.DOMoveX(2153.8F, 0.3f);
-        ishaveitem = false;
+        Tween i2 = i_item.transform.DOMoveX(2153.8F, 0.3f);        
     }
 }
