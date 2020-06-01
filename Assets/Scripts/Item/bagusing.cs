@@ -35,7 +35,10 @@ public class bagusing : MonoBehaviour
             {
                 case (3):
                     print("ggg");
+                    player.islight = true;
                     GameObject lil = Instantiate(Resources.Load<GameObject>("simple_fire") , GameObject.Find("An").transform);
+                    int n = player.bg.I_item.IndexOf(Itemdateset.itemdate[3]);
+                    player.bg.I_num[n]--;
                     break;
             }
         }

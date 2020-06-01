@@ -16,6 +16,7 @@ public class PlayerBag : MonoBehaviour
     private bool isitem = false;
 
     public int select_itemid;
+    public bool islight = false;
     // Start is called before the first frame update
     void Start()
     {
