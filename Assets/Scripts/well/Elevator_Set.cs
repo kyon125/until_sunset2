@@ -10,8 +10,10 @@ public class Elevator_Set : MonoBehaviour
     public float ele_start_y, ele_end_y , player_start_y , player_end_y , time;
     public GameObject elevator;
     private GameStatus gameStatus;
+    private PlayerBag An_bag;
     private float g;
     private bool top = true;
+    private simplot plot;
 
     public GameObject ele_block;
     void Start()
@@ -19,6 +21,10 @@ public class Elevator_Set : MonoBehaviour
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
         
         g = GameObject.Find("An").GetComponent<Rigidbody2D>().gravityScale;
+
+        An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
+
+        plot = GameObject.Find("PlotController").GetComponent<simplot>();
 
     }
 
@@ -33,25 +39,34 @@ public class Elevator_Set : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player")
             {
-                if (top == false)
+                if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[5]))
                 {
-                    
-                    gameStatus.status = GameStatus.Status.onPloting;
+                    if (top == false)
+                    {
 
-                    GameObject.Find("An").GetComponent<Rigidbody2D>().velocity = new Vector2(0 , GameObject.Find("An").GetComponent<Rigidbody2D>().velocity.y);
+                        gameStatus.status = GameStatus.Status.onPloting;
 
-                    StartCoroutine(elevator_up());
-                    StartCoroutine(player_up());
+                        GameObject.Find("An").GetComponent<Rigidbody2D>().velocity = new Vector2(0, GameObject.Find("An").GetComponent<Rigidbody2D>().velocity.y);
 
+                        StartCoroutine(elevator_up());
+                        StartCoroutine(player_up());
+
+                    }
+                    else
+                    {
+                        gameStatus.status = GameStatus.Status.onPloting;
+
+                        GameObject.Find("An").GetComponent<Rigidbody2D>().velocity = new Vector2(0, GameObject.Find("An").GetComponent<Rigidbody2D>().velocity.y);
+
+                        StartCoroutine(elevator_down());
+                        StartCoroutine(player_down());
+                    }
                 }
                 else
                 {
-                    gameStatus.status = GameStatus.Status.onPloting;
-
-                    GameObject.Find("An").GetComponent<Rigidbody2D>().velocity = new Vector2(0, GameObject.Find("An").GetComponent<Rigidbody2D>().velocity.y);
-
-                    StartCoroutine(elevator_down());
-                    StartCoroutine(player_down());
+                    plot.start = 46;
+                    plot.end = 46;
+                    plot.playdia();
                 }
             }
         }

@@ -95,7 +95,7 @@ public class PlayerBag : MonoBehaviour
         {
             _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
             _itemname_num = hit_item.GetComponent<simplot2>().item_num;
-            if (bg.I_item.Contains(Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id]) == true)
+            if (bg.I_item.Contains(_itemname) == true)
             {                
                 int id_num = bg.I_item.IndexOf(_itemname);
                 bg.I_num[id_num] += _itemname_num;
