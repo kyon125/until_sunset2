@@ -22,5 +22,6 @@ public class GameStatus : MonoBehaviour
         onBaging,
         onComposition,
         onPloting,
+        onSetting,
     }
 }
