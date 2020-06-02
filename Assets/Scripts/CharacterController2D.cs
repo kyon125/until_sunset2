@@ -19,13 +19,19 @@ public class CharacterController2D : MonoBehaviour
     public bool isHided;
     public LayerMask hideLayers;
 
+    public bool isClimb;
+    public LayerMask climbLaters;
+
     public Animator playerAni;
     public Transform playerS;
 
     bool CrouchDown = false;
-
-    public GameObject sh; 
+    bool Climb = false;
     bool shot = false;
+    private float climbspeed=2.5f;
+    public float speed_Y = 2;
+    public GameObject sh;
+
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
     void Start()
@@ -43,9 +49,10 @@ public class CharacterController2D : MonoBehaviour
         {
             bool Walk = false;
             CrouchDown = false;
+            Climb = false;
 
             // isground
-            isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 1f, transform.position.y - 1.0f), new Vector2(transform.position.x + 1f, transform.position.y - -1.1f), groundLaters);
+            isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.5f, transform.position.y - 1.0f), new Vector2(transform.position.x + 0.5f, transform.position.y - -1.1f), groundLaters);
 
             // ishide
             isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);
@@ -91,7 +98,7 @@ public class CharacterController2D : MonoBehaviour
                 gameObject.GetComponent<Renderer>().enabled = false;
             }
 
-            // 速度限制
+            // X軸速度限制
             if (Rigidbody.velocity.x > speed_X)
             {
                 Rigidbody.velocity = new Vector2(speed_X, Rigidbody.velocity.y);
@@ -104,6 +111,7 @@ public class CharacterController2D : MonoBehaviour
             jump();
             unhitch();
             crouchDown();
+            climb();
 
             if (Input.GetKeyDown(KeyCode.A) && shot == false)
             {
@@ -195,6 +203,44 @@ public class CharacterController2D : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.LeftArrow) && isGrounded == true)
         {
             Rigidbody.AddForce(new Vector2(speed_X - 1.5f, 0), ForceMode2D.Impulse);
+        }
+    }
+
+    void climb()
+    {
+        // isclimb
+        isClimb = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y - 0.5f), new Vector2(transform.position.x + 0.7f, transform.position.y - -0.5f), climbLaters);
+        if ((Input.GetKeyDown(KeyCode.UpArrow) && isClimb == true))
+        {
+            Rigidbody.Sleep();
+            Rigidbody.WakeUp();
+        }
+        if (Input.GetKey(KeyCode.UpArrow) && isClimb == true) 
+        {
+            Climb = true;
+            Rigidbody.AddForce(new Vector2(0, 0.25f * climbspeed), ForceMode2D.Impulse);
+            Rigidbody.gravityScale = 0;
+            
+
+            // Y軸速度限制
+            if (Rigidbody.velocity.y > speed_Y)
+            {
+                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, speed_Y);
+            }
+        }
+       
+       // print(Rigidbody.velocity.y);
+
+        if (Climb) 
+        {
+            if (playerAni.GetInteger("Climb") == 0)
+                playerAni.SetInteger("Climb", 1);
+        }
+        else
+        {
+            if (playerAni.GetInteger("Climb") == 1)
+                playerAni.SetInteger("Climb", 0);
+            Rigidbody.gravityScale = 10;
         }
     }
 }

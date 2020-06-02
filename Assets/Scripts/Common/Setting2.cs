@@ -66,6 +66,8 @@ public class Setting2 : MonoBehaviour
     {
         Setstatus = setstatus.onseting;
         gameStatus.status = GameStatus.Status.onPlaying;
+        vol.enabled = false;
+        light.enabled = false;
         Tween t = GameObject.Find("menu").transform.DOScaleY(0F, 0.3f);
     }
   

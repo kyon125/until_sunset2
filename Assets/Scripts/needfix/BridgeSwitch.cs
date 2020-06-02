@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BridgeSwitch : MonoBehaviour
 {
-    public bool havenergy = false;
+    static public bool havenergy = false;
     private bool isswitch = false;
-    public Animator b1, b2; 
+    public Animator b1, b2;
     private simplot plot;
     // Start is called before the first frame update
     void Start()
@@ -38,6 +38,13 @@ public class BridgeSwitch : MonoBehaviour
         if (collision.tag == "Player")
         {
             isswitch = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            isswitch = false;
         }
     }
 }

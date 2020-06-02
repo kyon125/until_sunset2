@@ -43,7 +43,6 @@ public class simplot : MonoBehaviour
         gameStatus.status = GameStatus.Status.onPloting;
         StartCoroutine(playplot());
     }
-    // Update is called once per frame
 
     IEnumerator playplot()
     {

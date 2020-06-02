@@ -39,16 +39,19 @@ public class PlayerBag : MonoBehaviour
         getitem();
 
         callpack();
-        for (int i = 0; i <= bg.I_num.Count - 1; i++)
+        if (GameObject.Find("P_pack") == true)
         {
-            if (bg.I_num[i] == 0)
+            for (int i = 0; i <= bg.I_num.Count - 1; i++)
             {
-                bg.I_item.RemoveAt(i);
-                bg.I_num.RemoveAt(i);
-                GameObject go = tsf.transform.GetChild(i).gameObject;
-                Destroy(go);
+                if (bg.I_num[i] == 0)
+                {
+                    bg.I_item.RemoveAt(i);
+                    bg.I_num.RemoveAt(i);
+                    GameObject go = tsf.transform.GetChild(i).gameObject;
+                    Destroy(go);
+                }
             }
-        }
+        }        
     }
     protected void callpack()
     {
@@ -113,6 +116,13 @@ public class PlayerBag : MonoBehaviour
         {
             isitem = true;
             hit_item = other.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "item")
+        {
+            isitem = false;            
         }
     }
 

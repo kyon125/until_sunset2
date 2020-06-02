@@ -8,14 +8,16 @@ public class ruby_awake : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject diamand;
-    public Light2D light;
-
+    public Light2D light , L2, L3;
+    public GameObject cam , cam1;
+    GameStatus gameStatus;
     private PlayerBag An_bag;
     private simplot plot; 
     void Start()
     {
         plot = this.gameObject.GetComponent<simplot>();
         An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
+        gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
     }
 
     // Update is called once per frame
@@ -33,11 +35,26 @@ public class ruby_awake : MonoBehaviour
 
     IEnumerator trunruby()
     {
+        gameStatus.status = GameStatus.Status.onPloting;
+        yield return new WaitForSeconds(0.3f);
         diamand.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(0.3f);
         plot.playdia();
         yield return new WaitForSeconds(3f);
-        Tween t = diamand.GetComponent<SpriteRenderer>().DOColor(new Color(241, 58, 58) , 5f);
         Tween t2 = DOTween.To(() => light.pointLightOuterRadius, x => light.pointLightOuterRadius = x, 20, 5f);
+        yield return new WaitForSeconds(5f);
+        Tween t3 = DOTween.To(() => L2.intensity, x => L2.intensity = x, 1, 3f);
+        yield return new WaitForSeconds(3f);
+        Tween t4 = DOTween.To(() => L3.intensity, x => L3.intensity = x, 10, 3f);
+        yield return new WaitForSeconds(3f);
+        plot.start = 40;
+        plot.end = 42;
+        plot.playdia();
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("An").transform.position = new Vector3(218,-37, 0);
+        cam.SetActive(false); 
+        cam1.SetActive(true);
+        BridgeSwitch.havenergy = true;
     }
 
 }

@@ -14,6 +14,7 @@ public class Elevator_Set : MonoBehaviour
     private float g;
     private bool top = true;
     private simplot plot;
+    public bool haskey = false;
 
     public GameObject ele_block;
     void Start()
@@ -35,11 +36,15 @@ public class Elevator_Set : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[5]))
+        {
+            haskey = true;
+        }
         if (GameObject.Find("An").GetComponent<CharacterController2D>().isGrounded == true)
         {
             if (Input.GetKeyDown(KeyCode.F) && collision.tag == "Player")
             {
-                if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[5]))
+                if (haskey ==true)
                 {
                     if (top == false)
                     {
@@ -62,10 +67,10 @@ public class Elevator_Set : MonoBehaviour
                         StartCoroutine(player_down());
                     }
                 }
-                else
+                else if (haskey == false)
                 {
-                    plot.start = 46;
-                    plot.end = 46;
+                    plot.start = 20;
+                    plot.end = 20;
                     plot.playdia();
                 }
             }
