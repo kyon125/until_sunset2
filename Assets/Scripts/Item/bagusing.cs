@@ -39,7 +39,11 @@ public class bagusing : MonoBehaviour
                     GameObject lil = Instantiate(Resources.Load<GameObject>("simple_fire") , GameObject.Find("An").transform);
                     int n = player.bg.I_item.IndexOf(Itemdateset.itemdate[3]);
                     player.bg.I_num[n]--;
-                    break;
+
+                    //清空選擇圖示
+                    GameObject.Find("Itemname").GetComponent<Text>().text = "";
+                    GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0");
+                    break;                    
             }
         }
         else if (gameStatus.status == GameStatus.Status.onComposition)
@@ -65,8 +69,21 @@ public class bagusing : MonoBehaviour
     }
     public void close()
     {
-        gameStatus.status = GameStatus.Status.onPlaying; 
-        Destroy(GameObject.Find("P_pack"));        
+        switch (gameStatus.status)
+        {
+            case GameStatus.Status.onBaging:
+                {
+                    gameStatus.status = GameStatus.Status.onPlaying;
+                    Tween t = GameObject.Find("PackMain").transform.DOScale(new Vector3(0, 0, 1), 0.2f).SetEase(Ease.OutSine);
+                    break;
+                }
+            case GameStatus.Status.onComposition:
+                {
+                    gameStatus.status = GameStatus.Status.onBaging;
+                    Tween t = GameObject.Find("com").transform.DOScale(new Vector3(0, 0, 1), 0.2f).SetEase(Ease.OutSine);
+                    break;
+                }
+        }        
     }
     public void B_composite()
     {
@@ -76,10 +93,8 @@ public class bagusing : MonoBehaviour
             case GameStatus.Status.onBaging:
                 {
                     gameStatus.status = GameStatus.Status.onComposition;
-                    Tween t = GameObject.Find("C_background").transform.DOScaleX(0.39f, 0.2f);
-                    Tween t2 = GameObject.Find("C_background").transform.DOScaleY(1.115f, 0.2f);
-                    b_gocom.SetActive(true);
-                    print(gameStatus.status);
+                    Tween t = GameObject.Find("com").transform.DOScaleX(1f, 0.2f);
+                    Tween t2 = GameObject.Find("com").transform.DOScaleY(1f, 0.2f);
                     break;
                 }
             case GameStatus.Status.onComposition:
@@ -144,6 +159,10 @@ public class bagusing : MonoBehaviour
                     int n = player.bg.I_item.IndexOf(player.comitem[a]);
                     player.bg.I_num[n]--;
                 }
+
+                //清空選擇圖示
+                GameObject.Find("Itemname").GetComponent<Text>().text = "";
+                GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0");
             }
             else
             {

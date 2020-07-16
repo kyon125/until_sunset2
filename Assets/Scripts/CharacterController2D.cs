@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
-{
-    
+{    
     public float speed, jumpspeed;
     private Rigidbody2D Rigidbody;
     private Collider2D Collider;
@@ -30,7 +30,7 @@ public class CharacterController2D : MonoBehaviour
     bool shot = false;
     private float climbspeed=2.5f;
     public float speed_Y = 2;
-    public GameObject sh;
+    public GameObject sh , pack;
 
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
@@ -46,8 +46,7 @@ public class CharacterController2D : MonoBehaviour
     void Update()
     {
         if (gameStatus.status == GameStatus.Status.onPlaying)
-        {
-            bool Walk = false;
+        {            
             CrouchDown = false;
             Climb = false;
 
@@ -55,77 +54,96 @@ public class CharacterController2D : MonoBehaviour
             isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.5f, transform.position.y - 1.0f), new Vector2(transform.position.x + 0.5f, transform.position.y - -1.1f), groundLaters);
 
             // ishide
-            isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);
-
-
-            if (Input.GetKey(KeyCode.RightArrow) && isGrounded == true)
-            {
-                Walk = true;
-
-                //playerS.localScale = new Vector2(0.1f, 0.1f);
-
-                this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
-                Rigidbody.AddForce(new Vector2(20 * speed, 0), ForceMode2D.Impulse);
-            }
-            else if (Input.GetKey(KeyCode.LeftArrow) && isGrounded == true)
-            {
-                Walk = true;
-
-                //playerS.localScale = new Vector2(-0.1f, 0.1f);
-
-                this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
-                Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
-            }
-
-            if (Walk)
-            {
-                if (playerAni.GetInteger("Walk") == 0)
-                    playerAni.SetInteger("Walk", 1);
-            }
-            else
-            {
-                if (playerAni.GetInteger("Walk") == 1)
-                    playerAni.SetInteger("Walk", 0);
-            }
-
-            // Hide
-            if (Input.GetKeyDown(KeyCode.DownArrow) && isHided == true)
-            {
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && isHided == true)
-            {
-                gameObject.GetComponent<Renderer>().enabled = false;
-            }
-
-            // X軸速度限制
-            if (Rigidbody.velocity.x > speed_X)
-            {
-                Rigidbody.velocity = new Vector2(speed_X, Rigidbody.velocity.y);
-            }
-            else if (Rigidbody.velocity.x < -speed_X)
-            {
-                Rigidbody.velocity = new Vector2(-speed_X, Rigidbody.velocity.y);
-            }
+            isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);     
+            
+            walk();
             run();
+            hide();
             jump();
             unhitch();
             crouchDown();
             climb();
-
-            if (Input.GetKeyDown(KeyCode.A) && shot == false)
-            {
-                sh.SetActive(true);
-                shot = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.A) && shot == true)
-            {
-                sh.SetActive(false);
-                shot = false;
-            }
+            callpack();
+            shotting();
+            test_cheat();
         }        
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "box")
+        {
+            playerAni.SetBool("Push", true);
 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "box")
+        {
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+            {
+                playerAni.SetBool("Push", false);
+                playerAni.SetBool("PushWalk", true);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                playerAni.SetBool("Push", true);
+                playerAni.SetBool("PushWalk", false);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "box")
+        {
+            playerAni.SetBool("Push", false);
+            playerAni.SetBool("PushWalk", false);
+        }
+    }
+    void walk()
+    {
+        bool Walk = false;
+        if (Input.GetKey(KeyCode.D) && isGrounded == true)
+        {
+            Walk = true;
+
+            //playerS.localScale = new Vector2(0.1f, 0.1f);
+
+            this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+            Rigidbody.AddForce(new Vector2(20 * speed, 0), ForceMode2D.Impulse);
+        }
+        else if (Input.GetKey(KeyCode.A) && isGrounded == true)
+        {
+            Walk = true;
+
+            //playerS.localScale = new Vector2(-0.1f, 0.1f);
+
+            this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+            Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
+        }
+
+        if (Walk)
+        {
+            if (playerAni.GetInteger("Walk") == 0)
+                playerAni.SetInteger("Walk", 1);
+        }
+        else
+        {
+            if (playerAni.GetInteger("Walk") == 1)
+                playerAni.SetInteger("Walk", 0);
+        }
+        // X軸速度限制
+        if (Rigidbody.velocity.x > speed_X)
+        {
+            Rigidbody.velocity = new Vector2(speed_X, Rigidbody.velocity.y);
+        }
+        else if (Rigidbody.velocity.x < -speed_X)
+        {
+            Rigidbody.velocity = new Vector2(-speed_X, Rigidbody.velocity.y);
+        }
+    }
     void run()
     {
         //bool Run = false;
@@ -141,17 +159,18 @@ public class CharacterController2D : MonoBehaviour
             speed_X = 8;
             playerAni.SetInteger("Run", 0);
         }
-
-        //if (Run)
-        //{
-        //    if (playerAni.GetInteger("Run") == 0)
-        //        playerAni.SetInteger("Run", 1);
-        //}
-        //else
-        //{
-        //    if (playerAni.GetInteger("Run") == 1)
-        //        playerAni.SetInteger("Run", 0);
-        //}
+    }
+    void hide()
+    {
+        // Hide
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isHided == true)
+        {
+            gameObject.GetComponent<Renderer>().enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && isHided == true)
+        {
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
     }
     void jump()
     {
@@ -196,11 +215,11 @@ public class CharacterController2D : MonoBehaviour
     }
     void unhitch()
     {
-        if (Input.GetKeyUp(KeyCode.RightArrow) && isGrounded == true)
+        if (Input.GetKeyUp(KeyCode.D) && isGrounded == true)
         {
             Rigidbody.AddForce(new Vector2(-(speed_X - 1.5f), 0), ForceMode2D.Impulse);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow) && isGrounded == true)
+        else if (Input.GetKeyUp(KeyCode.A) && isGrounded == true)
         {
             Rigidbody.AddForce(new Vector2(speed_X - 1.5f, 0), ForceMode2D.Impulse);
         }
@@ -210,12 +229,12 @@ public class CharacterController2D : MonoBehaviour
     {
         // isclimb
         isClimb = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y - 0.5f), new Vector2(transform.position.x + 0.7f, transform.position.y - -0.5f), climbLaters);
-        if ((Input.GetKeyDown(KeyCode.UpArrow) && isClimb == true))
+        if ((Input.GetKeyDown(KeyCode.S) && isClimb == true))
         {
             Rigidbody.Sleep();
             Rigidbody.WakeUp();
         }
-        if (Input.GetKey(KeyCode.UpArrow) && isClimb == true) 
+        if (Input.GetKey(KeyCode.W) && isClimb == true) 
         {
             Climb = true;
             Rigidbody.AddForce(new Vector2(0, 0.25f * climbspeed), ForceMode2D.Impulse);
@@ -241,6 +260,38 @@ public class CharacterController2D : MonoBehaviour
             if (playerAni.GetInteger("Climb") == 1)
                 playerAni.SetInteger("Climb", 0);
             Rigidbody.gravityScale = 10;
+        }
+    }
+    void shotting()
+    {
+        if (Input.GetMouseButtonDown(1) && shot == false)
+        {
+            sh.SetActive(true);
+            shot = true;
+        }
+        else if (Input.GetMouseButtonDown(1) && shot == true)
+        {
+            sh.SetActive(false);
+            shot = false;
+        }
+    }
+    void callpack()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onPlaying)
+        {
+            gameStatus.status = GameStatus.Status.onBaging;
+            this.gameObject.GetComponent<PlayerBag>().creatitem();
+
+            Tween t = pack.transform.DOScaleX(1, 0.2f).SetEase(Ease.OutBack);
+            Tween t2 = pack.transform.DOScaleY(1, 0.2f).SetEase(Ease.OutBack);
+        }
+    }
+
+    void test_cheat()
+    {
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            SceneManager.LoadScene("Viliage");
         }
     }
 }

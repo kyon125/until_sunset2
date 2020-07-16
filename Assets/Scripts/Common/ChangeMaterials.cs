@@ -41,7 +41,6 @@ public class ChangeMaterials : MonoBehaviour
                 go_change();
             }
         }
-        print("aaaa");        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

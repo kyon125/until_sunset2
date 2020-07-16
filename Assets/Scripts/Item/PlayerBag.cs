@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerBag : MonoBehaviour
 {
     public GameObject itemsource;
-    public GameObject pack, com;
+    public GameObject  com;
     public c_bag bg = new c_bag();
     public List<Itemclass> comitem;
     private Itemclass _itemname;
@@ -24,6 +24,7 @@ public class PlayerBag : MonoBehaviour
         bg.I_item = new List<Itemclass>();
         bg.I_num = new List<int>();
         comitem = new List<Itemclass>();
+        tsf = GameObject.Find("itemcreat");
 
         de_item();
     }
@@ -37,9 +38,7 @@ public class PlayerBag : MonoBehaviour
         }
 
         getitem();
-
-        callpack();
-        if (GameObject.Find("P_pack") == true)
+        if (GameObject.Find("Pack") == true)
         {
             for (int i = 0; i <= bg.I_num.Count - 1; i++)
             {
@@ -53,21 +52,21 @@ public class PlayerBag : MonoBehaviour
             }
         }        
     }
-    protected void callpack()
-    {
-        if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onPlaying)
-        {            
-            gameStatus.status = GameStatus.Status.onBaging;
-
-            Instantiate(pack).name = "P_pack";
-            tsf = GameObject.Find("itemcreat");
-            creatitem();
-        }
-    }
+    
 
     public void creatitem()
     {
-        for(int i = 0 ; i <= bg.I_item.Count - 1;i++)
+        //清空物件
+        for (int i = 0; i < tsf.transform.childCount; i++)
+        {
+            GameObject obj = tsf.transform.GetChild(i).gameObject;
+            Destroy(obj);
+        }
+        //清空選擇圖示
+        GameObject.Find("Itemname").GetComponent<Text>().text = "";
+        GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0") ;
+
+        for (int i = 0 ; i <= bg.I_item.Count - 1;i++)
         {
             GameObject item =  Instantiate(itemsource, tsf.transform);
 
@@ -94,8 +93,9 @@ public class PlayerBag : MonoBehaviour
     }
     private void getitem()
     {
-        if (Input.GetKeyDown(KeyCode.F) && isitem == true && hit_item.GetComponent<simplot2>().ishaveitem == true)
+        if (Input.GetKeyDown(KeyCode.F) && hit_item.GetComponent<simplot2>().ishaveitem == true)
         {
+            print("igetitem");
             _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
             _itemname_num = hit_item.GetComponent<simplot2>().item_num;
             if (bg.I_item.Contains(_itemname) == true)

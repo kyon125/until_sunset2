@@ -102,6 +102,10 @@ public class simplot2 : MonoBehaviour
             Tween i1 = i_item.transform.DOMoveX(1893F, 0.3f);
             StartCoroutine(playgetitem());
         }
+        else if (ishaveitem == false)
+        {
+            gameStatus.status = GameStatus.Status.onPlaying;
+        }
 
         Tween t3 = dia_text.transform.DOScaleX(0, UIdisapper_speed);
         Tween t2 = i_dia.transform.DOScaleX(0, UIdisapper_speed);
@@ -109,26 +113,17 @@ public class simplot2 : MonoBehaviour
         contentext.text = "";        
     }
     IEnumerator playgetitem()
-    {        
-        for (int a = i_start; a <= i_end; a++)
-        {
-            if (plot[a].target != "An")
-            {
-                itemcontext.text = plot[a].target + ":" + plot[a].content;
-                speed = 1f + plot[a].content.Length * playspeed;
-            }
-            else
-            {
-                itemcontext.text = plot[a].content;
-                speed = 1f + plot[a].content.Length * playspeed;
-            }
-            yield return new WaitForSeconds(speed);
-        }
+    {
+        ishaveitem = false;
+        gameStatus.status = GameStatus.Status.onPlaying;
+
+        itemcontext.text = "獲得了" + Itemdateset.itemdate[item_id].show_name + " * " + item_num;
+        speed = 1f + itemcontext.text.Length * playspeed;
+        yield return new WaitForSeconds(speed);
 
         yield return new WaitForSeconds(2f);
         itemcontext.text = "";
         Tween i2 = i_item.transform.DOMoveX(2153.8F, 0.3f);
-        gameStatus.status = GameStatus.Status.onPlaying;
-        ishaveitem = false;
+        
     }
 }

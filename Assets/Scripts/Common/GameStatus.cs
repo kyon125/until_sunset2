@@ -14,7 +14,7 @@ public class GameStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DontDestroyOnLoad(this.transform.gameObject);
     }
     public enum Status
     {
