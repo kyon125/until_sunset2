@@ -21,13 +21,11 @@ public class BridgeSwitch : MonoBehaviour
         {
             if (havenergy == false)
             {
-                plot.playdia();
+                plot.playdia(36,36);
             }
             else if (havenergy == true)
             {
-                plot.start = 38;
-                plot.end = 38;
-                plot.playdia();
+                plot.playdia(38,38);
                 b1.SetBool("switch", true);
                 b2.SetBool("switch", true);
             }

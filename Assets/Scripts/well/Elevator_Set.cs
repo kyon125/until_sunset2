@@ -69,9 +69,7 @@ public class Elevator_Set : MonoBehaviour
                 }
                 else if (haskey == false)
                 {
-                    plot.start = 20;
-                    plot.end = 20;
-                    plot.playdia();
+                    plot.playdia(20,20);
                 }
             }
         }

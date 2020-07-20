@@ -25,12 +25,15 @@ public class CharacterController2D : MonoBehaviour
     public Animator playerAni;
     public Transform playerS;
 
+    public bool isNPC;
+    bool isItem;
+
     bool CrouchDown = false;
     bool Climb = false;
     bool shot = false;
     private float climbspeed=2.5f;
     public float speed_Y = 2;
-    public GameObject sh , pack;
+    public GameObject sh , pack , Npc;
 
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
@@ -41,6 +44,7 @@ public class CharacterController2D : MonoBehaviour
         playerAni =GameObject.Find("An(an)").GetComponent<Animator>();
 
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
+        pack = GameObject.Find("PackMain");
     }
 
     void Update()
@@ -65,6 +69,8 @@ public class CharacterController2D : MonoBehaviour
             climb();
             callpack();
             shotting();
+            dialoging();
+
             test_cheat();
         }        
     }
@@ -73,12 +79,19 @@ public class CharacterController2D : MonoBehaviour
         if (collision.gameObject.tag == "box")
         {
             playerAni.SetBool("Push", true);
+        }
 
+        // 東西是否在互動範圍內判定
+        else if (collision.tag == "Npc")
+        {
+            isNPC = true;
+            Npc = collision.gameObject;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //推東西判定
         if (collision.gameObject.tag == "box")
         {
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
@@ -91,7 +104,7 @@ public class CharacterController2D : MonoBehaviour
                 playerAni.SetBool("Push", true);
                 playerAni.SetBool("PushWalk", false);
             }
-        }
+        }        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -100,6 +113,12 @@ public class CharacterController2D : MonoBehaviour
         {
             playerAni.SetBool("Push", false);
             playerAni.SetBool("PushWalk", false);
+        }
+
+        else if (collision.tag == "Npc")
+        {
+            isNPC = false;
+            Npc = null;
         }
     }
     void walk()
@@ -280,10 +299,18 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onPlaying)
         {
             gameStatus.status = GameStatus.Status.onBaging;
-            this.gameObject.GetComponent<PlayerBag>().creatitem();
+            GameObject.Find("GameController").GetComponent<PlayerBag>().creatitem();
 
             Tween t = pack.transform.DOScaleX(1, 0.2f).SetEase(Ease.OutBack);
             Tween t2 = pack.transform.DOScaleY(1, 0.2f).SetEase(Ease.OutBack);
+        }
+    }
+
+    void dialoging()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && isNPC == true)
+        {
+            Npc.GetComponent<Npc>().speak();
         }
     }
 

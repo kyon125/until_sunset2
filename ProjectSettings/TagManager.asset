@@ -13,6 +13,7 @@ TagManager:
   - Water_flat
   - bullet
   - box
+  - Npc
   layers:
   - Default
   - TransparentFX

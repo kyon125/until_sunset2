@@ -9,11 +9,8 @@ public class simplot : MonoBehaviour
     List<Plotclass> plot;
 
     public int start, end;
-    public float playspeed, UIdisapper_speed;
+    public float playspeed, UIdisapper_speed , stoptime;
 
-
-
-    private float speed;
     private Text contentext, itemcontext;
     private PlayerBag An_bag;
     private GameStatus gameStatus;
@@ -38,13 +35,13 @@ public class simplot : MonoBehaviour
     {
 
     }
-    public void playdia()
+    public void playdia(int a , int b)
     {
         gameStatus.status = GameStatus.Status.onPloting;
-        StartCoroutine(playplot());
+        StartCoroutine(playplot(a ,b));
     }
 
-    IEnumerator playplot()
+    IEnumerator playplot(int start , int end)
     {
         Tween t4 = dia_text.transform.DOScaleX(1, UIdisapper_speed);
         Tween t = i_dia.transform.DOScaleX(1, UIdisapper_speed);
@@ -53,16 +50,25 @@ public class simplot : MonoBehaviour
         {
             if (plot[a].target != "An")
             {
-                contentext.text = plot[a].target + ":" + plot[a].content;
-                speed = 1f + plot[a].content.Length * playspeed;
+                string speaktext = plot[a].target + ":" + plot[a].content;
+
+                foreach (char letter in speaktext.ToCharArray())
+                {
+                    contentext.text += letter;
+                    yield return new WaitForSeconds(playspeed);
+                }
             }
             else
             {
-                contentext.text = plot[a].content;
-                speed = 1f + plot[a].content.Length * playspeed;
-                speed = 1f + plot[a].content.Length * playspeed;
+                string speaktext = plot[a].content;
+
+                foreach (char letter in speaktext.ToCharArray())
+                {
+                    contentext.text += letter;
+                    yield return new WaitForSeconds(playspeed);
+                }
             }
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(stoptime);
         }
 
         Tween t3 = dia_text.transform.DOScaleX(0, UIdisapper_speed);

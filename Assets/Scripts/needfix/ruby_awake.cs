@@ -39,7 +39,7 @@ public class ruby_awake : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         diamand.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(0.3f);
-        plot.playdia();
+        plot.playdia(47,49);
         yield return new WaitForSeconds(3f);
         Tween t2 = DOTween.To(() => light.pointLightOuterRadius, x => light.pointLightOuterRadius = x, 20, 5f);
         yield return new WaitForSeconds(5f);
@@ -49,7 +49,7 @@ public class ruby_awake : MonoBehaviour
         yield return new WaitForSeconds(3f);
         plot.start = 40;
         plot.end = 42;
-        plot.playdia();
+        plot.playdia(40,42);
         yield return new WaitForSeconds(2f);
         GameObject.Find("An").transform.position = new Vector3(218,-37, 0);
         cam.SetActive(false); 

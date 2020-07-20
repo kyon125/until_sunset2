@@ -9,13 +9,13 @@ using DG.Tweening;
 public class bagusing : MonoBehaviour
 {
     // Start is called before the first frame update
-    PlayerBag player;
+    public PlayerBag player;
     public GameObject b_gocom;
     private GameStatus gameStatus;
     private int num_select;
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerBag>();
+        player = GameObject.Find("GameController").GetComponent<PlayerBag>();
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
     }
 
@@ -69,6 +69,7 @@ public class bagusing : MonoBehaviour
     }
     public void close()
     {
+        print("close");
         switch (gameStatus.status)
         {
             case GameStatus.Status.onBaging:

@@ -23,19 +23,15 @@ public class flower_awake : MonoBehaviour
         {
             if (An_bag.bg.I_item.Contains(Itemdateset.itemdate[7]))
             {
-                plot.start = 62;
-                plot.end = 62;
                 int n = An_bag.bg.I_item.IndexOf(Itemdateset.itemdate[7]);
                 An_bag.bg.I_num[n]--;
-                plot.playdia();
+                plot.playdia(62,62);
                 goawake();
                 Destroy(this.gameObject);
             }
             else
             {
-                plot.start = 61;
-                plot.end = 61;
-                plot.playdia();
+                plot.playdia(61,61);
             }
         }
     }

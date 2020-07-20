@@ -27,16 +27,13 @@ public class Sapaya_awake : MonoBehaviour
         {
             if (s1 == true && s2 == true && s3 == true)
             {
-                plot.start = 52;
-                plot.end = 52;
-                plot.playdia();
+                plot.playdia(52,52);
                 StartCoroutine(playplot());
             }
             else
             {
-                plot.start = 51;
-                plot.end = 51;
-                plot.playdia();
+
+                plot.playdia(51,51);
             }
         }        
     }

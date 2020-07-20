@@ -21,7 +21,7 @@ public class guide_trigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            plot.playdia();
+            plot.playdia(16,19);
         }
         this.gameObject.GetComponent<Collider2D>().enabled = false;
     }
