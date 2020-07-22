@@ -9,7 +9,7 @@ public class simplot : MonoBehaviour
     List<Plotclass> plot;
 
     public int start, end;
-    public float playspeed, UIdisapper_speed , stoptime;
+    public float playspeed, UIdisapper_speed, stoptime;
 
     private Text contentext, itemcontext;
     private PlayerBag An_bag;
@@ -35,16 +35,21 @@ public class simplot : MonoBehaviour
     {
 
     }
-    public void playdia(int a , int b)
+    public void playdia(int a, int b)
     {
         gameStatus.status = GameStatus.Status.onPloting;
-        StartCoroutine(playplot(a ,b));
+        StartCoroutine(playplot(a, b));
     }
 
-    IEnumerator playplot(int start , int end)
+    public void playquestdia(int a, int b)
     {
-        Tween t4 = dia_text.transform.DOScaleX(1, UIdisapper_speed);
-        Tween t = i_dia.transform.DOScaleX(1, UIdisapper_speed);
+        gameStatus.status = GameStatus.Status.onPloting;
+        StartCoroutine(playquestplot(a, b));
+    }
+
+    IEnumerator playplot(int start, int end)
+    {
+        opnediabox();
 
         for (int a = start; a <= end; a++)
         {
@@ -71,7 +76,48 @@ public class simplot : MonoBehaviour
             yield return new WaitForSeconds(stoptime);
         }
 
-        Tween t3 = dia_text.transform.DOScaleX(0, UIdisapper_speed);
+        closediabox();
+    }
+    //播放任務劇情
+    IEnumerator playquestplot(int start, int end)
+    {
+        opnediabox();
+
+        for (int a = start; a <= end; a++)
+        {
+            if (plot[a].target != "An")
+            {
+                string speaktext = plot[a].target + ":" + plot[a].content;
+
+                foreach (char letter in speaktext.ToCharArray())
+                {
+                    contentext.text += letter;
+                    yield return new WaitForSeconds(playspeed);
+                }
+            }
+            else
+            {
+                string speaktext = plot[a].content;
+
+                foreach (char letter in speaktext.ToCharArray())
+                {
+                    contentext.text += letter;
+                    yield return new WaitForSeconds(playspeed);
+                }
+            }
+            yield return new WaitForSeconds(stoptime);
+        }
+
+        contentext.text = "";
+    }
+    public void opnediabox()
+    {
+        Tween t = dia_text.transform.DOScaleX(1, UIdisapper_speed);
+        Tween t2 = i_dia.transform.DOScaleX(1, UIdisapper_speed);
+    }
+    public void closediabox()
+    {
+        Tween t = dia_text.transform.DOScaleX(0, UIdisapper_speed);
         Tween t2 = i_dia.transform.DOScaleX(0, UIdisapper_speed);
 
         contentext.text = "";
