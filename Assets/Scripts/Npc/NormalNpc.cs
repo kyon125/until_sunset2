@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class NormalNpc : Npc
 {
-    public NPC_status Status;
     void Start()
     {
-        Status = NPC_status.normal;
+        c_quest = GameObject.Find("Questlist").GetComponent<Quest_controller>();
         dia = GameObject.Find("PlotController").GetComponent<simplot>();
     }
 
@@ -22,7 +21,16 @@ public class NormalNpc : Npc
         {
             case (NPC_status.normal):
                 {
-                    dia.playdia(firstdia[0], firstdia[1]);
+                    dia.playdia((int)firstdia.x, (int)firstdia.y);
+                    break;
+                }
+            case (NPC_status.isquest):
+                {
+                    dia.playquestdia((int)firstdia.x, (int)firstdia.y);
+                    for (int i = 0; i < quest.Count; i++)
+                    {
+                        c_quest.creat_choosebutton(quest[i]);
+                    }
                     break;
                 }
         }

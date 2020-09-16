@@ -19,9 +19,12 @@ public class GameStatus : MonoBehaviour
     public enum Status
     {
         onPlaying,
+        onMenu,
         onBaging,
         onComposition,
         onPloting,
         onSetting,
+        onQuestchoose,
+        onQuestlist
     }
 }

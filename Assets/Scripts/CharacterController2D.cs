@@ -33,7 +33,8 @@ public class CharacterController2D : MonoBehaviour
     bool shot = false;
     private float climbspeed=2.5f;
     public float speed_Y = 2;
-    public GameObject sh , pack , Npc;
+    public GameObject sh  , Npc;
+    public List<Quest_set> questlisting;
 
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
@@ -44,7 +45,6 @@ public class CharacterController2D : MonoBehaviour
         playerAni =GameObject.Find("An(an)").GetComponent<Animator>();
 
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-        pack = GameObject.Find("PackMain");
     }
 
     void Update()
@@ -67,10 +67,13 @@ public class CharacterController2D : MonoBehaviour
             unhitch();
             crouchDown();
             climb();
-            callpack();
+
+
             shotting();
             dialoging();
+            
 
+            //作弊鍵
             test_cheat();
         }        
     }
@@ -294,17 +297,14 @@ public class CharacterController2D : MonoBehaviour
             shot = false;
         }
     }
-    void callpack()
+    void call_quest()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onPlaying)
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            gameStatus.status = GameStatus.Status.onBaging;
-            GameObject.Find("GameController").GetComponent<PlayerBag>().creatitem();
+            gameStatus.status = GameStatus.Status.onQuestlist;
 
-            Tween t = pack.transform.DOScaleX(1, 0.2f).SetEase(Ease.OutBack);
-            Tween t2 = pack.transform.DOScaleY(1, 0.2f).SetEase(Ease.OutBack);
         }
-    }
+    }   
 
     void dialoging()
     {
