@@ -172,13 +172,13 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed_X = 12;
+            speed_X = 16;
             //Run = true;
             playerAni.SetInteger("Run", 1);
         }
         else
         {
-            speed_X = 8;
+            speed_X = 12;
             playerAni.SetInteger("Run", 0);
         }
     }
