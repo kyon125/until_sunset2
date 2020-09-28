@@ -28,9 +28,12 @@ public class CharacterController2D : MonoBehaviour
     public bool isNPC;
     bool isItem;
 
+    Vector2 beforepos;
+
     bool CrouchDown = false;
     bool Climb = false;
     bool shot = false;
+    public bool Walk;
     private float climbspeed=2.5f;
     public float speed_Y = 2;
     public GameObject sh  , Npc;
@@ -59,15 +62,17 @@ public class CharacterController2D : MonoBehaviour
 
             // ishide
             isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);     
-            
+
+            jump();
+
+            unhitch();
             walk();
             run();
-            hide();
-            jump();
-            unhitch();
+            hide();            
+            
             crouchDown();
             climb();
-
+            isfalldown();
 
             shotting();
             dialoging();
@@ -75,7 +80,8 @@ public class CharacterController2D : MonoBehaviour
 
             //作弊鍵
             test_cheat();
-        }        
+        }
+        beforepos = this.transform.position;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -125,8 +131,7 @@ public class CharacterController2D : MonoBehaviour
         }
     }
     void walk()
-    {
-        bool Walk = false;
+    {        
         if (Input.GetKey(KeyCode.D) && isGrounded == true)
         {
             Walk = true;
@@ -146,15 +151,13 @@ public class CharacterController2D : MonoBehaviour
             Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
         }
 
-        if (Walk)
+        if (Walk == true)
         {
-            if (playerAni.GetInteger("Walk") == 0)
-                playerAni.SetInteger("Walk", 1);
+            playerAni.SetBool("Walk", true);
         }
         else
         {
-            if (playerAni.GetInteger("Walk") == 1)
-                playerAni.SetInteger("Walk", 0);
+            playerAni.SetBool("Walk", false);
         }
         // X軸速度限制
         if (Rigidbody.velocity.x > speed_X)
@@ -172,13 +175,13 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed_X = 16;
+            //speed_X = 16;
             //Run = true;
             playerAni.SetInteger("Run", 1);
         }
         else
         {
-            speed_X = 12;
+            //speed_X = 20;
             playerAni.SetInteger("Run", 0);
         }
     }
@@ -201,19 +204,15 @@ public class CharacterController2D : MonoBehaviour
             playerAni.SetBool("JumpUp", true);
             Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
         }
-        else
-        {
-            playerAni.SetBool("JumpUp", false);
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.RightArrow) && isGrounded == true)
-        {
-            playerAni.SetBool("Jump", true);
-        }
-        else
-        {
-            playerAni.SetBool("Jump", false);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.RightArrow) && isGrounded == true)
+        //{
+        //    playerAni.SetBool("Jump", true);
+        //}
+        //else
+        //{
+        //    playerAni.SetBool("Jump", false);
+        //}
 
     }
 
@@ -240,10 +239,12 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D) && isGrounded == true)
         {
             Rigidbody.AddForce(new Vector2(-(speed_X - 1.5f), 0), ForceMode2D.Impulse);
+            Walk = false;
         }
         else if (Input.GetKeyUp(KeyCode.A) && isGrounded == true)
         {
             Rigidbody.AddForce(new Vector2(speed_X - 1.5f, 0), ForceMode2D.Impulse);
+            Walk = false;
         }
     }
 
@@ -314,11 +315,23 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
+    void isfalldown()
+    {
+        if (isGrounded == false && this.transform.position.y - beforepos.y < 0)
+        {
+            playerAni.SetBool("JumpUp", false);
+            playerAni.SetBool("Falldown", true);
+        }
+        else
+        {
+            playerAni.SetBool("Falldown", false);
+        }
+    }
     void test_cheat()
     {
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            SceneManager.LoadScene("Viliage");
+            SceneManager.LoadScene("Well");
         }
     }
 }
