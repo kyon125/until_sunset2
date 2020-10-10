@@ -151,8 +151,14 @@ public class CharacterController2D : MonoBehaviour
             Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
         }
 
-        if (Walk == true)
+        if (Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
         {
+            Walk = false;
+        }
+        
+
+        if (Walk == true)
+        { 
             playerAni.SetBool("Walk", true);
         }
         else
