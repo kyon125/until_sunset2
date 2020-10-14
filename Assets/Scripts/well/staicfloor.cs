@@ -38,7 +38,7 @@ public class staicfloor : MonoBehaviour
         {
             case (floor_status.F0):
                 {
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    if (Input.GetKeyDown(KeyCode.W))
                     {
                         c1.enabled = true;
                         f = floor_status.F1;
@@ -47,7 +47,7 @@ public class staicfloor : MonoBehaviour
                 }
             case (floor_status.F3):
                 {
-                    if (Input.GetKeyDown(KeyCode.DownArrow))
+                    if (Input.GetKeyDown(KeyCode.S))
                     {
                         c2.enabled = true;
                         c3.enabled = false;

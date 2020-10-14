@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
 {    
-    public float speed, jumpspeed;
+    public float speed, jumpspeed ,jumpoutspeed;
     private Rigidbody2D Rigidbody;
     private Collider2D Collider;
     public float speed_X;
@@ -34,7 +34,7 @@ public class CharacterController2D : MonoBehaviour
     bool Climb = false;
     bool shot = false;
     public bool Walk;
-    private float climbspeed=2.5f;
+    public float climbspeed=2.5f;
     public float speed_Y = 2;
     public GameObject sh  , Npc;
     public List<Quest_set> questlisting;
@@ -55,7 +55,6 @@ public class CharacterController2D : MonoBehaviour
         if (gameStatus.status == GameStatus.Status.onPlaying)
         {            
             CrouchDown = false;
-            Climb = false;
 
             // isground
             isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.5f, transform.position.y - 1.0f), new Vector2(transform.position.x + 0.5f, transform.position.y - -1.1f), groundLaters);
@@ -113,7 +112,26 @@ public class CharacterController2D : MonoBehaviour
                 playerAni.SetBool("Push", true);
                 playerAni.SetBool("PushWalk", false);
             }
-        }        
+        }
+
+        //攀爬繩索
+        if (collision.gameObject.tag == "rope")
+        {
+            if (Input.GetKey(KeyCode.W) && isClimb ==false)
+            {                
+                Rigidbody.velocity = Vector3.zero;
+                isClimb = true;
+                this.gameObject.transform.position =new Vector3(collision.gameObject.transform.position.x, this.gameObject.transform.position.y);
+                climb();
+            }
+            else if (Input.GetKey(KeyCode.S) && isClimb == false)
+            {                
+                Rigidbody.velocity = Vector3.zero;
+                isClimb = true;
+                this.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, this.gameObject.transform.position.y);
+                climb();
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -149,6 +167,18 @@ public class CharacterController2D : MonoBehaviour
 
             this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
+        }
+
+        //空中可以稍微轉向
+        if (Input.GetKey(KeyCode.D) && isGrounded == false && isClimb == false)
+        {
+            this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+            Rigidbody.AddForce(new Vector2(15 * speed, 0), ForceMode2D.Impulse);
+        }
+        else if (Input.GetKey(KeyCode.A) && isGrounded == false && isClimb == false)
+        {          
+            this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+            Rigidbody.AddForce(new Vector2(-15 * speed, 0), ForceMode2D.Impulse);
         }
 
         if (Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
@@ -210,6 +240,12 @@ public class CharacterController2D : MonoBehaviour
             playerAni.SetBool("JumpUp", true);
             Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
         }
+        else if (Input.GetKeyDown(KeyCode.Space) && isClimb == true)
+        {
+            isClimb = false;
+            playerAni.SetBool("JumpUp", true);
+            Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
+        }
 
         //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.RightArrow) && isGrounded == true)
         //{
@@ -257,29 +293,29 @@ public class CharacterController2D : MonoBehaviour
     void climb()
     {
         // isclimb
-        isClimb = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y - 0.5f), new Vector2(transform.position.x + 0.7f, transform.position.y - -0.5f), climbLaters);
+        //isClimb = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y - 0.5f), new Vector2(transform.position.x + 0.7f, transform.position.y - -0.5f), climbLaters);
         if ((Input.GetKeyDown(KeyCode.S) && isClimb == true))
         {
-            Rigidbody.Sleep();
-            Rigidbody.WakeUp();
-        }
-        if (Input.GetKey(KeyCode.W) && isClimb == true) 
-        {
-            Climb = true;
-            Rigidbody.AddForce(new Vector2(0, 0.25f * climbspeed), ForceMode2D.Impulse);
+            Rigidbody.velocity = new Vector2(0, -climbspeed);
             Rigidbody.gravityScale = 0;
-            
-
-            // Y軸速度限制
-            if (Rigidbody.velocity.y > speed_Y)
-            {
-                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, speed_Y);
-            }
         }
-       
-       // print(Rigidbody.velocity.y);
+        else if (Input.GetKey(KeyCode.W) && isClimb == true) 
+        {
+            Rigidbody.velocity = new Vector2(0,climbspeed);
+            Rigidbody.gravityScale = 0;            
+        }
+        if (Input.GetKeyUp(KeyCode.W) && isClimb == true)
+        {
+            Rigidbody.velocity = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyUp(KeyCode.S) && isClimb == true)
+        {
+            Rigidbody.velocity = new Vector2(0, 0);
+        }
 
-        if (Climb) 
+        // print(Rigidbody.velocity.y);
+
+        if (isClimb) 
         {
             if (playerAni.GetInteger("Climb") == 0)
                 playerAni.SetInteger("Climb", 1);

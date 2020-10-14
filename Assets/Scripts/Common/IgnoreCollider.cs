@@ -5,6 +5,7 @@ using UnityEngine;
 public class IgnoreCollider : MonoBehaviour
 {
     // Start is called before the first frame update
+    public List<string> igrone_Tag;
     void Start()
     {
         
@@ -17,13 +18,12 @@ public class IgnoreCollider : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Water_flat")
+        for (int i = 0; i < igrone_Tag.Count; i++)
         {
-            Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+            if (collision.transform.tag == igrone_Tag[i])
+            {
+                Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+            }
         }
-        else if (collision.transform.tag == "trap")
-        {
-            Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
-        }
-    }
+    }        
 }
