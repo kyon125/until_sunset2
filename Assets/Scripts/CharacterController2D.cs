@@ -12,9 +12,30 @@ public class CharacterController2D : MonoBehaviour
     private Rigidbody2D Rigidbody;
     private Collider2D Collider;
     public float speed_X;
+    public float slowdown;
 
-    public bool isGrounded;
+    private BoxCollider2D bCol;
+    public Transform bow; // 弓轉向用
+
+    [Header("環境")]
     public LayerMask groundLaters;
+    public float footOffset = 0.2f;
+    public float groundDistance = 0.55f; // 地板射線的長度
+    public float headClearance = 0.3f;  // 頭頂射線的長度
+    public float eyeHeight = 0.25f; // 眼睛射線的高度
+    public float playHeight;
+    public float grabDistance = 0.8f; // 判定懸掛的距離
+    public float reachOffset = 0.9f; // 判定面對牆壁的距離
+
+    [Header("狀態")]
+    public bool isGrounded;
+    public bool isJump;
+    public bool isHeadBlocked;
+    public bool isHanging;
+
+    [Header("跳躍")]
+    public float jumpForce = 4.5f;
+    public float hangingJumpForce = 5f; // 懸掛後往前跳的力
 
     public bool isHided;
     public LayerMask hideLayers;
@@ -28,6 +49,7 @@ public class CharacterController2D : MonoBehaviour
     public bool isNPC;
     bool isItem;
 
+    float xVelocity;
     Vector2 beforepos;
 
     bool CrouchDown = false;
@@ -36,7 +58,10 @@ public class CharacterController2D : MonoBehaviour
     public bool Walk;
     public float climbspeed=2.5f;
     public float speed_Y = 2;
-    public GameObject sh  , Npc;
+
+    public Collider2D An;
+    [Header("任務")]
+    public GameObject sh , Npc;    
     public List<Quest_set> questlisting;
 
     /*----------------------------------------------------------------------------------------*/
@@ -82,6 +107,12 @@ public class CharacterController2D : MonoBehaviour
         }
         beforepos = this.transform.position;
     }
+
+    private void FixedUpdate()
+    {
+        PhysicsCheck();
+        GroundMovement();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "box")
@@ -95,10 +126,20 @@ public class CharacterController2D : MonoBehaviour
             isNPC = true;
             Npc = collision.gameObject;
         }
+        if (collision.transform.tag == "stayflat" && isClimb == true)
+        {
+            print("i come");
+            Physics2D.IgnoreCollision(An, collision.transform.GetComponent<Collider2D>(), true);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            print("PEKO");
+        }
+        print("AAA");
         //推東西判定
         if (collision.gameObject.tag == "box")
         {
@@ -117,7 +158,7 @@ public class CharacterController2D : MonoBehaviour
         //攀爬繩索
         if (collision.gameObject.tag == "rope")
         {
-            if (Input.GetKey(KeyCode.W) && isClimb ==false)
+            if (Input.GetKey(KeyCode.W) && isClimb ==false )
             {                
                 Rigidbody.velocity = Vector3.zero;
                 isClimb = true;
@@ -146,6 +187,15 @@ public class CharacterController2D : MonoBehaviour
         {
             isNPC = false;
             Npc = null;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            isClimb = false;
+        }
+        if (collision.transform.tag == "stayflat" && isClimb == false)
+        {
+            print("i go");
+            Physics2D.IgnoreCollision(An, collision.transform.GetComponent<Collider2D>(), false);
         }
     }
     void walk()
@@ -246,16 +296,113 @@ public class CharacterController2D : MonoBehaviour
             playerAni.SetBool("JumpUp", true);
             Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
         }
+        if (isHanging)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, hangingJumpForce);
+                isHanging = false;
+            }
 
-        //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.RightArrow) && isGrounded == true)
+            // 脫離懸掛狀態
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                isHanging = false;
+            }
+        }
+
+        //if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isHanging)
         //{
-        //    playerAni.SetBool("Jump", true);
+        //    Rigidbody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+
+        //    // Y軸速度限制
+        //    if (Rigidbody.velocity.y > 5)
+        //    {
+        //        Rigidbody.velocity = new Vector2(0f, 5f);
+        //    }
         //}
+    }
+    void PhysicsCheck()
+    {
+        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset, 0f), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset, 0f), Vector2.down, groundDistance, groundLaters);
+
+        if (leftCheck || rightCheck)
+            isGrounded = true;
+        else
+            isGrounded = false;
+
+        //RaycastHit2D headCheck = Raycast(new Vector2(0f, bCol.size.y - 1.5f), Vector2.up, headClearance, groundLaters);
+
+        //if (headCheck)
+        //    isHeadBlocked = true;
         //else
-        //{
-        //    playerAni.SetBool("Jump", false);
-        //}
+        //    isHeadBlocked = false;
 
+        float direction = transform.localScale.x;
+        Vector2 grabDir = new Vector2(direction, 0f);
+
+        RaycastHit2D blockCheck = Raycast(new Vector2(footOffset * direction, playHeight), grabDir, grabDistance, groundLaters);
+        RaycastHit2D wallCheck = Raycast(new Vector2(footOffset * direction, eyeHeight), grabDir, grabDistance, groundLaters);
+        RaycastHit2D ledgeCheck = Raycast(new Vector2(reachOffset * direction, playHeight), Vector2.down, grabDistance - 0.5f, groundLaters);
+
+        if (!isGrounded && Rigidbody.velocity.y < 0f && ledgeCheck && wallCheck && !blockCheck)
+        {
+            Vector3 pos = transform.position;
+
+            pos.x += (wallCheck.distance - 0.15f) * direction;
+
+            pos.y -= ledgeCheck.distance;
+
+            transform.position = pos;
+
+            Rigidbody.bodyType = RigidbodyType2D.Static;
+            isHanging = true;
+        }
+    }
+
+    // 位移 , 射線方向 , 長度 , 類別
+    RaycastHit2D Raycast(Vector2 offset, Vector2 ratDiraction, float length, LayerMask layer)
+    {
+        // 目前位置
+        Vector2 pos = transform.position;
+
+        RaycastHit2D hit = Physics2D.Raycast(pos + offset, ratDiraction, length, layer);
+
+        Color color = hit ? Color.red : Color.green;
+
+        Debug.DrawRay(pos + offset, ratDiraction * length, color);
+
+        return hit;
+    }
+    void GroundMovement()
+    {
+        if (isHanging) // 懸掛狀態
+            return;
+
+
+
+        xVelocity = Input.GetAxis("Horizontal"); // -1f 1f
+
+        Rigidbody.velocity = new Vector2(xVelocity * speed, Rigidbody.velocity.y);
+
+        FlipDirction();
+    }
+
+    void FlipDirction()
+    {
+        if (xVelocity < 0)
+        {
+            transform.localScale = new Vector2(-0.5f, 0.5f);
+            //bow.localScale = new Vector2(-2, 2);
+        }
+        if (xVelocity > 0)
+        {
+            transform.localScale = new Vector2(0.5f, 0.5f);
+            //bow.localScale = new Vector2(2, 2);
+        }
     }
 
     void crouchDown()
@@ -280,12 +427,12 @@ public class CharacterController2D : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.D) && isGrounded == true)
         {
-            Rigidbody.AddForce(new Vector2(-(speed_X - 1.5f), 0), ForceMode2D.Impulse);
+            Rigidbody.velocity = new Vector2(0 , Rigidbody.velocity.y);
             Walk = false;
         }
         else if (Input.GetKeyUp(KeyCode.A) && isGrounded == true)
         {
-            Rigidbody.AddForce(new Vector2(speed_X - 1.5f, 0), ForceMode2D.Impulse);
+            Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
             Walk = false;
         }
     }

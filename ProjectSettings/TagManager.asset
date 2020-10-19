@@ -15,6 +15,7 @@ TagManager:
   - box
   - Npc
   - rope
+  - stayflat
   layers:
   - Default
   - TransparentFX
