@@ -4800,7 +4800,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 220616325}
   m_HandleRect: {fileID: 220616324}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5715,7 +5715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4622988.5, y: 0}
+  m_AnchoredPosition: {x: -4650008, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &352872380
@@ -13687,19 +13687,19 @@ MonoBehaviour:
   groundLaters:
     serializedVersion: 2
     m_Bits: 512
-  footOffset: 0.2
-  groundDistance: 0.55
-  headClearance: 0.3
-  eyeHeight: 0.25
-  playHeight: 0
-  grabDistance: 0.8
-  reachOffset: 0.9
+  footOffset: 0.18
+  groundDistance: 0.81
+  headClearance: 0.72
+  eyeHeight: 4.24
+  playHeight: 4.7
+  grabDistance: 1
+  reachOffset: 0.97
   isGrounded: 1
   isJump: 0
   isHeadBlocked: 0
   isHanging: 0
   jumpForce: 4.5
-  hangingJumpForce: 5
+  hangingJumpForce: 30
   isHided: 0
   hideLayers:
     serializedVersion: 2
@@ -13708,7 +13708,7 @@ MonoBehaviour:
   climbLaters:
     serializedVersion: 2
     m_Bits: 1024
-  playerAni: {fileID: 0}
+  playerAni: {fileID: 2000723376}
   playerS: {fileID: 2000723374}
   isNPC: 0
   Walk: 0
@@ -28099,7 +28099,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975711087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -172.1, y: 7.6, z: 0}
+  m_LocalPosition: {x: -169.433, y: 9.208, z: 0}
   m_LocalScale: {x: 3.9876564, y: 1.6125, z: 1}
   m_Children: []
   m_Father: {fileID: 1260716973}

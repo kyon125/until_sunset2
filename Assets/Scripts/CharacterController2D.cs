@@ -111,7 +111,7 @@ public class CharacterController2D : MonoBehaviour
     private void FixedUpdate()
     {
         PhysicsCheck();
-        GroundMovement();
+        //GroundMovement();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -199,8 +199,11 @@ public class CharacterController2D : MonoBehaviour
         }
     }
     void walk()
-    {        
-        if (Input.GetKey(KeyCode.D) && isGrounded == true)
+    {
+        if (isHanging) // 懸掛狀態
+            return;
+
+            if (Input.GetKey(KeyCode.D) && isGrounded == true)
         {
             Walk = true;
 
@@ -306,7 +309,7 @@ public class CharacterController2D : MonoBehaviour
             }
 
             // 脫離懸掛狀態
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 Rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 isHanging = false;
@@ -326,8 +329,8 @@ public class CharacterController2D : MonoBehaviour
     }
     void PhysicsCheck()
     {
-        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset, 0f), Vector2.down, groundDistance, groundLaters);
-        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset, 0f), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset+0.8f, 1.0f), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset-0.8f, 1.0f), Vector2.down, groundDistance, groundLaters);
 
         if (leftCheck || rightCheck)
             isGrounded = true;
@@ -348,18 +351,21 @@ public class CharacterController2D : MonoBehaviour
         RaycastHit2D wallCheck = Raycast(new Vector2(footOffset * direction, eyeHeight), grabDir, grabDistance, groundLaters);
         RaycastHit2D ledgeCheck = Raycast(new Vector2(reachOffset * direction, playHeight), Vector2.down, grabDistance - 0.5f, groundLaters);
 
-        if (!isGrounded && Rigidbody.velocity.y < 0f && ledgeCheck && wallCheck && !blockCheck)
+        if (Input.GetKey(KeyCode.W))
         {
-            Vector3 pos = transform.position;
+            if (!isGrounded && Rigidbody.velocity.y < 0f && ledgeCheck && wallCheck && !blockCheck)
+            {
+                Vector3 pos = transform.position;
 
-            pos.x += (wallCheck.distance - 0.15f) * direction;
+                pos.x += (wallCheck.distance - 0.15f) * direction;
 
-            pos.y -= ledgeCheck.distance;
+                pos.y -= ledgeCheck.distance;
 
-            transform.position = pos;
+                transform.position = pos;
 
-            Rigidbody.bodyType = RigidbodyType2D.Static;
-            isHanging = true;
+                Rigidbody.bodyType = RigidbodyType2D.Static;
+                isHanging = true;
+            }
         }
     }
 
@@ -377,33 +383,33 @@ public class CharacterController2D : MonoBehaviour
 
         return hit;
     }
-    void GroundMovement()
-    {
-        if (isHanging) // 懸掛狀態
-            return;
+    //void GroundMovement()
+    //{
+    //    if (isHanging) // 懸掛狀態
+    //        return;
 
 
 
-        xVelocity = Input.GetAxis("Horizontal"); // -1f 1f
+    //    xVelocity = Input.GetAxis("Horizontal"); // -1f 1f
 
-        Rigidbody.velocity = new Vector2(xVelocity * speed, Rigidbody.velocity.y);
+    //    Rigidbody.velocity = new Vector2(xVelocity * speed, Rigidbody.velocity.y);
 
-        FlipDirction();
-    }
+    //    FlipDirction();
+    //}
 
-    void FlipDirction()
-    {
-        if (xVelocity < 0)
-        {
-            transform.localScale = new Vector2(-0.5f, 0.5f);
-            //bow.localScale = new Vector2(-2, 2);
-        }
-        if (xVelocity > 0)
-        {
-            transform.localScale = new Vector2(0.5f, 0.5f);
-            //bow.localScale = new Vector2(2, 2);
-        }
-    }
+    //void FlipDirction()
+    //{
+    //    if (xVelocity < 0)
+    //    {
+    //        transform.localScale = new Vector2(-1.0f, 1.0f);
+    //        //bow.localScale = new Vector2(-2, 2);
+    //    }
+    //    if (xVelocity > 0)
+    //    {
+    //        transform.localScale = new Vector2(1.0f, 1.0f);
+    //        //bow.localScale = new Vector2(2, 2);
+    //    }
+    //}
 
     void crouchDown()
     {
