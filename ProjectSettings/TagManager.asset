@@ -16,6 +16,7 @@ TagManager:
   - Npc
   - rope
   - stayflat
+  - obstcale
   layers:
   - Default
   - TransparentFX
