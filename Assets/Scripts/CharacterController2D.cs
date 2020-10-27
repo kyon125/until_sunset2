@@ -205,7 +205,7 @@ public class CharacterController2D : MonoBehaviour
             isNPC = false;
             Npc = null;
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             isClimb = false;
         }
@@ -474,10 +474,6 @@ public class CharacterController2D : MonoBehaviour
         {
             Rigidbody.velocity = new Vector2(0, -climbspeed);
             Rigidbody.gravityScale = 0;
-            if (transform.position.y - beforepos.y == 0)
-            {
-                isClimb = false;
-            }
         }
         else if (Input.GetKey(KeyCode.W) && isClimb == true) 
         {
