@@ -8,13 +8,12 @@ public class simplot2 : MonoBehaviour
 {
     List<Plotclass> plot;
 
-    public int start, end , i_start , i_end , f_start, f_end , item_id , item_num;
+    public int start, end , f_start, f_end , item_id , item_num;
     public float playspeed , UIdisapper_speed;
     public GameObject reactionUI;
     public Material mA, mB;
     public Vector3 UIscale;
     public bool ishaveitem = true;
-
 
     private float speed;
     private Text contentext , itemcontext;
@@ -27,7 +26,6 @@ public class simplot2 : MonoBehaviour
     void Start()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-
         contentext = GameObject.Find("DialogBox").GetComponent<Text>();
         itemcontext = GameObject.Find("item_DialogBox").GetComponent<Text>();
 
@@ -39,6 +37,9 @@ public class simplot2 : MonoBehaviour
         _uiscale = new Vector3 (0,0,1);        
 
         plot = Itemdateset.plot;
+
+        mA.mainTexture = transform.GetComponent<SpriteRenderer>().sprite.texture;
+        mB.mainTexture = transform.GetComponent<SpriteRenderer>().sprite.texture;
     }
 
     // Update is called once per frame

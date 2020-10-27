@@ -11,10 +11,12 @@ public class Mainmenu : MonoBehaviour
     public CharacterController2D An;
     public GameObject menu, player, bag, quest, button;
     public GameObject questcontent, s_quest, e_quest, questbutton;
+    private PlayerBag bg;
     // Start is called before the first frame update
     void Start()
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
+        bg = GameObject.Find("GameController").GetComponent<PlayerBag>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Mainmenu : MonoBehaviour
 
         all_off();
         bag.gameObject.SetActive(true);
+        bg.creatitem();
 
         Tween t = GameObject.Find("Bag").transform.DOScale(new Vector3(1, 1, 1), 0.01f);
     }

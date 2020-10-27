@@ -64,13 +64,22 @@ public class CharacterController2D : MonoBehaviour
     public GameObject sh , Npc;    
     public List<Quest_set> questlisting;
 
+    private PlayerBag bg;
+    public GameObject hit_item;
+    public bool isitem = false;
+
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         Rigidbody = this.gameObject.GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
         playerAni =GameObject.Find("An(an)").GetComponent<Animator>();
+        bg = GameObject.Find("GameController").GetComponent<PlayerBag>();
 
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
     }
@@ -100,8 +109,8 @@ public class CharacterController2D : MonoBehaviour
 
             shotting();
             dialoging();
-            
 
+            
             //作弊鍵
             test_cheat();
         }
@@ -131,15 +140,17 @@ public class CharacterController2D : MonoBehaviour
             print("i come");
             Physics2D.IgnoreCollision(An, collision.transform.GetComponent<Collider2D>(), true);
         }
+        //使否接觸到道具
+        if (collision.tag == "item")
+        {
+            isitem = true;
+            hit_item = collision.gameObject;
+            bg.hit_item = hit_item;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            print("PEKO");
-        }
-        print("AAA");
         //推東西判定
         if (collision.gameObject.tag == "box")
         {
@@ -173,6 +184,12 @@ public class CharacterController2D : MonoBehaviour
                 climb();
             }
         }
+
+        if (collision.transform.tag == "stayflat" && isClimb == true)
+        {
+            print("i come");
+            Physics2D.IgnoreCollision(An, collision.transform.GetComponent<Collider2D>(), true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -197,13 +214,19 @@ public class CharacterController2D : MonoBehaviour
             print("i go");
             Physics2D.IgnoreCollision(An, collision.transform.GetComponent<Collider2D>(), false);
         }
+
+        if (collision.tag == "item")
+        {
+            isitem = false;
+            bg.hit_item = null;
+        }
     }
     void walk()
     {
         if (isHanging) // 懸掛狀態
             return;
 
-            if (Input.GetKey(KeyCode.D) && isGrounded == true)
+            if (Input.GetKey(KeyCode.D) && isGrounded == true && isClimb == false)
         {
             Walk = true;
 
@@ -212,7 +235,7 @@ public class CharacterController2D : MonoBehaviour
             this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(20 * speed, 0), ForceMode2D.Impulse);
         }
-        else if (Input.GetKey(KeyCode.A) && isGrounded == true)
+        else if (Input.GetKey(KeyCode.A) && isGrounded == true && isClimb == false)
         {
             Walk = true;
 
@@ -288,7 +311,7 @@ public class CharacterController2D : MonoBehaviour
     }
     void jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && isClimb == false)
         {
             playerAni.SetBool("JumpUp", true);
             Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
@@ -447,10 +470,14 @@ public class CharacterController2D : MonoBehaviour
     {
         // isclimb
         //isClimb = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y - 0.5f), new Vector2(transform.position.x + 0.7f, transform.position.y - -0.5f), climbLaters);
-        if ((Input.GetKeyDown(KeyCode.S) && isClimb == true))
+        if ((Input.GetKey(KeyCode.S) && isClimb == true))
         {
             Rigidbody.velocity = new Vector2(0, -climbspeed);
             Rigidbody.gravityScale = 0;
+            if (transform.position.y - beforepos.y == 0)
+            {
+                isClimb = false;
+            }
         }
         else if (Input.GetKey(KeyCode.W) && isClimb == true) 
         {
