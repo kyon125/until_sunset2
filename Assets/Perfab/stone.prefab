@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7769794168154508094}
   - component: {fileID: 5198223851552648887}
   - component: {fileID: -4066857819686641435}
+  - component: {fileID: 5268060788642960375}
   m_Layer: 0
   m_Name: stone
   m_TagString: bullet
@@ -70,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -22099033
+  m_SortingLayer: 2
+  m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: 038354556400fcd489c2bcd6279f28de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -133,3 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288b67e8cdaeecf4dbfac840644e4779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5268060788642960375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852734374523939236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c993ef1c144d8ac4e8ad41a692447e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  igrone_Tag:
+  - ns
+  An: {fileID: 0}

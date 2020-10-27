@@ -6,15 +6,26 @@ public class IgnoreCollider : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<string> igrone_Tag;
+    public GameObject An;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        for (int i = 0; i < igrone_Tag.Count; i++)
+        {
+            if (collision.transform.tag == igrone_Tag[i])
+            {
+                Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>() ,true);
+            }
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -22,7 +33,7 @@ public class IgnoreCollider : MonoBehaviour
         {
             if (collision.transform.tag == igrone_Tag[i])
             {
-                Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+                Physics2D.IgnoreCollision(this.transform.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>(), true);
             }
         }
     }        

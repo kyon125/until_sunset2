@@ -96,22 +96,24 @@ public class PlayerBag : MonoBehaviour
     }
     public void getitem()
     {
-        if (Input.GetKeyDown(KeyCode.F) && hit_item.GetComponent<simplot2>().ishaveitem == true && An.isitem == true)
+        if (hit_item != null)
         {
-            _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
-            _itemname_num = hit_item.GetComponent<simplot2>().item_num;
-            if (bg.I_item.Contains(_itemname) == true)
+            if (Input.GetKeyDown(KeyCode.F) && hit_item.GetComponent<simplot2>().ishaveitem == true && An.isitem == true)
             {
-                int id_num = bg.I_item.IndexOf(_itemname);
-                bg.I_num[id_num] += _itemname_num;
+                _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
+                _itemname_num = hit_item.GetComponent<simplot2>().item_num;
+                if (bg.I_item.Contains(_itemname) == true)
+                {
+                    int id_num = bg.I_item.IndexOf(_itemname);
+                    bg.I_num[id_num] += _itemname_num;
+                }
+                else if (bg.I_item.Contains(_itemname) == false)
+                {
+                    bg.I_item.Add(_itemname);
+                    bg.I_num.Add(_itemname_num);
+                }
             }
-            else if (bg.I_item.Contains(_itemname) == false)
-            {
-                bg.I_item.Add(_itemname);
-                bg.I_num.Add(_itemname_num);
-            }
-        }
-                   
+        }                  
     }
     private void de_item()
     {

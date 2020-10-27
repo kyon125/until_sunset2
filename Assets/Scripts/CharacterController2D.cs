@@ -91,8 +91,7 @@ public class CharacterController2D : MonoBehaviour
             CrouchDown = false;
 
             // isground
-            isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.5f, transform.position.y - 1.0f), new Vector2(transform.position.x + 0.5f, transform.position.y - -1.1f), groundLaters);
-
+            isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x-0.5f, transform.position.y - 0.1f), new Vector2(transform.position.x+ 0.5f , transform.position.y + 0.85f), groundLaters);
             // ishide
             isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);     
 
