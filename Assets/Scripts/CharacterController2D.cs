@@ -17,6 +17,10 @@ public class CharacterController2D : MonoBehaviour
     private BoxCollider2D bCol;
     public Transform bow; // 弓轉向用
 
+    // 收集能量
+    float energyMax = 100;
+    float energyTotal;
+
     [Header("環境")]
     public LayerMask groundLaters;
     public float footOffset = 0.2f;
@@ -32,6 +36,7 @@ public class CharacterController2D : MonoBehaviour
     public bool isJump;
     public bool isHeadBlocked;
     public bool isHanging;
+    public bool isWall;
 
     [Header("跳躍")]
     public float jumpForce = 4.5f;
@@ -109,7 +114,8 @@ public class CharacterController2D : MonoBehaviour
             shotting();
             dialoging();
 
-            
+            print("energyTotal: " + energyTotal); // 能量
+
             //作弊鍵
             test_cheat();
         }
@@ -126,6 +132,19 @@ public class CharacterController2D : MonoBehaviour
         if (collision.gameObject.tag == "box")
         {
             playerAni.SetBool("Push", true);
+        }
+
+        // 收集能量
+        if (collision.gameObject.tag == "energy")
+        {
+            if (energyTotal < energyMax)
+            {
+                energyTotal = energyTotal + 12.5f;
+            }
+            else if (energyTotal >= energyMax)
+            {
+                energyTotal = energyMax;
+            }
         }
 
         // 東西是否在互動範圍內判定
@@ -233,6 +252,13 @@ public class CharacterController2D : MonoBehaviour
 
             this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(20 * speed, 0), ForceMode2D.Impulse);
+
+            // bow校正
+            if (this.transform.localScale.x > 0)
+            {
+                bow.transform.localScale = new Vector3(1, 1, 1);
+            }
+
         }
         else if (Input.GetKey(KeyCode.A) && isGrounded == true && isClimb == false)
         {
@@ -242,16 +268,23 @@ public class CharacterController2D : MonoBehaviour
 
             this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
+
+            // bow校正
+            if (this.transform.localScale.x < 0)
+            {
+                bow.transform.localScale = new Vector3(-1, 1, 1);
+            }
+
         }
 
         //空中可以稍微轉向
-        if (Input.GetKey(KeyCode.D) && isGrounded == false && isClimb == false)
+        if (Input.GetKey(KeyCode.D) && isGrounded == false && isClimb == false && isWall == false)
         {
             this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(15 * speed, 0), ForceMode2D.Impulse);
         }
-        else if (Input.GetKey(KeyCode.A) && isGrounded == false && isClimb == false)
-        {          
+        else if (Input.GetKey(KeyCode.A) && isGrounded == false && isClimb == false && isWall == false)
+        {
             this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(-15 * speed, 0), ForceMode2D.Impulse);
         }
@@ -260,7 +293,7 @@ public class CharacterController2D : MonoBehaviour
         {
             Walk = false;
         }
-        
+
 
         if (Walk == true)
         { 
@@ -373,6 +406,12 @@ public class CharacterController2D : MonoBehaviour
         RaycastHit2D wallCheck = Raycast(new Vector2(footOffset * direction, eyeHeight), grabDir, grabDistance, groundLaters);
         RaycastHit2D ledgeCheck = Raycast(new Vector2(reachOffset * direction, playHeight), Vector2.down, grabDistance - 0.5f, groundLaters);
 
+        // 防卡牆射線
+        RaycastHit2D wallCheckHead = Raycast(new Vector2((footOffset - 0.33f) * direction, playHeight), grabDir, grabDistance, groundLaters);
+        RaycastHit2D wallCheckfoot = Raycast(new Vector2((footOffset - 0.33f) * direction, eyeHeight - 3.2f), grabDir, grabDistance, groundLaters);
+        RaycastHit2D wallCheckEye = Raycast(new Vector2((footOffset - 0.33f) * direction, eyeHeight), grabDir, grabDistance, groundLaters);
+
+
         if (Input.GetKey(KeyCode.W))
         {
             if (!isGrounded && Rigidbody.velocity.y < 0f && ledgeCheck && wallCheck && !blockCheck)
@@ -388,6 +427,20 @@ public class CharacterController2D : MonoBehaviour
                 Rigidbody.bodyType = RigidbodyType2D.Static;
                 isHanging = true;
             }
+        }
+
+        // 防卡牆
+        if ((wallCheckHead || wallCheckfoot || wallCheckEye) && !isGrounded)
+        {
+            isWall = true;
+        }
+        else if (wallCheckHead || wallCheckfoot || wallCheckEye && isGrounded)
+        {
+            isWall = false;
+        }
+        else if (!wallCheckHead && !wallCheckfoot && !wallCheckEye)
+        {
+            isWall = false;
         }
     }
 
