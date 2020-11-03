@@ -461,6 +461,8 @@ MonoBehaviour:
   itemsource: {fileID: 1394644807348779126, guid: 20cb8a90bce83534d8dcd79b00370f29,
     type: 3}
   com: {fileID: 0}
+  tsf: {fileID: 0}
+  hit_item: {fileID: 0}
   select_itemid: 0
   islight: 0
 --- !u!114 &47101699
@@ -1021,7 +1023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1563745.5, y: 0}
+  m_AnchoredPosition: {x: -1564098.1, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &166678941
@@ -5090,11 +5092,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   jumpspeed: 15
+  jumpoutspeed: 0
   speed_X: 18
-  isGrounded: 1
+  slowdown: 0
+  bow: {fileID: 0}
   groundLaters:
     serializedVersion: 2
     m_Bits: 512
+  footOffset: 0.2
+  groundDistance: 0.55
+  headClearance: 0.3
+  eyeHeight: 0.25
+  playHeight: 0
+  grabDistance: 0.8
+  reachOffset: 0.9
+  isGrounded: 1
+  isJump: 0
+  isHeadBlocked: 0
+  isHanging: 0
+  isWall: 0
+  jumpForce: 4.5
+  hangingJumpForce: 5
   isHided: 0
   hideLayers:
     serializedVersion: 2
@@ -5107,10 +5125,14 @@ MonoBehaviour:
   playerS: {fileID: 34321744}
   isNPC: 0
   Walk: 0
+  climbspeed: 2.5
   speed_Y: 2
+  An: {fileID: 0}
   sh: {fileID: 1915357043}
   Npc: {fileID: 0}
   questlisting: []
+  hit_item: {fileID: 0}
+  isitem: 0
 --- !u!50 &1227735194
 Rigidbody2D:
   serializedVersion: 4
