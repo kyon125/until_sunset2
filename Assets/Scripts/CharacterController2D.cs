@@ -15,7 +15,7 @@ public class CharacterController2D : MonoBehaviour
     public float slowdown;
 
     private BoxCollider2D bCol;
-    public Transform bow; // 弓轉向用
+    public GameObject bow; 
 
     // 收集能量
     float energyMax = 100;
@@ -59,14 +59,13 @@ public class CharacterController2D : MonoBehaviour
 
     bool CrouchDown = false;
     bool Climb = false;
-    bool shot = false;
     public bool Walk;
     public float climbspeed=2.5f;
     public float speed_Y = 2;
 
     public Collider2D An;
     [Header("任務")]
-    public GameObject sh , Npc;    
+    public GameObject Npc;    
     public List<Quest_set> questlisting;
 
     private PlayerBag bg;
@@ -110,8 +109,6 @@ public class CharacterController2D : MonoBehaviour
             crouchDown();
             climb();
             isfalldown();
-
-            shotting();
             dialoging();
 
             print("energyTotal: " + energyTotal); // 能量
@@ -252,13 +249,6 @@ public class CharacterController2D : MonoBehaviour
 
             this.gameObject.transform.localScale = new Vector3(1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(20 * speed, 0), ForceMode2D.Impulse);
-
-            // bow校正
-            if (this.transform.localScale.x > 0)
-            {
-                bow.transform.localScale = new Vector3(1, 1, 1);
-            }
-
         }
         else if (Input.GetKey(KeyCode.A) && isGrounded == true && isClimb == false)
         {
@@ -268,13 +258,6 @@ public class CharacterController2D : MonoBehaviour
 
             this.gameObject.transform.localScale = new Vector3(-1f, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
             Rigidbody.AddForce(new Vector2(-20 * speed, 0), ForceMode2D.Impulse);
-
-            // bow校正
-            if (this.transform.localScale.x < 0)
-            {
-                bow.transform.localScale = new Vector3(-1, 1, 1);
-            }
-
         }
 
         //空中可以稍微轉向
@@ -553,19 +536,6 @@ public class CharacterController2D : MonoBehaviour
             if (playerAni.GetInteger("Climb") == 1)
                 playerAni.SetInteger("Climb", 0);
             Rigidbody.gravityScale = 10;
-        }
-    }
-    void shotting()
-    {
-        if (Input.GetMouseButtonDown(1) && shot == false)
-        {
-            sh.SetActive(true);
-            shot = true;
-        }
-        else if (Input.GetMouseButtonDown(1) && shot == true)
-        {
-            sh.SetActive(false);
-            shot = false;
         }
     }
     void call_quest()

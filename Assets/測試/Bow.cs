@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
+    bool shot = false;
+
     public GameObject player;
+    public GameObject bow;
     public bool canRotate;
     Vector2 mousePosition;
 
@@ -24,7 +27,7 @@ public class Bow : MonoBehaviour
     {
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
-        {
+        {        
             points[i] = Instantiate(point, shotPoint.position, Quaternion.identity);
         }
     }
@@ -36,7 +39,35 @@ public class Bow : MonoBehaviour
         dircetion = mousePosition - bowPosition;
 
 
-        if ((player.transform.localScale.x > 0 && dircetion.x < 0)|| (player.transform.localScale.x < 0 && dircetion.x > 0))
+        if (Input.GetMouseButtonDown(1) && shot == false)
+        {
+            shot = true;
+            bow.SetActive(true);
+            for (int i = 0; i < numberOfPoints; i++)
+                points[i].GetComponent<SpriteRenderer>().enabled = true;
+
+        }
+        else if (Input.GetMouseButtonDown(1) && shot == true)
+        {
+            shot = false;
+            bow.SetActive(false);
+            for (int i = 0; i < numberOfPoints; i++)
+                points[i].GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+        // bow校正
+        if (player.transform.localScale.x > 0)
+        {
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+        // bow校正
+        else if (player.transform.localScale.x < 0)
+        {
+            this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+
+        if ((player.transform.localScale.x > 0 && dircetion.x < 0) || (player.transform.localScale.x < 0 && dircetion.x > 0))
         {
             canRotate = false;
         }
@@ -47,10 +78,10 @@ public class Bow : MonoBehaviour
 
         if (canRotate == true)
         {
-            mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);         
+            mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
             transform.right = dircetion;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && shot == true)
             {
                 Shoot();
             }
