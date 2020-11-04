@@ -81,6 +81,7 @@ public class simplot : MonoBehaviour
                 }                
             }
             yield return new WaitUntil(() => { return play; });
+            contentext.text = "";
             play = false;            
         }
 
@@ -114,8 +115,8 @@ public class simplot : MonoBehaviour
                 }
             }    
             yield return new WaitUntil(() => { return play; });
-            play = false;
             contentext.text = "";
+            play = false;            
         }       
 
         showquest();
