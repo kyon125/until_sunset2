@@ -11,8 +11,9 @@ public class RF_2 : MonoBehaviour
     {
         for (int i = 0; i < rb.Count; i++)
         {
-            rb[i].isKinematic = true;
+            rb[i].isKinematic = true;            
         }
+        RB2.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class RF_2 : MonoBehaviour
             }
             StartCoroutine(wait());
             RB2.isKinematic = false;
-        }        
+        }
     }
     IEnumerator wait()
     {
