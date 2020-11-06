@@ -2,26 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using DG.Tweening;
 
 public class GlobalLightContral : MonoBehaviour
 {
-    Light2D light;
-    float minLight = 0.3f;
-    float maxLight = 1;
+    public Light2D light;
+    public Ls ls;
     float nowlight;
 
     // Start is called before the first frame update
     void Start()
     {
-        light = this.GetComponent<Light2D>();
+        //ls = Ls.end;
+        
+        //Tween T = DOTween.To(() => light.intensity, x => light.intensity = x, 0, 30);
     }
 
     // Update is called once per frame
     void Update()
     {
-        nowlight = light.intensity;
-
-        if (nowlight <= maxLight && nowlight >= minLight) 
-            light.intensity = light.intensity - 0.003f;
+        //switch (ls)
+        //{
+        //    case (Ls.begin):
+        //        {
+        //            break;
+        //        }
+        //    case (Ls.ing):
+        //        {
+        //            light.intensity = 1;
+        //            ls = Ls.end;
+        //            break;
+        //        }
+        //    case (Ls.end):
+        //        {
+        //            Tween T = DOTween.To(() => light.intensity, x => light.intensity = x, 0, 30);
+        //            ls = Ls.begin;
+        //            break;
+        //        }
+        //}
     }
+    public void dis()
+    {
+        Tween T = DOTween.To(() => light.intensity, x => light.intensity = x, 0, 30);
+    }
+    public void add()
+    {
+        Tween T = DOTween.To(() => light.intensity, x => light.intensity = x, 1.2F, 0.01F);
+    }
+}
+public enum Ls
+{ 
+    begin,
+    ing,
+    end
 }
