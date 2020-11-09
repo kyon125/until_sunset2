@@ -24,12 +24,14 @@ public class CharacterController2D : MonoBehaviour
     [Header("環境")]
     public LayerMask groundLaters;
     public float footOffset = 0.2f;
+    public float footOffset_high;
     public float groundDistance = 0.55f; // 地板射線的長度
     public float headClearance = 0.3f;  // 頭頂射線的長度
     public float eyeHeight = 0.25f; // 眼睛射線的高度
     public float playHeight;
     public float grabDistance = 0.8f; // 判定懸掛的距離
     public float reachOffset = 0.9f; // 判定面對牆壁的距離
+    public float falldown_value;
 
     [Header("狀態")]
     public bool isGrounded;
@@ -367,8 +369,8 @@ public class CharacterController2D : MonoBehaviour
     }
     void PhysicsCheck()
     {
-        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset+0.8f, 1.0f), Vector2.down, groundDistance, groundLaters);
-        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset-0.8f, 1.0f), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset+0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset-0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
 
         if (leftCheck || rightCheck)
             isGrounded = true;
@@ -560,7 +562,10 @@ public class CharacterController2D : MonoBehaviour
         if (isGrounded == false && this.transform.position.y - beforepos.y < 0)
         {
             playerAni.SetBool("JumpUp", false);
-            playerAni.SetBool("Falldown", true);
+            if (this.transform.position.y - beforepos.y <= falldown_value)
+            {
+                playerAni.SetBool("Falldown", true);
+            }            
         }
         else
         {
