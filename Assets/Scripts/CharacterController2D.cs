@@ -7,12 +7,14 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
-{    
+{
+    public static CharacterController2D chara;
     public float speed, jumpspeed ,jumpoutspeed;
     private Rigidbody2D Rigidbody;
     private Collider2D Collider;
     public float speed_X;
     public float slowdown;
+    public playerAction playeraction;
 
     private BoxCollider2D bCol;
     public GameObject bow; 
@@ -39,6 +41,7 @@ public class CharacterController2D : MonoBehaviour
     public bool isHeadBlocked;
     public bool isHanging;
     public bool isWall;
+    bool isRope;
 
     [Header("跳躍")]
     public float jumpForce = 4.5f;
@@ -78,7 +81,7 @@ public class CharacterController2D : MonoBehaviour
     private GameStatus gameStatus;
     private void Awake()
     {
-        
+        chara = this;
     }
     void Start()
     {
@@ -579,6 +582,11 @@ public class CharacterController2D : MonoBehaviour
             SceneManager.LoadScene("Well");
         }
     }
+}
+public enum playerAction
+{
+    isnormal,
+    iscolliderobj
 }
 
 

@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class simplot : MonoBehaviour
 {
+    
     List<Plotclass> plot;
 
     public int start, end;
@@ -17,9 +18,11 @@ public class simplot : MonoBehaviour
     private GameStatus gameStatus;
 
     private GameObject i_dia, i_item, dia_text, quest;
+    public static simplot plotPlay;
     // Start is called before the first frame update
     void Start()
     {
+        plotPlay = this;
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
         An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
 

@@ -7,9 +7,11 @@ public class change_cine : MonoBehaviour
     public List<GameObject> cam;
     public GameObject cam_a, cam_s, cam_e;
 
+    public static change_cine cine;
     private bool back = false;
     void Start()
     {
+        cine = this;
         cam = new List<GameObject>();
         for (int i = 0; i <= cam_a.transform.childCount - 1; i++)
         {
