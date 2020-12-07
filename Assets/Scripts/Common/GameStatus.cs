@@ -6,9 +6,22 @@ using UnityEngine.SceneManagement;
 public class GameStatus : MonoBehaviour
 {
     // Start is called before the first frame update
+    private static GameObject GM;
     public static GameStatus gameStatus;
     public plaeyrStatus plaeyrstatus;
     public Status status;
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.transform.gameObject);
+        if (GM == null)
+        {
+            GM = this.gameObject;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     void Start()
     {
         gameStatus = this;
@@ -18,7 +31,7 @@ public class GameStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DontDestroyOnLoad(this.transform.gameObject);
+        
 
         if (plaeyrstatus.life <= 0 && status != GameStatus.Status.onGameover)
         {
