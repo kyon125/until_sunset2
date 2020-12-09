@@ -34,35 +34,37 @@ public class interactoinEditor : Editor
         {
             m_traget.get_start = EditorGUILayout.IntField("道具對話的開始", m_traget.get_start);
             m_traget.get_end = EditorGUILayout.IntField("道具對話的結束", m_traget.get_end);
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("要給的道具項目");
 
-            m_traget.itemnum = EditorGUILayout.IntField("幾種", m_traget.itemnum);
+            //陣列部分的editor還在研究
+            //EditorGUILayout.Space();
+            //EditorGUILayout.LabelField("要給的道具項目");
 
-            _items.arraySize = m_traget.itemnum;
+            //m_traget.itemnum = EditorGUILayout.IntField("幾種", m_traget.itemnum);
 
-            if (m_traget.itemnum != _items.arraySize)
-            {
-                if ((m_traget.itemnum > _items.arraySize))
-                {
-                    _items.InsertArrayElementAtIndex(_items.arraySize);
-                }
-                else if ((m_traget.itemnum < _items.arraySize))
-                {
-                    _items.DeleteArrayElementAtIndex(_items.arraySize - 1);
-                }
-            }
+            //_items.arraySize = m_traget.itemnum;
 
-            for (int i = 0; i < _items.arraySize; i++)
-            {
-                SerializedProperty itemRef = _items.GetArrayElementAtIndex(i);
-                SerializedProperty _ID = itemRef.FindPropertyRelative("id");
-                SerializedProperty _Count = itemRef.FindPropertyRelative("count");
+            //if (m_traget.itemnum != _items.arraySize)
+            //{
+            //    if ((m_traget.itemnum > _items.arraySize))
+            //    {
+            //        _items.InsertArrayElementAtIndex(_items.arraySize);
+            //    }
+            //    else if ((m_traget.itemnum < _items.arraySize))
+            //    {
+            //        _items.DeleteArrayElementAtIndex(_items.arraySize - 1);
+            //    }
+            //}
 
-                EditorGUILayout.LabelField("______________________________________________________________");
-                EditorGUILayout.PropertyField(_ID);
-                EditorGUILayout.PropertyField(_Count);
-            }
+            //for (int i = 0; i < _items.arraySize; i++)
+            //{
+            //    SerializedProperty itemRef = _items.GetArrayElementAtIndex(i);
+            //    SerializedProperty _ID = itemRef.FindPropertyRelative("id");
+            //    SerializedProperty _Count = itemRef.FindPropertyRelative("count");
+
+            //    EditorGUILayout.LabelField("______________________________________________________________");
+            //    EditorGUILayout.PropertyField(_ID);
+            //    EditorGUILayout.PropertyField(_Count);
+            //}
         }        
         _m.ApplyModifiedProperties();             
     }

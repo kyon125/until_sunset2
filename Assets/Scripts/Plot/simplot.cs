@@ -56,6 +56,10 @@ public class simplot : MonoBehaviour
         gameStatus.status = GameStatus.Status.onPloting;
         StartCoroutine(playquestingplot(a, b));
     }
+    public void playgetitem(string a, int b)
+    {
+        StartCoroutine(getitem(a, b));
+    }
 
     IEnumerator playplot(int start, int end)
     {
@@ -158,8 +162,9 @@ public class simplot : MonoBehaviour
         //是否接受任務
         open_cheakquest();
     }
-    IEnumerator playgetitem(string itemName , int itemNum)
+    IEnumerator getitem(string itemName , int itemNum)
     {
+        Tween i = i_item.transform.DOMoveX(1870F, 0.3f);
         gameStatus.status = GameStatus.Status.onPlaying;
 
         itemcontext.text = "獲得了" + itemName + " * " + itemNum;

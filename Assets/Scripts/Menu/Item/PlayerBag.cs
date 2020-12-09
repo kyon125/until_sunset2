@@ -35,7 +35,7 @@ public class PlayerBag : MonoBehaviour
     {
         for (int i = 0; i <= bg.I_item.Count - 1; i++)
         {
-            print("第"+i+"項:"+bg.I_num[i]);
+            print("第"+i+"項:"+bg.I_num[i] +"名稱:"+ bg.I_item[i].show_name);
         }
 
 
@@ -98,11 +98,13 @@ public class PlayerBag : MonoBehaviour
         {
             int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
             bg.I_num[id_num] += count;
+            simplot.plotPlay.playgetitem(Itemdateset.itemdate[id].show_name, count);
         }
         else if (bg.I_item.Contains(Itemdateset.itemdate[id]) == false)
         {
             bg.I_item.Add(Itemdateset.itemdate[id]);
             bg.I_num.Add(count);
+            simplot.plotPlay.playgetitem(Itemdateset.itemdate[id].show_name, count);
         }                        
     }
     private void de_item()

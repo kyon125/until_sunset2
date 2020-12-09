@@ -21,6 +21,7 @@ public class interAction : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        print(get_start);
     }
     void Start()
     {
@@ -45,6 +46,22 @@ public class interAction : MonoBehaviour
     }
     public void  interaction()
     {
+        if (GameStatus.gameStatus.status != GameStatus.Status.onPloting)
+        {
+            switch (CharacterController2D.chara.playeraction)
+            {
+                case (playerAction.isActionobj):
+                    {
+                        simplot.plotPlay.playdia(start, end);
+                        break;
+                    }
+                case (playerAction.isItemobj):
+                    {
+                        simplot.plotPlay.playdia(get_start, get_end);
+                        break;
+                    }
+            }
+        }
         
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,7 +106,7 @@ public class interAction : MonoBehaviour
     {
         UI.transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         m.SetFloat("outLine", 0);
-    }    
+    }
 }
 [System.Serializable]
 public class item

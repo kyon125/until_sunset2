@@ -258,15 +258,16 @@ public class CharacterController2D : MonoBehaviour
                     {
                         break;
                     }
-                //case (playerAction.isItemobj):
-                //    {
-                //        for (int i = 0; i < actobj.items.Count; i++)
-                //        {
-                //            PlayerBag.playerbag.getitem(actobj.items[i].id , actobj.items[i].count);
-                //        }
-                //        actobj.hasItem = false;
-                //        break;
-                //    }
+                case (playerAction.isItemobj):
+                    {
+                        for (int i = 0; i < actobj.items.Count; i++)
+                        {
+                            PlayerBag.playerbag.getitem(actobj.items[i].id, actobj.items[i].count);                            
+                        }
+                        actobj.interaction();
+                        actobj.hasItem = false;
+                        break;
+                    }
             }
         }
     }
