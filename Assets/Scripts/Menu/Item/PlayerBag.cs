@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerBag : MonoBehaviour
 {
+    public static PlayerBag playerbag;
     public GameObject itemsource;
     public GameObject  com;
     public c_bag bg = new c_bag();
@@ -12,8 +13,6 @@ public class PlayerBag : MonoBehaviour
     private Itemclass _itemname;
     private int _itemname_num;
     public GameObject tsf , hit_item;    
-    private GameStatus gameStatus;
-    private CharacterController2D An;
 
     public int select_itemid;
     public bool islight = false;
@@ -24,8 +23,7 @@ public class PlayerBag : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-        An = GameObject.Find("An").GetComponent<CharacterController2D>();
+        playerbag = this;
         bg.I_item = new List<Itemclass>();
         bg.I_num = new List<int>();
         comitem = new List<Itemclass>();
@@ -39,7 +37,7 @@ public class PlayerBag : MonoBehaviour
         {
             print("第"+i+"項:"+bg.I_num[i]);
         }
-        getitem();
+
 
         if (GameObject.Find("Pack") == true)
         {            
@@ -94,26 +92,18 @@ public class PlayerBag : MonoBehaviour
             bg.I_num.Add(1);
         }
     }
-    public void getitem()
+    public void getitem(int id , int count)
     {
-        if (hit_item != null)
+        if (bg.I_item.Contains(Itemdateset.itemdate[id]) == true)
         {
-            if (Input.GetKeyDown(KeyCode.F) && hit_item.GetComponent<simplot2>().ishaveitem == true && An.isitem == true)
-            {
-                _itemname = Itemdateset.itemdate[hit_item.GetComponent<simplot2>().item_id];
-                _itemname_num = hit_item.GetComponent<simplot2>().item_num;
-                if (bg.I_item.Contains(_itemname) == true)
-                {
-                    int id_num = bg.I_item.IndexOf(_itemname);
-                    bg.I_num[id_num] += _itemname_num;
-                }
-                else if (bg.I_item.Contains(_itemname) == false)
-                {
-                    bg.I_item.Add(_itemname);
-                    bg.I_num.Add(_itemname_num);
-                }
-            }
-        }                  
+            int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
+            bg.I_num[id_num] += count;
+        }
+        else if (bg.I_item.Contains(Itemdateset.itemdate[id]) == false)
+        {
+            bg.I_item.Add(Itemdateset.itemdate[id]);
+            bg.I_num.Add(count);
+        }                        
     }
     private void de_item()
     {

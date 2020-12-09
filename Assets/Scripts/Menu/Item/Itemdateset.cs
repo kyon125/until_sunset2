@@ -39,6 +39,7 @@ public class Itemdateset : MonoBehaviour
             int.TryParse(row[0], out i.id);
             i.show_name = row[1];
             i.load_name = row[2];
+            i.depiction = row[3];
 
             itemdate.Add(i);
         }

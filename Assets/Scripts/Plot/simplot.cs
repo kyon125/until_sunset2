@@ -158,7 +158,18 @@ public class simplot : MonoBehaviour
         //是否接受任務
         open_cheakquest();
     }
+    IEnumerator playgetitem(string itemName , int itemNum)
+    {
+        gameStatus.status = GameStatus.Status.onPlaying;
 
+        itemcontext.text = "獲得了" + itemName + " * " + itemNum;
+        float speed = 1f + itemcontext.text.Length * playspeed;
+        yield return new WaitForSeconds(1.5f +speed);
+
+        itemcontext.text = "";
+        Tween i2 = i_item.transform.DOMoveX(2153.8F, 0.3f);
+
+    }
 
     public void opnediabox()
     {

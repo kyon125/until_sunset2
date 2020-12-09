@@ -7,10 +7,21 @@ using DG.Tweening;
 public class interAction : MonoBehaviour
 {
     Material m;
-    public int start, end;
+    [HideInInspector]
+    public int start, end, itemnum;
     public GameObject UI;
     Vector3 t_scale;
+    [HideInInspector]
+    public bool hasItem;
+    [SerializeField]
+    public List<item> items = new List<item>();
+    [HideInInspector]
+    public int get_start, get_end;
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+    }
     void Start()
     {
         t_scale =UI.transform.localScale;
@@ -24,13 +35,17 @@ public class interAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CharacterController2D.chara.playeraction == playerAction.iscolliderobj && Input.GetKeyDown(KeyCode.F)) 
+        if (CharacterController2D.chara.playeraction == playerAction.isActionobj && Input.GetKeyDown(KeyCode.F)) 
         {
             if (GameStatus.gameStatus.status != GameStatus.Status.onPloting)
             {
                 simplot.plotPlay.playdia(start, end);
             }            
         }        
+    }
+    public void  interaction()
+    {
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -43,18 +58,28 @@ public class interAction : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            CharacterController2D.chara.playeraction = playerAction.iscolliderobj;
-        }
+            if (hasItem == true)
+            {
+                CharacterController2D.chara.playeraction = playerAction.isItemobj;
+                CharacterController2D.chara.actobj = this;
+            }
+            else
+            {
+                CharacterController2D.chara.playeraction = playerAction.isActionobj;
+                CharacterController2D.chara.actobj = this;
+            }            
+        }        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            CharacterController2D.chara.playeraction = playerAction.isnormal;
+            CharacterController2D.chara.playeraction = playerAction.isNormal;
+            CharacterController2D.chara.actobj = null;
             playerLeave();
         }
     }
-
+    
     void playerEnter()
     {
         UI.transform.DOScale(t_scale, 0.3f);
@@ -64,5 +89,13 @@ public class interAction : MonoBehaviour
     {
         UI.transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         m.SetFloat("outLine", 0);
-    }
+    }    
+}
+[System.Serializable]
+public class item
+{
+    [Header("道具ID")]
+    public int id;
+    [Header("道具數量")]
+    public int count;
 }

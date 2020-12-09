@@ -75,7 +75,9 @@ public class CharacterController2D : MonoBehaviour
 
     private PlayerBag bg;
     public GameObject hit_item;
-    public bool isitem = false;
+    public bool isitem;
+    [Header("道具")]
+    public interAction actobj;
 
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
@@ -109,8 +111,9 @@ public class CharacterController2D : MonoBehaviour
             unhitch();
             walk();
             run();
-            hide();            
-            
+            hide();
+            obj_Interaction();
+
             crouchDown();
             climb();
             isfalldown();
@@ -239,6 +242,32 @@ public class CharacterController2D : MonoBehaviour
         {
             isitem = false;
             bg.hit_item = null;
+        }
+    }
+    void obj_Interaction()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            switch (playeraction) 
+            {
+                case (playerAction.isNormal):
+                    {
+                        break;
+                    }
+                case (playerAction.isActionobj):
+                    {
+                        break;
+                    }
+                //case (playerAction.isItemobj):
+                //    {
+                //        for (int i = 0; i < actobj.items.Count; i++)
+                //        {
+                //            PlayerBag.playerbag.getitem(actobj.items[i].id , actobj.items[i].count);
+                //        }
+                //        actobj.hasItem = false;
+                //        break;
+                //    }
+            }
         }
     }
     void walk()
@@ -585,8 +614,9 @@ public class CharacterController2D : MonoBehaviour
 }
 public enum playerAction
 {
-    isnormal,
-    iscolliderobj
+    isNormal,
+    isActionobj,
+    isItemobj
 }
 
 
