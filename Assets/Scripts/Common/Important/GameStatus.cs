@@ -59,7 +59,9 @@ public class GameStatus : MonoBehaviour
         onQuestchoose,
         onQuestlist,
         onDead,
-        onGameover
+        onGameover,
+        onSaving,
+        onLoading
     }
     [System.Serializable]
     public class plaeyrStatus

@@ -256,6 +256,7 @@ public class CharacterController2D : MonoBehaviour
                     }
                 case (playerAction.isActionobj):
                     {
+                        actobj.interaction();
                         break;
                     }
                 case (playerAction.isItemobj):
@@ -265,7 +266,6 @@ public class CharacterController2D : MonoBehaviour
                             PlayerBag.playerbag.getitem(actobj.items[i].id, actobj.items[i].count);                            
                         }
                         actobj.interaction();
-                        actobj.hasItem = false;
                         break;
                     }
             }

@@ -30,6 +30,7 @@ public class saveGame : MonoBehaviour
     }
     public void save()
     {
+        GameStatus.gameStatus.status = GameStatus.Status.onSaving;
         //抓取資料(玩家基本狀態)
         playerSave playerValue = new playerSave();
         playerValue.sceneName = SceneManager.GetActiveScene().name;
@@ -61,6 +62,7 @@ public class saveGame : MonoBehaviour
             PlayerPrefs.SetInt("itemID"+i, bagsave.itemId[i]);
             PlayerPrefs.SetInt("itemNum"+ i, bagsave.itemNum[i]);
         }
+        GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
     }
     public void load()
     {       
@@ -68,6 +70,7 @@ public class saveGame : MonoBehaviour
     }
     IEnumerator clickTostart()
     {
+        GameStatus.gameStatus.status = GameStatus.Status.onLoading;
         //讀取(玩家基本狀態)
         playerSave playerValue = new playerSave();
         playerValue.sceneName = PlayerPrefs.GetString("scene");
@@ -104,7 +107,8 @@ public class saveGame : MonoBehaviour
         {
             PlayerBag.playerbag.bg.I_item.Add(Itemdateset.itemdate[bagsave.itemId[i]]);
             PlayerBag.playerbag.bg.I_num.Add(bagsave.itemNum[i]);
-        }        
+        }
+        GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
     }
 }
 public class playerSave

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class interAction : MonoBehaviour
 {
@@ -17,11 +18,16 @@ public class interAction : MonoBehaviour
     public List<item> items = new List<item>();
     [HideInInspector]
     public int get_start, get_end;
+    bool issave, islaod;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        print(get_start);
+        //如果存檔裡有此物件的存檔
+        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_" + this.transform.name))
+        {
+            hasItem = PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name) == 0 ? hasItem = false : hasItem = true;
+        }
     }
     void Start()
     {
@@ -36,13 +42,11 @@ public class interAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CharacterController2D.chara.playeraction == playerAction.isActionobj && Input.GetKeyDown(KeyCode.F)) 
-        {
-            if (GameStatus.gameStatus.status != GameStatus.Status.onPloting)
-            {
-                simplot.plotPlay.playdia(start, end);
-            }            
-        }        
+             
+    }
+    void saveStatus()
+    {
+        
     }
     public void  interaction()
     {
@@ -61,6 +65,9 @@ public class interAction : MonoBehaviour
                         break;
                     }
             }
+            hasItem = false;
+            //將道具被拿走的狀態紀錄
+            PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name, 0);
         }
         
     }
