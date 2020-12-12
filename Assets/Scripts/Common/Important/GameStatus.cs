@@ -21,11 +21,12 @@ public class GameStatus : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        gameStatus = this;
+        status = new Status();
     }
     void Start()
     {
-        gameStatus = this;
-        status = new Status();
+        
     }
 
     // Update is called once per frame
@@ -48,6 +49,11 @@ public class GameStatus : MonoBehaviour
             SceneManager.LoadScene("Gameover");            
         }
     }
+    public void lifeController(float f)
+    {
+        plaeyrstatus.life += f;
+        //statusShow.statusUI.showlife();
+    }
     public enum Status
     {
         onPlaying,
@@ -67,6 +73,7 @@ public class GameStatus : MonoBehaviour
     public class plaeyrStatus
     {
         public float life;
+        public float maxlife;
         public Vector3 pos;
     }
 }

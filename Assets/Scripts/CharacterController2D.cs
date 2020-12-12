@@ -102,7 +102,7 @@ public class CharacterController2D : MonoBehaviour
             CrouchDown = false;
 
             // isground
-            isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x-0.5f, transform.position.y - 0.1f), new Vector2(transform.position.x+ 0.5f , transform.position.y + 0.85f), groundLaters);
+            //isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x-0.5f, transform.position.y - 0.1f), new Vector2(transform.position.x+ 0.5f , transform.position.y + 0.85f), groundLaters);
             // ishide
             isHided = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.3f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y), hideLayers);     
 
@@ -403,9 +403,10 @@ public class CharacterController2D : MonoBehaviour
     void PhysicsCheck()
     {
         RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset+0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D centerCheck = Raycast(new Vector2(0, footOffset_high), Vector2.down, groundDistance, groundLaters);
         RaycastHit2D rightCheck = Raycast(new Vector2(footOffset-0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
 
-        if (leftCheck || rightCheck)
+        if (leftCheck || rightCheck || centerCheck)
             isGrounded = true;
         else
             isGrounded = false;

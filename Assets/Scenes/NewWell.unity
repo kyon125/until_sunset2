@@ -29312,7 +29312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6113951.5, y: 0}
+  m_AnchoredPosition: {x: -6196665, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &614844384
@@ -38613,8 +38613,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   footOffset: 0.18
-  footOffset_high: 0
-  groundDistance: 0.5
+  footOffset_high: 1.5
+  groundDistance: 1
   headClearance: 0.72
   eyeHeight: 4.24
   playHeight: 4.7
@@ -101860,18 +101860,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5add34235f6c9694894ef1b712f2bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 500
-  end: 500
+  start: 498
+  end: 498
   itemnum: 2
   UI: {fileID: 1493012005}
   hasItem: 1
   items:
-  - id: 0
-    count: 0
-  - id: 0
-    count: 0
-  get_start: 498
-  get_end: 498
+  - id: 21
+    count: 4
+  get_start: 500
+  get_end: 500
 --- !u!1 &2059977194
 GameObject:
   m_ObjectHideFlags: 0
