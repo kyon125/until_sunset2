@@ -80,6 +80,8 @@ public class GameStatus : MonoBehaviour
     {
         public float life;
         public float maxlife;
+        public int endurance;
+        public int maxendurance;
         public Vector3 pos;
     }
 }

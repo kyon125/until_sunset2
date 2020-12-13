@@ -8,14 +8,15 @@ public class statusShow : MonoBehaviour
 {
     // Start is called before the first frame update
     public static statusShow statusUI;
-    int life , beforelife;
-    public Transform UI_life;
+    int life , beforelife, endurance, beforendurance;
+    public Transform UI_life , UI_endurance;
     public Image IM_life, IM_endurance;
     public Material M_life;
     public List<Image> life_group;
+    public List<Image> endurance_group;
     private void Awake()
     {
-        intialLife();
+        intial();
     }
     void Start()
     {
@@ -26,28 +27,40 @@ public class statusShow : MonoBehaviour
     void Update()
     {
         life = (int)GameStatus.gameStatus.plaeyrstatus.life;
+        endurance = (int)GameStatus.gameStatus.plaeyrstatus.endurance;
         if (life != beforelife)
         {
-            showlife2();
+            showlife();            
+        }
+        if (endurance != beforendurance)
+        {
+            showendurance();
         }
         beforelife = life;
+        beforendurance = endurance;
     }
-    void intialLife()
+    void intial()
     {
         life = (int)GameStatus.gameStatus.plaeyrstatus.life;
+        endurance = (int)GameStatus.gameStatus.plaeyrstatus.endurance;
         beforelife = life;
+        beforendurance = endurance;
+
         for (int i = 0; i < UI_life.childCount; i++)
         {
             life_group.Add(UI_life.GetChild(i).GetComponent<Image>());
         }
+        for (int i = 0; i < UI_endurance.childCount; i++)
+        {
+            endurance_group.Add(UI_endurance.GetChild(i).GetComponent<Image>());
+        }
     }
+    //public void showlife()
+    //{
+    //    StartCoroutine(showlifeRim());
+    //}
     public void showlife()
     {
-        StartCoroutine(showlifeRim());
-    }
-    public void showlife2()
-    {
-        print("a");
         int i = Mathf.Abs(life - beforelife);
         int nowlife = beforelife;
         if (life - beforelife < 0)
@@ -59,11 +72,20 @@ public class statusShow : MonoBehaviour
             StartCoroutine(addLife(i, nowlife));
         }
     }
-    IEnumerator showlifeRim()
+    public void showendurance()
     {
-        DOTween.To(() => IM_life.fillAmount, x => IM_life.fillAmount = x, life, 0.5f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(0.5F);
+        int i = Mathf.Abs(endurance - beforendurance);
+        int nowlife = beforendurance;
+        if (endurance - beforendurance < 0)
+        {
+            StartCoroutine(lessEndurance(i, nowlife));
+        }
+        else if (endurance - beforendurance > 0)
+        {
+            StartCoroutine(addEndueance(i, nowlife));
+        }
     }
+
     IEnumerator lessLife(int i , int ie)
     {
         for (int a = 0; a < i; a++)
@@ -80,5 +102,26 @@ public class statusShow : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+    IEnumerator lessEndurance(int i, int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            endurance_group[ie - (a + 1)].fillAmount = 0;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    IEnumerator addEndueance(int i, int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            endurance_group[ie + (a)].fillAmount = 1;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
 
+    //IEnumerator showlifeRim()
+    //{
+    //    DOTween.To(() => IM_life.fillAmount, x => IM_life.fillAmount = x, life, 0.5f).SetEase(Ease.Linear);
+    //    yield return new WaitForSeconds(0.5F);
+    //}
 }

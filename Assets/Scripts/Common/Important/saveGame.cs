@@ -37,6 +37,7 @@ public class saveGame : MonoBehaviour
         playerValue.playerPos = GameObject.Find("An").transform.position;
         playerValue.theStatus = this.gameObject.GetComponent<GameStatus>().status.ToString();
         playerValue.playerLife = this.gameObject.GetComponent<GameStatus>().plaeyrstatus.life;
+        playerValue.playerEndurance = GameStatus.gameStatus.plaeyrstatus.endurance;
         playerValue.mainquest = GameStatus.gameStatus.mainquest.ToString();
         //抓取資料(背包狀態)
         bagSave bagsave = new bagSave();
@@ -56,6 +57,7 @@ public class saveGame : MonoBehaviour
         PlayerPrefs.SetFloat("playerZ", playerValue.playerPos.z);
         PlayerPrefs.SetString("gameStatus", playerValue.theStatus.ToString());
         PlayerPrefs.SetFloat("playerLife", playerValue.playerLife);
+        PlayerPrefs.SetInt("playerendurance", playerValue.playerEndurance);
         PlayerPrefs.SetString("mainquest", playerValue.mainquest);
         //寫入(背包狀態)
         PlayerPrefs.SetInt("bagitemnum", bagsave.bagItemcount);
@@ -81,6 +83,7 @@ public class saveGame : MonoBehaviour
         playerValue.playerPos.z = PlayerPrefs.GetFloat("playerZ");
         playerValue.theStatus = PlayerPrefs.GetString("gameStatus");
         playerValue.playerLife = PlayerPrefs.GetFloat("playerLife");
+        playerValue.playerEndurance = PlayerPrefs.GetInt("playerendurance");
         playerValue.mainquest = PlayerPrefs.GetString("mainquest");
         //讀取(背包狀態)
         bagSave bagsave = new bagSave();
@@ -109,6 +112,7 @@ public class saveGame : MonoBehaviour
         GameObject.Find("An").transform.position = playerValue.playerPos;
         this.gameObject.GetComponent<GameStatus>().status = (GameStatus.Status)System.Enum.Parse(typeof(GameStatus.Status), playerValue.theStatus);
         this.gameObject.GetComponent<GameStatus>().plaeyrstatus.life = playerValue.playerLife;
+        GameStatus.gameStatus.plaeyrstatus.endurance = playerValue.playerEndurance;
 
         //附值(背包狀態)
         PlayerBag.playerbag.bg = new c_bag();
@@ -128,6 +132,7 @@ public class playerSave
     public Vector3 playerPos; 
     public string theStatus;
     public float playerLife;
+    public int playerEndurance;
     public string mainquest;
 }
 public class bagSave
