@@ -10,6 +10,7 @@ public class GameStatus : MonoBehaviour
     public static GameStatus gameStatus;
     public plaeyrStatus plaeyrstatus;
     public Status status;
+    public MainQuest mainquest;
     private void Awake()
     {
         DontDestroyOnLoad(this.transform.gameObject);
@@ -68,6 +69,11 @@ public class GameStatus : MonoBehaviour
         onGameover,
         onSaving,
         onLoading
+    }
+    public enum MainQuest
+    {
+        Viliage1,
+        Viliage2
     }
     [System.Serializable]
     public class plaeyrStatus

@@ -35,7 +35,6 @@ public class Soundcontroller : MonoBehaviour
     {
         
         s_name = Loadscene.loadcontroller.loadName;
-        print(s_name);
         stopbgm();
         for (int i = 0; i < adList.Count; i++)
         {
@@ -44,7 +43,6 @@ public class Soundcontroller : MonoBehaviour
                 num = i;
             }
         }
-        print(num);
         adList[num].Play();
         adList[num].volume = 0;
         DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.5f, 1.5f).SetEase(Ease.Linear);

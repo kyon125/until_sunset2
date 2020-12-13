@@ -8,70 +8,77 @@ public class statusShow : MonoBehaviour
 {
     // Start is called before the first frame update
     public static statusShow statusUI;
-    float life , beforelife;
+    int life , beforelife;
     public Transform UI_life;
-    public List<Image> IM_life = new List<Image>();
+    public Image IM_life, IM_endurance;
+    public Material M_life;
+    public List<Image> life_group;
+    private void Awake()
+    {
+        intialLife();
+    }
     void Start()
     {
-        //Life 初始化
-        intialLife();
+        //Life 初始化        
     }
 
     // Update is called once per frame
     void Update()
     {
-        life = GameStatus.gameStatus.plaeyrstatus.life / GameStatus.gameStatus.plaeyrstatus.maxlife;
+        life = (int)GameStatus.gameStatus.plaeyrstatus.life;
         if (life != beforelife)
         {
-            showlife();
+            showlife2();
         }
         beforelife = life;
     }
     void intialLife()
     {
-        life = GameStatus.gameStatus.plaeyrstatus.life;
+        life = (int)GameStatus.gameStatus.plaeyrstatus.life;
         beforelife = life;
         for (int i = 0; i < UI_life.childCount; i++)
         {
-            IM_life.Add(UI_life.GetChild(i).GetComponent<Image>());
+            life_group.Add(UI_life.GetChild(i).GetComponent<Image>());
         }
     }
     public void showlife()
     {
-        StartCoroutine(lifeCalculation());
+        StartCoroutine(showlifeRim());
     }
-    IEnumerator lifeCalculation()
+    public void showlife2()
     {
-        if (beforelife < life)
+        print("a");
+        int i = Mathf.Abs(life - beforelife);
+        int nowlife = beforelife;
+        if (life - beforelife < 0)
         {
-            float i = life - beforelife;
-            ;
-            for (int a = Mathf.FloorToInt(beforelife / 0.2f); a < i; a++)
-            {
-                print("a=" + a);
-                DOTween.To(() => IM_life[a].fillAmount, x => IM_life[a].fillAmount = x, 0, 0.1f);
-                yield return new WaitUntil(() => IM_life[a].fillAmount == 0);
-            }
+            StartCoroutine(lessLife(i , nowlife));
         }
-        else if (beforelife > life)
+        else if (life - beforelife > 0)
         {
-
+            StartCoroutine(addLife(i, nowlife));
         }
-        else if (beforelife == life)
-        {
-            
-        }
-
-        //int i = Mathf.FloorToInt(life / GameStatus.gameStatus.plaeyrstatus.maxlife / 0.2f);
-        //print("I=" + i);
-        //for (int a = 0; a < i; a++)
-        //{
-        //    print("a=" + a);
-        //    DOTween.To(() => IM_life[a].fillAmount, x => IM_life[a].fillAmount = x, 0, 0.1f);
-        //    yield return new WaitUntil(() => IM_life[a].fillAmount == 0);
-        //}
-        //float f = (life / GameStatus.gameStatus.plaeyrstatus.maxlife / 0.2f - i);
-        //print("f=" + f);
-        //DOTween.To(() => IM_life[i].fillAmount, x => IM_life[i].fillAmount = x, f, 0.1f);
     }
+    IEnumerator showlifeRim()
+    {
+        DOTween.To(() => IM_life.fillAmount, x => IM_life.fillAmount = x, life, 0.5f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(0.5F);
+    }
+    IEnumerator lessLife(int i , int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            life_group[ie - (a+1)].fillAmount = 0;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    IEnumerator addLife(int i, int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            life_group[ie + (a)].fillAmount = 1;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 }

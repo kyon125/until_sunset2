@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class S1_plot : MonoBehaviour
+public class S1_plot : MonoBehaviour 
 {
     // Start is called before the first frame update
-    bool isdone;
     void Start()
     {
         
@@ -16,10 +15,10 @@ public class S1_plot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Viliage"&& isdone ==false)
+        if (SceneManager.GetActiveScene().name == "Viliage" && GameStatus.gameStatus.mainquest == GameStatus.MainQuest.Viliage1)
         {
             StartCoroutine(plot1());
-            isdone = true;
+            GameStatus.gameStatus.mainquest = GameStatus.MainQuest.Viliage2;
         }
     }
     IEnumerator plot1()

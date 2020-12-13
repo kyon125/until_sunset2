@@ -10,10 +10,10 @@ public class Loading : MonoBehaviour
     // Start is called before the first frame update
     float timer;
     int count;
-    bool ready;
     public GameObject UI, UI1;
     public Text t_load ,t_press;
     public static Loading loading;
+    public Status loadstatus;
     private void Awake()
     {
         loading = this;
@@ -21,6 +21,7 @@ public class Loading : MonoBehaviour
     }
     void Start()
     {
+        loadstatus = Status.loading;
         Loadscene.loadcontroller.async = SceneManager.LoadSceneAsync(Loadscene.loadcontroller.loadName);
         Loadscene.loadcontroller.async.allowSceneActivation = false;
         
@@ -30,10 +31,9 @@ public class Loading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ready == false && Loadscene.loadcontroller.async.progress >= 0.9f)
+        if (loadstatus == Status.loading && Loadscene.loadcontroller.async.progress >= 0.9f)
         {
-            StartCoroutine(waitTocomplete());
-            ready = true;
+            StartCoroutine(waitTocomplete());            
         }
         timer += Time.deltaTime;
         showloading();
@@ -72,5 +72,11 @@ public class Loading : MonoBehaviour
         yield return new WaitUntil(() => Input.anyKeyDown);        
         Loadscene.loadcontroller.async.allowSceneActivation = true;
         Soundcontroller.soundcontroller.playbgm();
+        loadstatus = Status.completed;
+    }
+    public enum Status
+    {
+        loading,
+        completed
     }
 }

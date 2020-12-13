@@ -37,6 +37,7 @@ public class saveGame : MonoBehaviour
         playerValue.playerPos = GameObject.Find("An").transform.position;
         playerValue.theStatus = this.gameObject.GetComponent<GameStatus>().status.ToString();
         playerValue.playerLife = this.gameObject.GetComponent<GameStatus>().plaeyrstatus.life;
+        playerValue.mainquest = GameStatus.gameStatus.mainquest.ToString();
         //抓取資料(背包狀態)
         bagSave bagsave = new bagSave();
         bagsave.bagItemcount = PlayerBag.playerbag.bg.I_item.Count;
@@ -55,6 +56,7 @@ public class saveGame : MonoBehaviour
         PlayerPrefs.SetFloat("playerZ", playerValue.playerPos.z);
         PlayerPrefs.SetString("gameStatus", playerValue.theStatus.ToString());
         PlayerPrefs.SetFloat("playerLife", playerValue.playerLife);
+        PlayerPrefs.SetString("mainquest", playerValue.mainquest);
         //寫入(背包狀態)
         PlayerPrefs.SetInt("bagitemnum", bagsave.bagItemcount);
         for (int i = 0; i < bagsave.bagItemcount; i++)
@@ -79,6 +81,7 @@ public class saveGame : MonoBehaviour
         playerValue.playerPos.z = PlayerPrefs.GetFloat("playerZ");
         playerValue.theStatus = PlayerPrefs.GetString("gameStatus");
         playerValue.playerLife = PlayerPrefs.GetFloat("playerLife");
+        playerValue.mainquest = PlayerPrefs.GetString("mainquest");
         //讀取(背包狀態)
         bagSave bagsave = new bagSave();
         bagsave.itemId = new List<int>();
@@ -91,8 +94,16 @@ public class saveGame : MonoBehaviour
         }
 
         //場景預載  
-        scene = SceneManager.LoadSceneAsync(playerValue.sceneName);
-        yield return new WaitUntil(() => scene.isDone);
+        Loadscene.loadcontroller.loadName = playerValue.sceneName;
+        SceneManager.LoadScene("Loading");
+        //需要提前附值的部分
+        //主線狀態
+        GameStatus.gameStatus.mainquest = (GameStatus.MainQuest)System.Enum.Parse(typeof(GameStatus.MainQuest), playerValue.mainquest);
+
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => Loading.loading.loadstatus == Loading.Status.completed);
+        //scene = SceneManager.LoadSceneAsync(playerValue.sceneName);
+        //yield return new WaitUntil(() => scene.isDone);
 
         //附值(玩家基本狀態)  
         GameObject.Find("An").transform.position = playerValue.playerPos;
@@ -117,6 +128,7 @@ public class playerSave
     public Vector3 playerPos; 
     public string theStatus;
     public float playerLife;
+    public string mainquest;
 }
 public class bagSave
 {
