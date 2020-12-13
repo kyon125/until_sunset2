@@ -10,7 +10,9 @@ public class Loadscene : MonoBehaviour
     // Start is called before the first frame update\
     public static Loadscene loadcontroller;
     public string loadName;
-
+    public GameObject UI;
+    bool ischanged;
+    public AsyncOperation async;
     private void Awake()
     {
         loadcontroller = this;
@@ -23,10 +25,22 @@ public class Loadscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CharacterController2D.chara == true)
+        {
+            UI.SetActive(true);
+        }
+        else if (CharacterController2D.chara == false)
+        {
+            UI.SetActive(false);
+        }
+        onloading();
+    }
+    public void onloading()
+    {
         
     }
     public void changescene()
-    {
-        SceneManager.LoadScene("Loading");
+    {        
+        SceneManager.LoadScene("Loading");        
     }
 }

@@ -14,7 +14,6 @@ public class simplot : MonoBehaviour
     public bool play = false;
 
     private Text contentext, itemcontext;
-    private PlayerBag An_bag;
     private GameStatus gameStatus;
 
     private GameObject i_dia, i_item, dia_text, quest;
@@ -24,7 +23,6 @@ public class simplot : MonoBehaviour
     {
         plotPlay = this;
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
-        An_bag = GameObject.Find("An").GetComponent<PlayerBag>();
 
         contentext = GameObject.Find("DialogBox").GetComponent<Text>();
         itemcontext = GameObject.Find("item_DialogBox").GetComponent<Text>();
@@ -61,7 +59,7 @@ public class simplot : MonoBehaviour
         StartCoroutine(getitem(a, b));
     }
 
-    IEnumerator playplot(int start, int end)
+    public IEnumerator playplot(int start, int end)
     {
         opnediabox();
 

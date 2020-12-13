@@ -19,7 +19,8 @@ public class S_Button : MonoBehaviour
     }
     public void p_start()
     {
-        SceneManager.LoadScene("Well_01");
+        Loadscene.loadcontroller.loadName = "Viliage";
+        Loadscene.loadcontroller.changescene();
     }
     public void p_end()
     {

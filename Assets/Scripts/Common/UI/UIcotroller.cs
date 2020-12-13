@@ -7,7 +7,12 @@ using DG.Tweening;
 public class UIcotroller : MonoBehaviour
 {
     // Start is called before the first frame update
+    static public UIcotroller uicotroller;
     public Image blockUp, blockDown;
+    private void Awake()
+    {
+        uicotroller = this;
+    }
     void Start()
     {
         
@@ -28,7 +33,6 @@ public class UIcotroller : MonoBehaviour
 
     public void blackscreenOpen()
     {
-        print("A");
         blockUp.transform.DOBlendableMoveBy(new Vector3(0, -200, 0), 0.5F);
         blockDown.transform.DOBlendableMoveBy(new Vector3(0, 200, 0), 0.5F);
     }
