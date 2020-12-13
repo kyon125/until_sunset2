@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8508,6 +8508,7 @@ GameObject:
   - component: {fileID: 1267508849}
   - component: {fileID: 1267508848}
   - component: {fileID: 1267508847}
+  - component: {fileID: 1267508851}
   m_Layer: 0
   m_Name: Bigcamera
   m_TagString: Untagged
@@ -8638,6 +8639,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1267508851
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267508846}
+  m_Enabled: 1
 --- !u!1 &1283591684
 GameObject:
   m_ObjectHideFlags: 0

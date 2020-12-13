@@ -71,5 +71,6 @@ public class Loading : MonoBehaviour
         UI1.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);        
         Loadscene.loadcontroller.async.allowSceneActivation = true;
+        Soundcontroller.soundcontroller.playbgm();
     }
 }
