@@ -46,7 +46,7 @@ public class quest_button_set : MonoBehaviour
         
         if (quest_status.haveitem == true)
         {
-            dia.playquestingdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y, quest_status.haveitem , quest_status.itemid, quest_status.itemunm);
+            dia.playquestingdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y, quest_status.haveitem , quest_status.itemid, quest_status.itemnum);
             quest_status.haveitem = false;
         }
         else

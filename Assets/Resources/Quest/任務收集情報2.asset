@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d05cf905ff9e143a95c45ad603e7f3, type: 3}
+  m_Name: "\u4EFB\u52D9\u6536\u96C6\u60C5\u58312"
+  m_EditorClassIdentifier: 
+  quest:
+    name: "\u4EFB\u52D9:\u6536\u96C6\u60C5\u58312"
+    start_plot: {x: 317, y: 345}
+    accept: 0
+    haveitem: 0
+    accept_plot: {x: 0, y: 0}
+    refuse_plot: {x: 0, y: 0}
+    goal: 1
+    status: 0
+    itemid: 0
+    itemnum: 0
+    traget_NPC: ShikiRyougi(saber)
+    next_quest:
+    - {fileID: 11400000, guid: 2446b1253a44cd942b6775c0eb7db392, type: 2}

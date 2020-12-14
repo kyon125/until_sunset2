@@ -26,9 +26,14 @@ public class saveGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F12))
         {
             load();
+            GameStatus.gameStatus.archivestatus = GameStatus.ArchiveStatus.isLoad;
         }
     }
     public void save()
+    {
+        StartCoroutine(clickTosave());
+    }
+    IEnumerator clickTosave()
     {
         GameStatus.gameStatus.status = GameStatus.Status.onSaving;
         //抓取資料(玩家基本狀態)
@@ -63,9 +68,10 @@ public class saveGame : MonoBehaviour
         PlayerPrefs.SetInt("bagitemnum", bagsave.bagItemcount);
         for (int i = 0; i < bagsave.bagItemcount; i++)
         {
-            PlayerPrefs.SetInt("itemID"+i, bagsave.itemId[i]);
-            PlayerPrefs.SetInt("itemNum"+ i, bagsave.itemNum[i]);
+            PlayerPrefs.SetInt("itemID" + i, bagsave.itemId[i]);
+            PlayerPrefs.SetInt("itemNum" + i, bagsave.itemNum[i]);
         }
+        yield return new WaitForEndOfFrame();
         GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
     }
     public void load()
@@ -74,6 +80,7 @@ public class saveGame : MonoBehaviour
     }
     IEnumerator clickTostart()
     {
+        GameStatus.gameStatus.archivestatus = GameStatus.ArchiveStatus.isLoad;
         GameStatus.gameStatus.status = GameStatus.Status.onLoading;
         //讀取(玩家基本狀態)
         playerSave playerValue = new playerSave();

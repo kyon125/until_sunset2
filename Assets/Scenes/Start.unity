@@ -2934,7 +2934,7 @@ MonoBehaviour:
     goal: 0
     status: 0
     itemid: 0
-    itemunm: 0
+    itemnum: 0
     traget_NPC: 
     next_quest:
     - {fileID: 0}
@@ -4016,7 +4016,7 @@ MonoBehaviour:
     goal: 0
     status: 0
     itemid: 0
-    itemunm: 0
+    itemnum: 0
     traget_NPC: 
     next_quest:
     - {fileID: 0}
@@ -4603,6 +4603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9727348281a9bb4cb48beee59d525d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  archivestatus: 0
   plaeyrstatus:
     life: 5
     maxlife: 5
@@ -5806,7 +5807,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14422471, y: 0}
+  m_AnchoredPosition: {x: -14440904, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &956921336

@@ -24,7 +24,7 @@ public class interAction : MonoBehaviour
     private void Awake()
     {
         //如果存檔裡有此物件的存檔
-        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_" + this.transform.name))
+        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_" + this.transform.name) && GameStatus.gameStatus.archivestatus == GameStatus.ArchiveStatus.isLoad)
         {
             hasItem = PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name) == 0 ? hasItem = false : hasItem = true;
         }
@@ -42,11 +42,22 @@ public class interAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-             
+        saveStatus();
     }
     void saveStatus()
     {
-        
+        //將道具被拿走的狀態紀錄
+        if (GameStatus.gameStatus.status == GameStatus.Status.onSaving)
+        {
+            if (hasItem == false)
+            {
+                PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name, 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name, 1);
+            }            
+        }       
     }
     public void  interaction()
     {
@@ -65,9 +76,7 @@ public class interAction : MonoBehaviour
                         break;
                     }
             }
-            hasItem = false;
-            //將道具被拿走的狀態紀錄
-            PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_" + this.transform.name, 0);
+            hasItem = false;            
         }
         
     }

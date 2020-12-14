@@ -16,9 +16,13 @@ MonoBehaviour:
     name: "\u4EFB\u52D9:\u6536\u96C6\u60C5\u5831(\u5DF2\u5B8C\u6210)"
     start_plot: {x: 0, y: 345}
     accept: 0
+    haveitem: 0
     accept_plot: {x: 0, y: 0}
     refuse_plot: {x: 0, y: 0}
     goal: 1
     status: 1
-    traget_NPC: Saber(Alter)
-    next_quest: {fileID: 0}
+    itemid: 0
+    itemnum: 0
+    traget_NPC: ShikiRyougi(saber)
+    next_quest:
+    - {fileID: 0}

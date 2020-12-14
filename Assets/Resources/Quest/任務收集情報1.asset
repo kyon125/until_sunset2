@@ -22,7 +22,7 @@ MonoBehaviour:
     goal: 1
     status: 0
     itemid: 0
-    itemunm: 0
+    itemnum: 0
     traget_NPC: ShikiRyougi(saber)
     next_quest:
     - {fileID: 11400000, guid: 42739b92d4f826d4d845287b513f5684, type: 2}

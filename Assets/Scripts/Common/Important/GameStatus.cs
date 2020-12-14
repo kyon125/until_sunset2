@@ -8,6 +8,7 @@ public class GameStatus : MonoBehaviour
     // Start is called before the first frame update
     private static GameObject GM;
     public static GameStatus gameStatus;
+    public ArchiveStatus archivestatus;
     public plaeyrStatus plaeyrstatus;
     public Status status;
     public MainQuest mainquest;
@@ -24,6 +25,7 @@ public class GameStatus : MonoBehaviour
         }
         gameStatus = this;
         status = new Status();
+        archivestatus = new ArchiveStatus();
     }
     void Start()
     {
@@ -75,6 +77,11 @@ public class GameStatus : MonoBehaviour
         Viliage1,
         Viliage2
     }
+    public enum ArchiveStatus
+    { 
+        isNew,
+        isLoad
+    }
     [System.Serializable]
     public class plaeyrStatus
     {
@@ -84,4 +91,5 @@ public class GameStatus : MonoBehaviour
         public int maxendurance;
         public Vector3 pos;
     }
+    
 }
