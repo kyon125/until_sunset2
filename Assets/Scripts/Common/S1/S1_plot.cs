@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class S1_plot : MonoBehaviour 
+public class S1_plot : MonoBehaviour , Mainquest_interface
 {
     // Start is called before the first frame update
+    [SerializeField]
+    public Quest_scriptable quest;
     void Start()
     {
         
@@ -15,10 +17,15 @@ public class S1_plot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playplot();
+    }
+    public void playplot()
+    {
         if (SceneManager.GetActiveScene().name == "Viliage" && GameStatus.gameStatus.mainquest == GameStatus.MainQuest.Viliage1)
         {
             StartCoroutine(plot1());
-            GameStatus.gameStatus.mainquest = GameStatus.MainQuest.Viliage2;
+            Quest_controller.questcontroller.AddQuest(quest.quest);
+            GameStatus.gameStatus.mainquest = GameStatus.MainQuest.Viliage2;            
         }
     }
     IEnumerator plot1()

@@ -49,10 +49,10 @@ public class simplot : MonoBehaviour
         gameStatus.status = GameStatus.Status.onPloting;
         StartCoroutine(playquestplot(a, b));
     }
-    public void playquestingdia(int a, int b)
+    public void playquestingdia(int a, int b, bool haveitem, int id, int num)
     {
         gameStatus.status = GameStatus.Status.onPloting;
-        StartCoroutine(playquestingplot(a, b));
+        StartCoroutine(playquestingplot(a, b , haveitem , id ,num));
     }
     public void playgetitem(string a, int b)
     {
@@ -127,7 +127,7 @@ public class simplot : MonoBehaviour
         showquest();
     }
     //接取任務中
-    IEnumerator playquestingplot(int start, int end)
+    IEnumerator playquestingplot(int start, int end ,bool haveitem , int id, int num)
     {
         opnediabox();
 
@@ -141,7 +141,7 @@ public class simplot : MonoBehaviour
                 {
                     contentext.text += letter;
                     yield return new WaitForSeconds(playspeed);
-                }
+                }                
             }
             else
             {
@@ -151,14 +151,46 @@ public class simplot : MonoBehaviour
                 {
                     contentext.text += letter;
                     yield return new WaitForSeconds(playspeed);
-                }
+                }                
             }
             yield return new WaitUntil(() => { return play; });
-            play = false;
             contentext.text = "";
+            play = false;            
         }
+        PlayerBag.playerbag.getitem(id, num);
+
+        closediabox();
+        //opnediabox();
+
+        //for (int a = start; a <= end; a++)
+        //{
+        //    if (plot[a].target != "An")
+        //    {
+        //        string speaktext = plot[a].target + ":" + plot[a].content;
+
+        //        foreach (char letter in speaktext.ToCharArray())
+        //        {
+        //            contentext.text += letter;
+        //            yield return new WaitForSeconds(playspeed);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        string speaktext = plot[a].content;
+
+        //        foreach (char letter in speaktext.ToCharArray())
+        //        {
+        //            contentext.text += letter;
+        //            yield return new WaitForSeconds(playspeed);
+        //        }
+        //    }
+        //    yield return new WaitUntil(() => { return play; });
+        //    play = false;
+        //    contentext.text = "";
+        //}
+        //closediabox();
         //是否接受任務
-        open_cheakquest();
+        //open_cheakquest();
     }
     IEnumerator getitem(string itemName , int itemNum)
     {

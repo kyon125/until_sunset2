@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Quest_controller : MonoBehaviour
 {
-    public CharacterController2D An;
-    public List<Quest_set> questlist;
+    public static Quest_controller questcontroller;
+    public List<Quest_set> questlisting;
     public GameObject button;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        questcontroller = this;
+    }
     void Start()
     {
         
@@ -18,7 +22,21 @@ public class Quest_controller : MonoBehaviour
     {
         
     }
-    
+
+    public void AddQuest(Quest_set quest)
+    {
+        for (int i = 0; i < questlisting.Count; i++)
+        {
+            if (questlisting[i].name == quest.name)
+            {
+                questlisting.RemoveAt(i);
+            }
+        }
+        for (int i = 0; i < quest.next_quest.Count; i++)
+        {
+            questlisting.Add(quest.next_quest[i].quest);
+        }        
+    }
     public void creat_choosebutton(Quest_set quest)
     {
         GameObject b = Instantiate(button, GameObject.Find("Questcontent").transform);

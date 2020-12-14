@@ -27,7 +27,6 @@ public class PlayerBag : MonoBehaviour
         bg.I_item = new List<Itemclass>();
         bg.I_num = new List<int>();
         comitem = new List<Itemclass>();
-        de_item();
     }
 
     // Update is called once per frame

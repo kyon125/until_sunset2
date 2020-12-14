@@ -36,7 +36,6 @@ public class Mainmenu : MonoBehaviour
 
         //新增完成的任務
 
-
         Tween t = GameObject.Find("Quest").transform.DOScale(new Vector3(1, 1, 1), 0.01f);
     }
     public void open_bag()
@@ -67,24 +66,24 @@ public class Mainmenu : MonoBehaviour
     {
         //新增進行中任務
         Instantiate(s_quest, questcontent.transform);
-        for (int i = 0; i < An.questlisting.Count; i++)
+        for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
         {
-            if (An.questlisting[i].status == queststatus.questing)
+            if (Quest_controller.questcontroller.questlisting[i].status == queststatus.questing)
             {
                 GameObject b = Instantiate(questbutton, questcontent.transform);
-                b.GetComponent<m_quest>().questvalue = An.questlisting[i];
-                b.transform.GetChild(0).GetComponent<Text>().text = An.questlisting[i].name;
+                b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
+                b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
             }               
         }
         //新增完成的任務
         Instantiate(e_quest, questcontent.transform);
-        for (int i = 0; i < An.questlisting.Count; i++)
+        for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
         {
-            if (An.questlisting[i].status == queststatus.quested)
+            if (Quest_controller.questcontroller.questlisting[i].status == queststatus.quested)
             {
                 GameObject b = Instantiate(questbutton, questcontent.transform);
-                b.GetComponent<m_quest>().questvalue = An.questlisting[i];
-                b.transform.GetChild(0).GetComponent<Text>().text = An.questlisting[i].name;
+                b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
+                b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
             }
         }
     }

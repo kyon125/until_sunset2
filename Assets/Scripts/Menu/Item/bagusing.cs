@@ -104,16 +104,19 @@ public class bagusing : MonoBehaviour
                 GameObject item = Instantiate(player.itemsource, GameObject.Find("ct").transform);
 
                 Image im = item.GetComponent<Image>();
+               
                 Sprite p = Resources.Load<Sprite>("Itemsprite/" + num_select.ToString());
                 im.sprite = p;
-
+                
                 item.name = Itemdateset.itemdate[num_select].show_name;
             }
         }
         else if (gameStatus.status == GameStatus.Status.onBaging)
         {
+            print(Itemdateset.itemdate[num_select].depiction);
             GameObject.Find("Itemname").GetComponent<Text>().text = Itemdateset.itemdate[num_select].show_name;
             GameObject.Find("Itemimage").GetComponent<Image>().sprite = this.gameObject.GetComponent<Image>().sprite;
+            GameObject.Find("itemdescrip").GetComponent<Text>().text = Itemdateset.itemdate[num_select].depiction;
         }
     }
     public void composite()

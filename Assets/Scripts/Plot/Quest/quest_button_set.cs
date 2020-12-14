@@ -23,8 +23,8 @@ public class quest_button_set : MonoBehaviour
     public void button_click()
     {
         //替接受跟拒絕附值
-        GameObject.Find("B_accept").GetComponent<quest_button_set>().quest_status = quest_status;
-        GameObject.Find("B_refuse").GetComponent<quest_button_set>().quest_status = quest_status;
+        //GameObject.Find("B_accept").GetComponent<quest_button_set>().quest_status = quest_status;
+        //GameObject.Find("B_refuse").GetComponent<quest_button_set>().quest_status = quest_status;
 
         //清除選項，並關閉視窗
         for (int i = 0; i < GameObject.Find("Questcontent").transform.childCount; i++)
@@ -33,22 +33,36 @@ public class quest_button_set : MonoBehaviour
             Destroy(go);
         }
 
-        if (quest_status.accept == true)
+        
+        addquest();
+        //假如完成任務的話，將目標npc調回一般狀態
+        for (int i = 0; i < quest_status.next_quest.Count; i++)
         {
-            dia.playquestingdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y);
-            dia.closequest();
+            if (quest_status.next_quest[i].quest.status == queststatus.quested)
+            {
+                GameObject.Find(quest_status.next_quest[i].quest.traget_NPC).GetComponent<NormalNpc>().Status = Npc.NPC_status.normal;
+            }
+        }
+        
+        if (quest_status.haveitem == true)
+        {
+            dia.playquestingdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y, quest_status.haveitem , quest_status.itemid, quest_status.itemunm);
+            quest_status.haveitem = false;
         }
         else
         {
             dia.playdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y);
-            addquest();
-            //假如完成任務的話，將目標npc調回一般狀態
-            if (quest_status.next_quest.quest.status == queststatus.quested)
-            {
-                GameObject.Find(quest_status.next_quest.quest.traget_NPC).GetComponent<NormalNpc>().Status = Npc.NPC_status.normal;
-            }
-            dia.closequest();
-        }      
+        }
+        dia.closequest();
+        //if (quest_status.accept == true)
+        //{
+        //    dia.playquestingdia((int)quest_status.start_plot.x, (int)quest_status.start_plot.y);
+        //    dia.closequest();
+        //}
+        //else
+        //{
+
+        //}      
     }
 
     public void accept()
@@ -58,13 +72,15 @@ public class quest_button_set : MonoBehaviour
         dia.playdia((int)quest_status.accept_plot.x, (int)quest_status.accept_plot.y);
 
         //設定下一個npc
-        if (quest_status.goal == goal_type.search)
+        for (int i = 0; i < quest_status.next_quest.Count; i++)
         {
-            NormalNpc npc =  GameObject.Find(quest_status.next_quest.quest.traget_NPC).GetComponent<NormalNpc>();
-            npc.Status = Npc.NPC_status.isquest;
-            npc.quest.Insert(0, quest_status.next_quest.quest);
+            if (quest_status.goal == goal_type.search)
+            {
+                NormalNpc npc = GameObject.Find(quest_status.next_quest[i].quest.traget_NPC).GetComponent<NormalNpc>();
+                npc.Status = Npc.NPC_status.isquest;
+                npc.quest.Insert(0, quest_status.next_quest[i].quest);
+            }
         }
-
         //將任務放入任務列表中
         addquest();
 
@@ -80,9 +96,7 @@ public class quest_button_set : MonoBehaviour
         if (GameObject.Find(quest_status.traget_NPC).GetComponent<NormalNpc>().quest.Count == 1)
         {
             GameObject.Find(quest_status.traget_NPC).GetComponent<NormalNpc>().Status = Npc.NPC_status.normal;
-        }
-
-        
+        }       
     }
 
     public void refuse()
@@ -95,14 +109,9 @@ public class quest_button_set : MonoBehaviour
     {
         if (quest_status.next_quest != null)
         {
-            for (int i = 0; i < GameObject.Find("An").GetComponent<CharacterController2D>().questlisting.Count; i++)
-            {
-                if (GameObject.Find("An").GetComponent<CharacterController2D>().questlisting[i].name == quest_status.name)
-                {
-                    GameObject.Find("An").GetComponent<CharacterController2D>().questlisting.RemoveAt(i);
-                }
-            }
-            GameObject.Find("An").GetComponent<CharacterController2D>().questlisting.Add(quest_status.next_quest.quest);
+            Quest_controller.questcontroller.AddQuest(quest_status);
         }        
     }
+    //在結束對話後，加入道具
+    
 }
