@@ -29,9 +29,13 @@ public class S1_plot : MonoBehaviour , Mainquest_interface
     {
         if (SceneManager.GetActiveScene().name == scenename && GameStatus.gameStatus.mainquest == trigger)
         {
+            GameStatus.gameStatus.mainquest = change;
             StartCoroutine(plot1(startplot ,endplot));
-            Quest_controller.questcontroller.AddQuest(quest.quest);
-            GameStatus.gameStatus.mainquest = change;            
+            if (quest != null)
+            {
+                Quest_controller.questcontroller.AddQuest(quest.quest);
+            }
+            this.enabled = false;
         }
     }
     IEnumerator plot1(int a, int b)
@@ -40,6 +44,6 @@ public class S1_plot : MonoBehaviour , Mainquest_interface
         UIcotroller.uicotroller.blackscreenOpen();       
         yield return new WaitForSeconds(1f);
         yield return StartCoroutine(simplot.plotPlay.playplot(a,b));
-        UIcotroller.uicotroller.blackscreenClose();
+        UIcotroller.uicotroller.blackscreenClose();       
     }
 }

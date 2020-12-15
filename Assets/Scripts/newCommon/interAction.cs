@@ -8,15 +8,15 @@ using UnityEngine.SceneManagement;
 public class interAction : MonoBehaviour
 {
     Material m;
-    [HideInInspector]
+    //[HideInInspector]
     public int start, end, itemnum;
     public GameObject UI;
     Vector3 t_scale;
-    [HideInInspector]
+    //[HideInInspector]
     public bool hasItem;
     [SerializeField]
     public List<item> items = new List<item>();
-    [HideInInspector]
+    //[HideInInspector]
     public int get_start, get_end;
     bool issave, islaod;
 
