@@ -106,10 +106,13 @@ public class PlayerBag : MonoBehaviour
             simplot.plotPlay.playgetitem(Itemdateset.itemdate[id].show_name, count);
         }                        
     }
-    private void de_item()
+    public void removeitem(int id, int count)
     {
-        bg.I_item.Add(Itemdateset.itemdate[1]);
-        bg.I_num.Add(1);
+        if (bg.I_item.Contains(Itemdateset.itemdate[id]) == true)
+        {
+            int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
+            bg.I_num[id_num] -= count;
+        }
     }
 }
 

@@ -3178,7 +3178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0585103f83d69ba4ca409aa0168476a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playepos: {x: -179, y: 171.6, z: 0}
+  playepos: {x: -75.1, y: 110, z: 0}
   isobj: 1
   quest: 1
   scenename: NewWell
