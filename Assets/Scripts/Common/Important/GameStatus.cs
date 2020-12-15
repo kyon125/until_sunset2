@@ -74,7 +74,13 @@ public class GameStatus : MonoBehaviour
     {
         Viliage1,
         Viliage2,
+        well0,
         well1,
+        well2,
+        well3,
+        well4,
+        well5,
+        well6,
         wellend
     }
     public enum ArchiveStatus

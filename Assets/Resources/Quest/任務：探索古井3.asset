@@ -25,4 +25,4 @@ MonoBehaviour:
     itemnum: 0
     traget_NPC: 
     next_quest:
-    - {fileID: 0}
+    - {fileID: 11400000}

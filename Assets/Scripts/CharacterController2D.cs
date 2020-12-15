@@ -125,6 +125,14 @@ public class CharacterController2D : MonoBehaviour
             test_cheat();
         }
         beforepos = this.transform.position;
+        if (gameStatus.status == GameStatus.Status.onPloting)
+        {
+            playerAni.SetBool("isplot", true);
+        }
+        else
+        {
+            playerAni.SetBool("isplot", false);
+        }
     }
 
     private void FixedUpdate()
