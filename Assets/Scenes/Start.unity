@@ -4475,6 +4475,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quest: {fileID: 11400000, guid: bc89c10b6cfe8614da9d0f04c54189ec, type: 2}
+  startplot: 1
+  endplot: 3
+  trigger: 0
+  change: 1
+  scenename: Viliage
 --- !u!1 &786684872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,6 +4653,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadName: Viliage
   UI: {fileID: 1495858520}
+  isportal: 0
+  pos: {x: 0, y: 0, z: 0}
 --- !u!114 &793058737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5687,7 +5694,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 541f42702e86dea44a48360107d813f4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5807,7 +5814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14451776, y: 0}
+  m_AnchoredPosition: {x: -14470277, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &956921336

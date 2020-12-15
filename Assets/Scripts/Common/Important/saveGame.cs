@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 public class saveGame : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static saveGame savecontroller;
     AsyncOperation scene;
+    private void Awake()
+    {
+        savecontroller = this;
+    }
     void Start()
     {
         //if (scene == null)

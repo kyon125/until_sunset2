@@ -35,8 +35,6 @@ public class GameStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         if (plaeyrstatus.life <= 0 && status != GameStatus.Status.onGameover)
         {
             status = GameStatus.Status.onDead;

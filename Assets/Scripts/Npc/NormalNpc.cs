@@ -10,7 +10,7 @@ public class NormalNpc : Npc
     }
     void Start()
     {
-        print(this.quest[0].next_quest.Count);
+        
     }
 
     // Update is called once per frame
@@ -54,8 +54,7 @@ public class NormalNpc : Npc
         }
     }
     void save()
-    {
-        
+    {        
         //當遊戲為存檔狀態時，進行存檔
         if (GameStatus.gameStatus.status == GameStatus.Status.onSaving)
         {

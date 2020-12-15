@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Well.unity
     guid: 6650816742ac2b64d96709c12ab90705
+  - enabled: 1
+    path: Assets/Scenes/NewWell.unity
+    guid: 815b47f4a217845469d1d28f883982a9
   - enabled: 1
     path: Assets/Scenes/Viliage.unity
     guid: 75d257b761bac6a42add4e2f7cec70c0

@@ -36,16 +36,20 @@ public class Soundcontroller : MonoBehaviour
         
         s_name = Loadscene.loadcontroller.loadName;
         stopbgm();
+        
         for (int i = 0; i < adList.Count; i++)
         {
             if (adList[i].transform.name == s_name)
             {
+                print(s_name + i);
+                num = new int();
                 num = i;
             }
         }
+        print(s_name+num);
         adList[num].Play();
         adList[num].volume = 0;
-        DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.5f, 1.5f).SetEase(Ease.Linear);
+        DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.4f, 1.5f).SetEase(Ease.Linear);
 
     }
     public void stopbgm()

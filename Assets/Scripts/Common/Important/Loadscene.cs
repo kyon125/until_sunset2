@@ -11,7 +11,8 @@ public class Loadscene : MonoBehaviour
     public static Loadscene loadcontroller;
     public string loadName;
     public GameObject UI;
-    bool ischanged;
+    public bool isportal;
+    public Vector3 pos;
     public AsyncOperation async;
     private void Awake()
     {
