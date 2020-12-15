@@ -41,12 +41,10 @@ public class Soundcontroller : MonoBehaviour
         {
             if (adList[i].transform.name == s_name)
             {
-                print(s_name + i);
                 num = new int();
                 num = i;
             }
         }
-        print(s_name+num);
         adList[num].Play();
         adList[num].volume = 0;
         DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.4f, 1.5f).SetEase(Ease.Linear);

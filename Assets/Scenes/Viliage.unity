@@ -2671,8 +2671,6 @@ GameObject:
   - component: {fileID: 1466923305}
   - component: {fileID: 1466923304}
   - component: {fileID: 1466923303}
-  - component: {fileID: 1466923302}
-  - component: {fileID: 1466923301}
   m_Layer: 12
   m_Name: An
   m_TagString: Player
@@ -2680,35 +2678,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1466923301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466923300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db47178eb9bfe8e4ea29a518370e48cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  light: {fileID: 0}
-  ls: 2
---- !u!114 &1466923302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466923300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b85afe6344d7a4f8a854c642c1a82e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  cam1: {fileID: 0}
-  cam2: {fileID: 0}
 --- !u!114 &1466923303
 MonoBehaviour:
   m_ObjectHideFlags: 0

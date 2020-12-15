@@ -32,7 +32,6 @@ public class interAction : MonoBehaviour
     void Start()
     {
         t_scale =UI.transform.localScale;
-        print(t_scale);
         UI.transform.DOScale(new Vector3( 0, 0, 0) , 0.3f);
         m = transform.GetComponent<SpriteRenderer>().material;
         m.SetFloat("_outLine", 0);

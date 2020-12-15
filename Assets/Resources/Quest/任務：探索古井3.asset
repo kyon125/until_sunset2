@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95d05cf905ff9e143a95c45ad603e7f3, type: 3}
-  m_Name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E951"
+  m_Name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E952"
   m_EditorClassIdentifier: 
   quest:
-    name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E951"
+    name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E952"
     start_plot: {x: 0, y: 0}
     accept: 0
     haveitem: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
     itemnum: 0
     traget_NPC: 
     next_quest:
-    - {fileID: 11400000, guid: 4a38a87cf41c44d49aeffd7d4ce4c98f, type: 2}
+    - {fileID: 0}

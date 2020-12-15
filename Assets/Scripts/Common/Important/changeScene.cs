@@ -18,10 +18,12 @@ public class changeScene : MonoBehaviour
 
     void Start()
     {
-        t_scale = UI.transform.localScale;
-        print(t_scale);
-        UI.transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-        m = transform.GetComponent<SpriteRenderer>().material;
+        if (isobj == true)
+        {
+            t_scale = UI.transform.localScale;
+            UI.transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+            m = transform.GetComponent<SpriteRenderer>().material;
+        }        
     }
 
     // Update is called once per frame
@@ -74,10 +76,11 @@ public class changeScene : MonoBehaviour
     }
     void change()
     {
-        saveGame.savecontroller.save();
+        Loadscene.loadcontroller.isportal = true;
         Loadscene.loadcontroller.loadName = scenename;
         Loadscene.loadcontroller.pos = playepos;
-        Loadscene.loadcontroller.isportal = true;
+        //saveGame.savecontroller.save();      
+        
         SceneManager.LoadScene("Loading");
     }
 }

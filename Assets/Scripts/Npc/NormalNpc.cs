@@ -21,11 +21,9 @@ public class NormalNpc : Npc
     }
     void load()
     {
-        print(PlayerPrefs.HasKey(this.name + "npcname"));
         //假設有存檔，並執行了讀檔
         if (PlayerPrefs.HasKey(this.name + "npcname")&& GameStatus.gameStatus.archivestatus == GameStatus.ArchiveStatus.isLoad)
         {
-            print("i loaoaoaoaoaa");
             this.name = PlayerPrefs.GetString(this.name + "npcname");
             this.firstdia = new Vector2(PlayerPrefs.GetInt(this.name + "npcplotX"), PlayerPrefs.GetInt(this.name + "npcplotY"));
             this.Status = (Npc.NPC_status)System.Enum.Parse(typeof(Npc.NPC_status), PlayerPrefs.GetString(this.name + "npcstatus"));
@@ -93,7 +91,10 @@ public class NormalNpc : Npc
                 PlayerPrefs.SetInt(this.name + "nextquestCount" + i, this.quest[i].next_quest.Count);
                 for (int a = 0; a < this.quest[i].next_quest.Count; a++)
                 {
-                    PlayerPrefs.SetString(this.name + "nextquest" + i + "a" + a, this.quest[i].next_quest[a].name);
+                    if (this.quest[i].next_quest[a] != null)
+                    {
+                        PlayerPrefs.SetString(this.name + "nextquest" + i + "a" + a, this.quest[i].next_quest[a].name);
+                    }                    
                 }
             }
         }

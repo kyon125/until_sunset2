@@ -73,13 +73,8 @@ public class Loading : MonoBehaviour
         Loadscene.loadcontroller.async.allowSceneActivation = true;
         
         Soundcontroller.soundcontroller.playbgm();
-        loadstatus = Status.completed;
-        if (Loadscene.loadcontroller.isportal == true)
-        {
-            yield return new WaitUntil(() => Loadscene.loadcontroller.async.isDone);
-            GameObject.Find("An").transform.position = Loadscene.loadcontroller.pos;
-            Loadscene.loadcontroller.isportal = false;
-        }        
+        
+        loadstatus = Status.completed;             
     }
     public enum Status
     {

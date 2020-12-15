@@ -73,7 +73,9 @@ public class GameStatus : MonoBehaviour
     public enum MainQuest
     {
         Viliage1,
-        Viliage2
+        Viliage2,
+        well1,
+        wellend
     }
     public enum ArchiveStatus
     { 

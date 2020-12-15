@@ -26,6 +26,7 @@ public class Loadscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        potarl();
         if (CharacterController2D.chara == true)
         {
             UI.SetActive(true);
@@ -43,5 +44,15 @@ public class Loadscene : MonoBehaviour
     public void changescene()
     {        
         SceneManager.LoadScene("Loading");        
+    }
+    void potarl()
+    {
+        if (Loadscene.loadcontroller.isportal == true && Loading.loading.loadstatus == Loading.Status.completed)
+        {
+            GameObject.Find("An").transform.position = Loadscene.loadcontroller.pos;
+            print("chan");
+            print(GameObject.Find("An").transform.position);
+            Loadscene.loadcontroller.isportal = false;
+        }
     }
 }
