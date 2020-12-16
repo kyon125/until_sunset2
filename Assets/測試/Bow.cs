@@ -23,6 +23,14 @@ public class Bow : MonoBehaviour
     Vector2 direction;
     public GameObject player;
 
+    // hide
+    public GameObject an;
+    public GameObject hair;
+    public GameObject body;
+    public GameObject bow_h;
+    public GameObject leg;
+
+
     void Start()
     {
         points = new GameObject[numberOfPoints];
@@ -45,7 +53,7 @@ public class Bow : MonoBehaviour
             StartCoroutine("bowUse");
         }
 
-        if ((player.transform.localScale.x > 0 && direction.x < 0) || (player.transform.localScale.x < 0 && direction.x > 0))
+        if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
         {
             canRotate = false;
         }
@@ -81,8 +89,10 @@ public class Bow : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && shot)
         {
+
             GameObject newArrow = Instantiate(arrow, shotPoint.position, shotPoint.rotation);
             newArrow.GetComponent<Rigidbody2D>().velocity = transform.right * launchForce;
+
         }
     }
 
@@ -106,6 +116,7 @@ public class Bow : MonoBehaviour
         return position;
     }
 
+
     IEnumerator bowUse()
     {
         yield return null;
@@ -115,15 +126,34 @@ public class Bow : MonoBehaviour
             shot = true;
             bow.SetActive(true);
             for (int i = 0; i < numberOfPoints; i++)
+            {
                 points[i].GetComponent<SpriteRenderer>().enabled = true;
+            }
 
+            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+            an.GetComponent<SpriteRenderer>().enabled = false;
+            bow_h.GetComponent<SpriteRenderer>().enabled = true;
+            body.GetComponent<SpriteRenderer>().enabled = true;
+            leg.GetComponent<SpriteRenderer>().enabled = true;
+            hair.GetComponent<SpriteRenderer>().enabled = true;
         }
         else if (shot == true)
         {
             shot = false;
             bow.SetActive(false);
             for (int i = 0; i < numberOfPoints; i++)
+            {
                 points[i].GetComponent<SpriteRenderer>().enabled = false;
+            }
+
+            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+            an.GetComponent<SpriteRenderer>().enabled = true;
+            bow_h.GetComponent<SpriteRenderer>().enabled = false;
+            body.GetComponent<SpriteRenderer>().enabled = false;
+            leg.GetComponent<SpriteRenderer>().enabled = false;
+            hair.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 

@@ -7,6 +7,11 @@ public class Arrow : MonoBehaviour
     Rigidbody2D rb;
     bool hasHit;
 
+    private void Awake()
+    {
+        this.gameObject.GetComponent<Collider2D>().enabled = true;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,5 +31,6 @@ public class Arrow : MonoBehaviour
         hasHit = true;
         rb.velocity = Vector2.zero;
         rb.isKinematic = true;
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
     }
 }
