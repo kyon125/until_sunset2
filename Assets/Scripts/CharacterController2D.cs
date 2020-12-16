@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
 {
+    
     public static CharacterController2D chara;
     public float speed, jumpspeed ,jumpoutspeed;
     private Rigidbody2D Rigidbody;
@@ -42,6 +43,9 @@ public class CharacterController2D : MonoBehaviour
     public bool isHanging;
     public bool isWall;
     bool isRope;
+
+    public GameObject hangObj;
+    public GameObject anObj;
 
     [Header("跳躍")]
     public float jumpForce = 4.5f;
@@ -81,6 +85,8 @@ public class CharacterController2D : MonoBehaviour
 
     /*----------------------------------------------------------------------------------------*/
     private GameStatus gameStatus;
+    
+
     private void Awake()
     {
         chara = this;
@@ -98,7 +104,7 @@ public class CharacterController2D : MonoBehaviour
     void Update()
     {
         if (gameStatus.status == GameStatus.Status.onPlaying)
-        {            
+        {                    
             CrouchDown = false;
 
             // isground
@@ -282,7 +288,9 @@ public class CharacterController2D : MonoBehaviour
     void walk()
     {
         if (isHanging) // 懸掛狀態
+        {
             return;
+        }
 
             if (Input.GetKey(KeyCode.D) && isGrounded == true && isClimb == false)
         {
@@ -384,6 +392,9 @@ public class CharacterController2D : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                anObj.GetComponent<SpriteRenderer>().enabled = true;
+                hangObj.GetComponent<SpriteRenderer>().enabled = false;
+
                 Rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, hangingJumpForce);
                 isHanging = false;
@@ -392,6 +403,9 @@ public class CharacterController2D : MonoBehaviour
             // 脫離懸掛狀態
             if (Input.GetKeyDown(KeyCode.S))
             {
+                anObj.GetComponent<SpriteRenderer>().enabled = true;
+                hangObj.GetComponent<SpriteRenderer>().enabled = false;
+
                 Rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 isHanging = false;
             }
@@ -443,6 +457,9 @@ public class CharacterController2D : MonoBehaviour
         {
             if (!isGrounded && Rigidbody.velocity.y < 0f && ledgeCheck && wallCheck && !blockCheck)
             {
+                anObj.GetComponent<SpriteRenderer>().enabled = false;
+                hangObj.GetComponent<SpriteRenderer>().enabled = true;
+
                 Vector3 pos = transform.position;
 
                 pos.x += (wallCheck.distance - 0.15f) * direction;

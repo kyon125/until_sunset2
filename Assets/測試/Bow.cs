@@ -72,7 +72,7 @@ public class Bow : MonoBehaviour
                 points[i].transform.position = PonitPosition(i * spaceBetweenPoints);
             }
         }
-        print(direction);
+        //print(direction);
     }
 
     void faceMouse()
