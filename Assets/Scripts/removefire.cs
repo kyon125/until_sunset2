@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class deadline : MonoBehaviour
+public class removefire : MonoBehaviour
 {
+    public Addfire fire;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,9 @@ public class deadline : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player" && fire != null) 
         {
-            GameStatus.gameStatus.status = GameStatus.Status.onDead;
+            Destroy(fire);
         }
     }
 }

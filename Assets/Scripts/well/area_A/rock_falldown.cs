@@ -5,13 +5,13 @@ using UnityEngine;
 public class rock_falldown : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject rock ,road;
+    public Rigidbody2D rb;
     public simplot plot;
     public float waittime;
     public int s, n;
     void Start()
     {
-        road.GetComponent<Rigidbody2D>().isKinematic = true;
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -22,13 +22,13 @@ public class rock_falldown : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
-        {
-            Destroy(rock);
+        {            
             StartCoroutine(wait());
-            plot.playdia(s,n);
+            simplot.plotPlay.playdia(s, n);
+            rb.isKinematic = false;
             this.GetComponent<Collider2D>().enabled = false;
             StartCoroutine(wait());
-            road.GetComponent<Collider2D>().enabled = false;
+            
         }
     }
 

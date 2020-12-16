@@ -1,35 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Addfire : MonoBehaviour
 {
     // Start is called before the first frame update
-    public simplot sim;
-    public GlobalLightContral gl;
+    public float timer = 60;
+    float intiallight;
+    bool start;
+    public Light2D light2;
+    public Transform An;
     void Start()
     {
-        
+        An = GameObject.Find("An").transform;
+        intiallight = light2.intensity;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Input.GetKeyDown(KeyCode.F) && collision.gameObject.tag == "Player")
+        if (start == true && GameStatus.gameStatus.status == GameStatus.Status.onPlaying)
         {
-            //gl.ls = Ls.ing;
-            reaction();
-            gl.add();
-            gl.dis();
-            this.GetComponent<Collider2D>().enabled = false;
+            this.transform.position = An.position;
+            timer -= Time.deltaTime;
+        }
+        light2.intensity = intiallight * (timer / 60);
+        if (light2.intensity <= 0)
+        {
+            GameStatus.gameStatus.status = GameStatus.Status.onDead;
         }
     }
-    public void reaction()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        sim.playdia(77, 77);
+        if (start == false && collision.tag == "Player")
+        {
+            transform.SetParent(An);
+            this.transform.position = An.position;
+            simplot.plotPlay.playdia(359, 360);
+            start = true;
+        }
     }
 }

@@ -23,7 +23,7 @@ public class RF_2 : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "stayflat")
+        if (collision.gameObject.tag == "Player")
         {
             for (int i = 0; i < rb.Count; i++)
             {

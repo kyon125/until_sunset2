@@ -7,16 +7,16 @@ using DG.Tweening;
 public class LightController : MonoBehaviour
 {
     // Start is called before the first frame update
-    Light2D light;
+    Light2D light2;
     public float start, end, speed;
     void Start()
     {
-        light = this.GetComponent<Light2D>();
-        start = light.intensity;
+        light2 = this.GetComponent<Light2D>();
+        start = light2.intensity;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(DOTween.To(() => light.intensity, x => light.intensity = x, end, speed));
-        seq.Append(DOTween.To(() => light.intensity, x => light.intensity = x, start, speed));        
+        seq.Append(DOTween.To(() => light2.intensity, x => light2.intensity = x, end, speed));
+        seq.Append(DOTween.To(() => light2.intensity, x => light2.intensity = x, start, speed));        
         seq.SetLoops(-1);
     }
 
