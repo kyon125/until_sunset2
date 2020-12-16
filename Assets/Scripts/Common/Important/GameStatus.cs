@@ -11,6 +11,7 @@ public class GameStatus : MonoBehaviour
     public ArchiveStatus archivestatus;
     public plaeyrStatus plaeyrstatus;
     public Status status;
+    public Hurtstatus hurtstatus;
     public MainQuest mainquest;
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class GameStatus : MonoBehaviour
         gameStatus = this;
         status = new Status();
         archivestatus = new ArchiveStatus();
+        hurtstatus = new Hurtstatus();
     }
     void Start()
     {
@@ -87,6 +89,11 @@ public class GameStatus : MonoBehaviour
     { 
         isNew,
         isLoad
+    }
+    public enum Hurtstatus
+    {
+        isnormal,
+        ishurt        
     }
     [System.Serializable]
     public class plaeyrStatus

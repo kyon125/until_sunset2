@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -346,6 +346,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1466923305}
     m_Modifications:
+    - target: {fileID: 660470424, guid: 4703263939c4b1f458b6ea248f81014c, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1267508849}
     - target: {fileID: 1120899269985850586, guid: 4703263939c4b1f458b6ea248f81014c,
         type: 3}
       propertyPath: m_SortingOrder
@@ -546,7 +550,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 660470424, guid: 4703263939c4b1f458b6ea248f81014c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4703263939c4b1f458b6ea248f81014c, type: 3}
 --- !u!4 &220215957 stripped
 Transform:
@@ -2195,7 +2200,7 @@ MonoBehaviour:
   c_quest: {fileID: 0}
   quest:
   - name: "\u4EFB\u52D9:\u6536\u96C6\u60C5\u58312"
-    start_plot: {x: 317, y: 320}
+    start_plot: {x: 317, y: 345}
     accept: 0
     haveitem: 1
     accept_plot: {x: 0, y: 0}

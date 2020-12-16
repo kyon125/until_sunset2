@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95d05cf905ff9e143a95c45ad603e7f3, type: 3}
-  m_Name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E953"
+  m_Name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E954"
   m_EditorClassIdentifier: 
   quest:
-    name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E953"
-    start_plot: {x: 0, y: 0}
+    name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E954"
+    start_plot: {x: 367, y: 371}
     accept: 0
-    haveitem: 0
+    haveitem: 1
     accept_plot: {x: 0, y: 0}
     refuse_plot: {x: 0, y: 0}
     goal: 1
-    status: 0
-    itemid: 0
-    itemnum: 0
-    traget_NPC: 
+    status: 1
+    itemid: 9
+    itemnum: 1
+    traget_NPC: Sapaya
     next_quest:
-    - {fileID: 11400000, guid: 8ddde647d49bccb429ae7213f50c70e5, type: 2}
+    - {fileID: 11400000, guid: a1ff09b2b0fde574895556bbf4f0c68b, type: 2}
