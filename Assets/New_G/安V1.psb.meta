@@ -25844,13 +25844,6 @@ ScriptedImporter:
     spriteID: 1b99f7db6c64d564a8b06e9555def640
     layerID: 17
     mosaicPosition: {x: 2211, y: 401}
-  - name: L_H
-    spriteName: L_H
-    isGroup: 0
-    parentIndex: -1
-    spriteID: d46a8cf8361f56143b79248a4766455a
-    layerID: 32
-    mosaicPosition: {x: 1854, y: 1141}
   - name: R_L
     spriteName: R_L
     isGroup: 0
@@ -25865,6 +25858,13 @@ ScriptedImporter:
     spriteID: fc34b08cc9356a447aeb5391b9c57b15
     layerID: 10
     mosaicPosition: {x: 1193, y: 1622}
+  - name: L_H
+    spriteName: L_H
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d46a8cf8361f56143b79248a4766455a
+    layerID: 32
+    mosaicPosition: {x: 1854, y: 1141}
   characterData:
     bones:
     - name: bone_1
