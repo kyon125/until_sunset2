@@ -40,6 +40,8 @@ public class Itemdateset : MonoBehaviour
             i.show_name = row[1];
             i.load_name = row[2];
             i.depiction = row[3];
+            int.TryParse(row[4], out i.life);
+            int.TryParse(row[5], out i.effect);
 
             itemdate.Add(i);
         }

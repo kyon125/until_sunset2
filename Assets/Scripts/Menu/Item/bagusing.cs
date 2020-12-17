@@ -31,19 +31,24 @@ public class bagusing : MonoBehaviour
 
         if (gameStatus.status == GameStatus.Status.onBaging)
         {
-            switch (player.select_itemid)
+            print(Itemdateset.itemdate[player.select_itemid].effect);
+            //if (Itemdateset.itemdate[player.select_itemid].effect.ToString() != "life")
+            //{
+            //    print("UESEESSEEESSES");
+            //    GameStatus.gameStatus.lifeController(Itemdateset.itemdate[player.select_itemid].life);
+            //    PlayerBag.playerbag.removeitem(player.select_itemid, 1);
+            //    player.select_itemid = 9999;
+            //}
+            switch (Itemdateset.itemdate[player.select_itemid].effect)
             {
-                case (3):
-                    print("ggg");
-                    player.islight = true;
-                    GameObject lil = Instantiate(Resources.Load<GameObject>("simple_fire") , GameObject.Find("An").transform);
-                    int n = player.bg.I_item.IndexOf(Itemdateset.itemdate[3]);
-                    player.bg.I_num[n]--;
-
-                    //清空選擇圖示
-                    GameObject.Find("Itemname").GetComponent<Text>().text = "";
-                    GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0");
-                    break;                    
+                case (1):
+                    {
+                        print("UESEESSEEESSES");
+                        GameStatus.gameStatus.lifeController(Itemdateset.itemdate[player.select_itemid].life);
+                        PlayerBag.playerbag.removeitem(player.select_itemid, 1);
+                        player.select_itemid = 9999;
+                        break;
+                    }
             }
         }
         else if (gameStatus.status == GameStatus.Status.onComposition)
