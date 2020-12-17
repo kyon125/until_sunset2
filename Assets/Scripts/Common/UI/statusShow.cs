@@ -8,12 +8,13 @@ public class statusShow : MonoBehaviour
 {
     // Start is called before the first frame update
     public static statusShow statusUI;
-    int life , beforelife, endurance, beforendurance;
-    public Transform UI_life , UI_endurance;
+    int life , beforelife, energy , beforenergy,  endurance, beforendurance;
+    public Transform UI_life , UI_endurance, UI_energy;
     public Image IM_life, IM_endurance;
     public Material M_life;
     public List<Image> life_group;
     public List<Image> endurance_group;
+    public List<Image> energy_group;
     private void Awake()
     {
         intial();
@@ -28,6 +29,8 @@ public class statusShow : MonoBehaviour
     {
         life = (int)GameStatus.gameStatus.plaeyrstatus.life;
         endurance = (int)GameStatus.gameStatus.plaeyrstatus.endurance;
+        energy = GameStatus.gameStatus.plaeyrstatus.energy;
+
         if (life != beforelife)
         {
             showlife();            
@@ -36,15 +39,23 @@ public class statusShow : MonoBehaviour
         {
             showendurance();
         }
+        if (energy != beforenergy)
+        {
+            showenergy();
+        }
         beforelife = life;
         beforendurance = endurance;
+        beforenergy = energy;
     }
     void intial()
     {
         life = (int)GameStatus.gameStatus.plaeyrstatus.life;
         endurance = (int)GameStatus.gameStatus.plaeyrstatus.endurance;
+        energy = GameStatus.gameStatus.plaeyrstatus.energy;
+
         beforelife = life;
         beforendurance = endurance;
+        beforenergy = energy;
 
         for (int i = 0; i < UI_life.childCount; i++)
         {
@@ -53,6 +64,10 @@ public class statusShow : MonoBehaviour
         for (int i = 0; i < UI_endurance.childCount; i++)
         {
             endurance_group.Add(UI_endurance.GetChild(i).GetComponent<Image>());
+        }
+        for (int i = 0; i < UI_energy.childCount; i++)
+        {
+            energy_group.Add(UI_energy.GetChild(i).GetComponent<Image>());
         }
     }
     //public void showlife()
@@ -85,6 +100,19 @@ public class statusShow : MonoBehaviour
             StartCoroutine(addEndueance(i, nowlife));
         }
     }
+    public void showenergy()
+    {
+        int i = Mathf.Abs(energy - beforenergy);
+        int nowlife = beforenergy;
+        if (energy - beforenergy <0)
+        {
+            StartCoroutine(lessEnergy(i, nowlife));
+        }
+        else if (energy - beforenergy > 0)
+        {
+            StartCoroutine(addEnergy(i, nowlife));
+        }
+    }
 
     IEnumerator lessLife(int i , int ie)
     {
@@ -115,6 +143,22 @@ public class statusShow : MonoBehaviour
         for (int a = 0; a < i; a++)
         {
             endurance_group[ie + (a)].fillAmount = 1;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    IEnumerator addEnergy(int i, int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            energy_group[ie + (a)].fillAmount = 1;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    IEnumerator lessEnergy(int i, int ie)
+    {
+        for (int a = 0; a < i; a++)
+        {
+            energy_group[ie - (a + 1)].fillAmount = 0;
             yield return new WaitForSeconds(0.5f);
         }
     }

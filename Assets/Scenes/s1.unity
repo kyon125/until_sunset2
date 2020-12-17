@@ -5184,6 +5184,8 @@ MonoBehaviour:
     maxlife: 5
     endurance: 5
     maxendurance: 5
+    energy: 0
+    maxenergy: 0
     pos: {x: 0, y: 0, z: 0}
   status: 0
   hurtstatus: 0
@@ -10294,10 +10296,10 @@ SpriteShapeRenderer:
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
   m_Sprites:
-  - {fileID: 21300000, guid: 30b09ad8f499b1149940c2740667438d, type: 3}
+  - {fileID: 21300000, guid: c20bd15f1cdf9654a846a3632cd49d86, type: 3}
   m_LocalAABB:
-    m_Center: {x: 47.09305, y: -64.10204, z: -0.00014999999}
-    m_Extent: {x: 202.38742, y: 64.10204, z: 0.00014999999}
+    m_Center: {x: 46.88678, y: -68.15284, z: -0.00014999999}
+    m_Extent: {x: 202.63734, y: 68.15284, z: 0.00014999999}
 --- !u!4 &1282803316
 Transform:
   m_ObjectHideFlags: 0
@@ -12061,7 +12063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16099928, y: 0}
+  m_AnchoredPosition: {x: -16175583, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1525947837
@@ -12877,11 +12879,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI_life: {fileID: 1928518093}
   UI_endurance: {fileID: 1463654217}
+  UI_energy: {fileID: 0}
   IM_life: {fileID: 0}
   IM_endurance: {fileID: 0}
   M_life: {fileID: 0}
   life_group: []
   endurance_group: []
+  energy_group: []
 --- !u!1 &1600293612
 GameObject:
   m_ObjectHideFlags: 0

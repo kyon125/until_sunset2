@@ -102,6 +102,8 @@ public class GameStatus : MonoBehaviour
         public float maxlife;
         public int endurance;
         public int maxendurance;
+        public int energy;
+        public int maxenergy;
         public Vector3 pos;
     }
     
