@@ -36,21 +36,16 @@ public class PlayerBag : MonoBehaviour
         {
             print("第"+i+"項:"+bg.I_num[i] +"名稱:"+ bg.I_item[i].show_name);
         }
-
-
-        if (GameObject.Find("Pack") == true)
-        {            
-            for (int i = 0; i <= bg.I_num.Count - 1; i++)
+        for (int i = 0; i <= bg.I_num.Count - 1; i++)
+        {
+            if (bg.I_num[i] == 0)
             {
-                if (bg.I_num[i] == 0)
-                {
-                    bg.I_item.RemoveAt(i);
-                    bg.I_num.RemoveAt(i);
-                    GameObject go = tsf.transform.GetChild(i).gameObject;
-                    Destroy(go);
-                }
+                bg.I_item.RemoveAt(i);
+                bg.I_num.RemoveAt(i);
+                GameObject go = tsf.transform.GetChild(i).gameObject;
+                Destroy(go);
             }
-        }        
+        }   
     }
     
 
@@ -65,6 +60,7 @@ public class PlayerBag : MonoBehaviour
         //清空選擇圖示
         GameObject.Find("Itemname").GetComponent<Text>().text = "";
         GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0") ;
+        GameObject.Find("itemdescrip").GetComponent<Text>().text = "";
 
         for (int i = 0 ; i <= bg.I_item.Count - 1;i++)
         {
@@ -112,6 +108,17 @@ public class PlayerBag : MonoBehaviour
         {
             int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
             bg.I_num[id_num] -= count;
+            for (int i = 0; i <= bg.I_num.Count - 1; i++)
+            {
+                if (bg.I_num[i] == 0)
+                {
+                    bg.I_item.RemoveAt(i);
+                    bg.I_num.RemoveAt(i);
+                    GameObject go = tsf.transform.GetChild(i).gameObject;
+                    Destroy(go);
+                }
+            }
+            creatitem();
         }
     }
 }

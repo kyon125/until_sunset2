@@ -10,6 +10,8 @@ public class Itemclass
     public string show_name;
     public string load_name;
     public string depiction;
+    public int life;
+    public int effect;
 }
 
 public class ItemsetPlot : Itemclass
