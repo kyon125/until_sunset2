@@ -76,6 +76,7 @@ public class changeScene : MonoBehaviour
     }
     void change()
     {
+        Loading.loading.loadstatus = Loading.Status.loading;
         Loadscene.loadcontroller.isportal = true;
         Loadscene.loadcontroller.loadName = scenename;
         Loadscene.loadcontroller.pos = playepos;

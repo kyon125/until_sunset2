@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class Convey : MonoBehaviour
 {
-    public float distant ,timer;
-    public GameObject An, cam1, cam2 ,ele;
+    public float distant, timer;
+    public GameObject An, cam1, cam2, ele;
     public bool godown;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class Convey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void go()
     {
@@ -47,7 +47,7 @@ public class Convey : MonoBehaviour
         An.transform.SetParent(ele.transform);
         ele.transform.DOBlendableMoveBy(new Vector3(0, distant, 0), timer);
         yield return new WaitForSeconds(0.5f);
-        UIcotroller.uicotroller.fulloff();        
+        UIcotroller.uicotroller.fulloff();
         yield return new WaitForSeconds(1f);
         cam1.SetActive(true);
         cam2.SetActive(false);
@@ -64,7 +64,7 @@ public class Convey : MonoBehaviour
         An.transform.SetParent(ele.transform);
         ele.transform.DOBlendableMoveBy(new Vector3(0, -distant, 0), timer);
         yield return new WaitForSeconds(1f);
-        UIcotroller.uicotroller.fulloff();        
+        UIcotroller.uicotroller.fulloff();
         yield return new WaitForSeconds(0.6f);
         cam1.SetActive(false);
         cam2.SetActive(true);
@@ -74,5 +74,21 @@ public class Convey : MonoBehaviour
 
         An.transform.SetParent(null);
         GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+    }
+    void save()
+    {
+        if (GameStatus.gameStatus.status == GameStatus.Status.onSaving)
+        {
+            PlayerPrefs.SetFloat("ele_valX", transform.position.x);
+            PlayerPrefs.SetFloat("ele_valY", transform.position.y);
+
+        }
+    }
+    void load()
+    {
+        if (PlayerPrefs.HasKey("ele_valY") && GameStatus.gameStatus.archivestatus == GameStatus.ArchiveStatus.isLoad)
+        {
+            transform.position = new Vector3(PlayerPrefs.GetFloat("ele_valX"), PlayerPrefs.GetFloat("ele_valY"), transform.position.z);
+        }
     }
 }

@@ -8,10 +8,15 @@ public class cinemachineController : MonoBehaviour
 {
     public static cinemachineController cameraShake;
     CinemachineVirtualCamera cine;
-    private void Start()
+    private void Awake()
     {
         cine = transform.GetComponent<CinemachineVirtualCamera>();
         cameraShake = this;
+        cine.m_Follow = GameObject.Find("An").transform;
+    }
+    private void Start()
+    {       
+        
     }
     public void goShake(float shake, float time)
     {

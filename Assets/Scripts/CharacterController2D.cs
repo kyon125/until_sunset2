@@ -14,6 +14,7 @@ public class CharacterController2D : MonoBehaviour
     private Rigidbody2D Rigidbody;
     private Collider2D Collider;
     public float speed_X;
+    float beforespeed_X;
     public float slowdown;
     public playerAction playeraction;
 
@@ -61,13 +62,11 @@ public class CharacterController2D : MonoBehaviour
     public Transform playerS;
 
     public bool isNPC;
-    bool isItem;
 
-    float xVelocity;
     Vector2 beforepos;
 
     bool CrouchDown = false;
-    bool Climb = false;
+
     public bool Walk;
     public float climbspeed=2.5f;
     public float speed_Y = 2;
@@ -90,6 +89,7 @@ public class CharacterController2D : MonoBehaviour
     private void Awake()
     {
         chara = this;
+        beforespeed_X = speed_X;
     }
     void Start()
     {
@@ -351,15 +351,16 @@ public class CharacterController2D : MonoBehaviour
     {
         //bool Run = false;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            //speed_X = 16;
+            
+            speed_X += 8;
             //Run = true;
             playerAni.SetInteger("Run", 1);
         }
-        else
+        else if((Input.GetKeyUp(KeyCode.LeftShift)))
         {
-            //speed_X = 20;
+            speed_X = beforespeed_X;
             playerAni.SetInteger("Run", 0);
         }
     }
@@ -570,19 +571,31 @@ public class CharacterController2D : MonoBehaviour
         {
             Rigidbody.velocity = new Vector2(0, -climbspeed);
             Rigidbody.gravityScale = 0;
+            playerAni.SetBool("isClimbup" , true);
         }
         else if (Input.GetKey(KeyCode.W) && isClimb == true) 
-        {
+        {            
             Rigidbody.velocity = new Vector2(0,climbspeed);
-            Rigidbody.gravityScale = 0;            
+            Rigidbody.gravityScale = 0;
+            playerAni.SetBool("isClimbup", true);
         }
         if (Input.GetKeyUp(KeyCode.W) && isClimb == true)
         {
             Rigidbody.velocity = new Vector2(0, 0);
+            playerAni.SetBool("isClimbup", false);
+            if (isGrounded == true)
+            {
+                isClimb = false;
+            }
         }
         else if (Input.GetKeyUp(KeyCode.S) && isClimb == true)
         {
             Rigidbody.velocity = new Vector2(0, 0);
+            playerAni.SetBool("isClimbup", false);
+            if (isGrounded == true)
+            {
+                isClimb = false;
+            }
         }
 
         // print(Rigidbody.velocity.y);

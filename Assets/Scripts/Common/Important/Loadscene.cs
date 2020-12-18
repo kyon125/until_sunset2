@@ -55,4 +55,5 @@ public class Loadscene : MonoBehaviour
             Loadscene.loadcontroller.isportal = false;
         }
     }
+
 }
