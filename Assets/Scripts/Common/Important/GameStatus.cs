@@ -13,6 +13,7 @@ public class GameStatus : MonoBehaviour
     public Status status;
     public Hurtstatus hurtstatus;
     public MainQuest mainquest;
+    public Gametime gametime;
     private void Awake()
     {
         DontDestroyOnLoad(this.transform.gameObject);
@@ -132,6 +133,12 @@ public class GameStatus : MonoBehaviour
     {
         isnormal,
         ishurt        
+    }
+    public enum Gametime
+    {
+        morning,
+        evening,
+        night
     }
     [System.Serializable]
     public class plaeyrStatus
