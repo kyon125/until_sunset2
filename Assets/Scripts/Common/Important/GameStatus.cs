@@ -95,6 +95,27 @@ public class GameStatus : MonoBehaviour
         }        
         //statusShow.statusUI.showlife();
     }
+    public void energyController(int f)
+    {
+        if (f > 0)
+        {
+            for (int i = 0; i < f; i++)
+            {
+                if (plaeyrstatus.energy < plaeyrstatus.maxenergy)
+                    plaeyrstatus.energy++;
+            }
+        }
+        else if (f < 0)
+        {
+            for (int i = 0; i < Mathf.Abs(f); i++)
+            {
+                if (plaeyrstatus.energy > 0)
+                    plaeyrstatus.energy--;
+            }
+
+        }
+        //statusShow.statusUI.showlife();
+    }
 
     public enum Status
     {
@@ -136,9 +157,9 @@ public class GameStatus : MonoBehaviour
     }
     public enum Gametime
     {
-        morning,
-        evening,
-        night
+        morning = 0,
+        evening = 1,
+        night = 2
     }
     [System.Serializable]
     public class plaeyrStatus

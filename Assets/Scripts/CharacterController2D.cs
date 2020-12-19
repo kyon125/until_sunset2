@@ -49,6 +49,7 @@ public class CharacterController2D : MonoBehaviour
 
     public GameObject hangObj;
     public GameObject anObj;
+    int timestatus = 0;
 
     [Header("跳躍")]
     public float jumpForce = 4.5f;
@@ -127,6 +128,7 @@ public class CharacterController2D : MonoBehaviour
             isfalldown();
             dialoging();
             enduranceUse();
+            timechange();
 
             print("energyTotal: " + energyTotal); // 能量
 
@@ -680,6 +682,37 @@ public class CharacterController2D : MonoBehaviour
             GameStatus.gameStatus.endurationController(1);
             breathtime = 0;
         }
+    }
+    void timechange()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && GameStatus.gameStatus.plaeyrstatus.energy > 0)
+        {
+            if (timestatus < 2)
+            {
+                timestatus++;
+                GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
+            }
+            else
+            {
+                timestatus = 0;
+                GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
+            }
+            GameStatus.gameStatus.energyController(-1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && GameStatus.gameStatus.plaeyrstatus.energy > 0)
+        {
+            if (timestatus > 0)
+            {
+                timestatus--;
+                GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
+            }
+            else
+            {
+                timestatus = 2;
+                GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
+            }
+            GameStatus.gameStatus.energyController(-1);
+        }        
     }
 }
 public enum playerAction

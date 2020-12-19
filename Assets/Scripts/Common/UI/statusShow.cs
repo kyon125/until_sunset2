@@ -69,6 +69,10 @@ public class statusShow : MonoBehaviour
         {
             energy_group.Add(UI_energy.GetChild(i).GetComponent<Image>());
         }
+
+        showenergy();
+        showendurance();
+        showlife();
     }
     //public void showlife()
     //{
