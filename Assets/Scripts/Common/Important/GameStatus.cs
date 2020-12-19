@@ -54,9 +54,47 @@ public class GameStatus : MonoBehaviour
     }
     public void lifeController(float f)
     {
-        plaeyrstatus.life += f;
+        if (f > 0)
+        {
+            for (int i = 0; i < f; i++)
+            {
+                if (plaeyrstatus.life < plaeyrstatus.maxlife)
+                    plaeyrstatus.life++;
+            }
+        }
+        else if (f < 0)
+        {
+            for (int i = 0; i < Mathf.Abs(f); i++)
+            {
+                if (plaeyrstatus.life > 0)
+                    plaeyrstatus.life--;
+            }
+
+        }        
         //statusShow.statusUI.showlife();
     }
+    public void endurationController(int f)
+    {
+        if (f > 0)
+        {
+            for (int i = 0; i < f; i++)
+            {
+                if(plaeyrstatus.endurance < plaeyrstatus.maxendurance)
+                plaeyrstatus.endurance++;
+            }
+        }
+        else if (f < 0)
+        {
+            for (int i = 0; i <Mathf.Abs(f); i++)
+            {
+                if (plaeyrstatus.endurance > 0)
+                    plaeyrstatus.endurance--;
+            }
+            
+        }        
+        //statusShow.statusUI.showlife();
+    }
+
     public enum Status
     {
         onPlaying,

@@ -8,6 +8,7 @@ public class cinemachineController : MonoBehaviour
 {
     public static cinemachineController cameraShake;
     CinemachineVirtualCamera cine;
+    float cameraX;
     private void Awake()
     {
         cine = transform.GetComponent<CinemachineVirtualCamera>();
@@ -29,5 +30,12 @@ public class cinemachineController : MonoBehaviour
         CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = cine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = shake;
         DOTween.To(() => cinemachineBasicMultiChannelPerlin.m_AmplitudeGain, x => cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = x, 0, time);
+    }
+    void select()
+    {
+        if (cine.m_Follow.lossyScale.x < 0)
+        {
+            
+        }
     }
 }

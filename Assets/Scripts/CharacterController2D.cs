@@ -17,6 +17,7 @@ public class CharacterController2D : MonoBehaviour
     float beforespeed_X;
     public float slowdown;
     public playerAction playeraction;
+    float runtime , breaktime ,breathtime;
 
     private BoxCollider2D bCol;
     public GameObject bow; 
@@ -44,6 +45,7 @@ public class CharacterController2D : MonoBehaviour
     public bool isHanging;
     public bool isWall;
     bool isRope;
+    bool isRun;
 
     public GameObject hangObj;
     public GameObject anObj;
@@ -124,6 +126,7 @@ public class CharacterController2D : MonoBehaviour
             climb();
             isfalldown();
             dialoging();
+            enduranceUse();
 
             print("energyTotal: " + energyTotal); // 能量
 
@@ -355,12 +358,13 @@ public class CharacterController2D : MonoBehaviour
         {
             
             speed_X += 8;
-            //Run = true;
+            isRun = true;
             playerAni.SetInteger("Run", 1);
         }
         else if((Input.GetKeyUp(KeyCode.LeftShift)))
         {
             speed_X = beforespeed_X;
+            isRun = false;
             playerAni.SetInteger("Run", 0);
         }
     }
@@ -649,6 +653,32 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F10))
         {
             SceneManager.LoadScene("Well");
+        }
+    }
+    void enduranceUse()
+    {
+        print("hihi");
+        if (isRun == true)
+        {    
+            breaktime += Time.deltaTime;
+            breathtime = 0;
+        }
+        else if (isRun == false)
+        {           
+            breathtime += Time.deltaTime;
+            breaktime = 0;
+        }
+        if (breaktime >= 1.5f)
+        {
+            print("oihih");
+            GameStatus.gameStatus.endurationController(-1);
+            breaktime = 0;
+        }
+        if (breathtime >= 1.5f)
+        {
+            print("oi");
+            GameStatus.gameStatus.endurationController(1);
+            breathtime = 0;
         }
     }
 }
