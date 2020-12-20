@@ -26,31 +26,31 @@ public class LineDrawer : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine("draw");
-
+        drawLine();
     }
 
-    IEnumerator draw()
+    void drawLine()
     {
-        yield return null;
 
-        if (hasHit == true  )
+        if (hasHit == true && lineActive == false )
         {
-           
-
             endPos = an.transform.position;
+            float dis = (startPos - endPos).sqrMagnitude;
 
-            linePositions.Add(new Vector2(startPos.x, startPos.y));
-            linePositions.Add(new Vector2(endPos.x, endPos.y));
-            lineRenderer.SetPosition(0, linePositions[0]);
-            lineRenderer.SetPosition(1, linePositions[1]);
-            addColliderToLine();
-            linePositions.Clear();
+            if (dis > 0 && dis < 900)
+            {
+                linePositions.Add(new Vector2(startPos.x, startPos.y));
+                linePositions.Add(new Vector2(endPos.x, endPos.y));
+                lineRenderer.SetPosition(0, linePositions[0]);
+                lineRenderer.SetPosition(1, linePositions[1]);
+                addColliderToLine();
+                linePositions.Clear();
 
-            lineActive = true;
-            hasHit = false;
+                lineActive = true;
+                hasHit = false;
+            }          
         }
-        else if (hasHit == false && lineActive == true && Input.GetMouseButtonDown(0))
+        else if(lineActive == true &&Input.GetMouseButtonDown(0))
         {
             Destroy(GameObject.Find("Collider"));
             lineRenderer.SetPosition(0,new Vector2(0, 0));
