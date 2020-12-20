@@ -173,6 +173,7 @@ public class Bow : MonoBehaviour
         if (shot == false)
         {
             shot = true;
+            switchUse = false;
             bow.SetActive(true);
             for (int i = 0; i < numberOfPoints; i++)
             {
