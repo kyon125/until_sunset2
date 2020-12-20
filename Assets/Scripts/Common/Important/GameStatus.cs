@@ -130,7 +130,9 @@ public class GameStatus : MonoBehaviour
         onDead,
         onGameover,
         onSaving,
-        onLoading
+        onLoading,
+        onBowing,
+        onRope
     }
     public enum MainQuest
     {

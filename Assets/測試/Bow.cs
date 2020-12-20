@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
+    public static Bow bowset;
     bool shot = false;
     bool canRotate;
     Vector3 mousePosition;
@@ -35,8 +36,12 @@ public class Bow : MonoBehaviour
     public bool ropeActive;
     GameObject curHook;
 
-    bool switchUse = false;
+    public bowstatus status;
 
+    private void Awake()
+    {
+        bowset = this;
+    }
     void Start()
     {
         points = new GameObject[numberOfPoints];
@@ -51,55 +56,52 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        faceMouse();
-        rotateLim();
-
-        if (Input.GetKeyDown(KeyCode.C) && switchUse == false)
+        if (Input.GetMouseButtonDown(1))
         {
-            switchUse = true;
-
-            for (int i = 0; i < numberOfPoints; i++)
-                points[i].GetComponent<SpriteRenderer>().enabled = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.Z) && switchUse == true)
-        {
-            switchUse = false;
-        }
-
-        if (Input.GetMouseButtonDown(1)) 
-        {
+            GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+            status = bowstatus.normal;
             StartCoroutine("bowUse");
         }
-
-        if (Input.GetMouseButtonDown(0) && switchUse == true) 
-        {
+        if (Input.GetMouseButtonDown(0) && GameStatus.gameStatus.status == GameStatus.Status.onRope)
+        {               
             shotHook();
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    for (int i = 0; i < numberOfPoints; i++)
+            //        points[i].GetComponent<SpriteRenderer>().enabled = false;
+            //}
         }
 
-        if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
+        if (GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
-            canRotate = false;
+            faceMouse();
+            rotateLim();
 
-            for (int i = 0; i < numberOfPoints; i++)
-                points[i].GetComponent<SpriteRenderer>().enabled = false;
-        }
-        else
-        {
-            canRotate = true;
-        }
-
-        if (canRotate == true && shot == true && switchUse == false)
-        {
-            shotPos.transform.position = mousePosition;
-            Shoot();
-
-            for (int i = 0; i < numberOfPoints; i++)
+            if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
             {
-                points[i].GetComponent<SpriteRenderer>().enabled = true;
+                canRotate = false;
 
-                points[i].transform.position = PonitPosition(i * spaceBetweenPoints);
+                for (int i = 0; i < numberOfPoints; i++)
+                    points[i].GetComponent<SpriteRenderer>().enabled = false;
             }
-        }
+            else
+            {
+                canRotate = true;
+            }
+
+            if (canRotate == true && shot == true)
+            {
+                shotPos.transform.position = mousePosition;
+                Shoot();
+
+                for (int i = 0; i < numberOfPoints; i++)
+                {
+                    points[i].GetComponent<SpriteRenderer>().enabled = true;
+
+                    points[i].transform.position = PonitPosition(i * spaceBetweenPoints);
+                }
+            }
+        }       
         //print(direction);
     }
 
@@ -173,7 +175,6 @@ public class Bow : MonoBehaviour
         if (shot == false)
         {
             shot = true;
-            switchUse = false;
             bow.SetActive(true);
             for (int i = 0; i < numberOfPoints; i++)
             {
@@ -190,6 +191,7 @@ public class Bow : MonoBehaviour
         }
         else if (shot == true)
         {
+            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
             shot = false;
             bow.SetActive(false);
             for (int i = 0; i < numberOfPoints; i++)
@@ -213,5 +215,10 @@ public class Bow : MonoBehaviour
 
         for (int i = 0; i < numberOfPoints; i++)
             points[i].GetComponent<SpriteRenderer>().enabled = false;
-    }   
+    }
+    public enum bowstatus
+    {
+        normal,
+        bridge
+    }
 }
