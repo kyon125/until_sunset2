@@ -3750,7 +3750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -39219404, y: -0.000009536743}
+  m_AnchoredPosition: {x: -39229144, y: -0.000009536743}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &139767789
@@ -34334,6 +34334,7 @@ GameObject:
   - component: {fileID: 1454616921}
   - component: {fileID: 1454616922}
   - component: {fileID: 1454616923}
+  - component: {fileID: 1454616924}
   m_Layer: 0
   m_Name: tree elf
   m_TagString: Untagged
@@ -34432,6 +34433,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.9466043, y: 4.893407}
   m_EdgeRadius: 0
+--- !u!114 &1454616924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454616920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a08db4e65839674e937bf4f91502d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s: 386
+  s1: 399
+  s2: 403
+  s3: 407
+  e: 397
+  e1: 401
+  e2: 405
+  e3: 407
+  cleanunm: 0
 --- !u!1 &1455024795
 GameObject:
   m_ObjectHideFlags: 0
