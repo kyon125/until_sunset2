@@ -30,6 +30,12 @@ public class Bow : MonoBehaviour
     public GameObject bow_h;
     public GameObject leg;
 
+    // throwhook
+    public GameObject hook;
+    public bool ropeActive;
+    GameObject curHook;
+
+    bool switchUse = false;
 
     void Start()
     {
@@ -48,27 +54,49 @@ public class Bow : MonoBehaviour
         faceMouse();
         rotateLim();
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.C) && switchUse == false)
+        {
+            switchUse = true;
+
+            for (int i = 0; i < numberOfPoints; i++)
+                points[i].GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.Z) && switchUse == true)
+        {
+            switchUse = false;
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
         {
             StartCoroutine("bowUse");
+        }
+
+        if (Input.GetMouseButtonDown(0) && switchUse == true) 
+        {
+            shotHook();
         }
 
         if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
         {
             canRotate = false;
+
+            for (int i = 0; i < numberOfPoints; i++)
+                points[i].GetComponent<SpriteRenderer>().enabled = false;
         }
         else
         {
             canRotate = true;
         }
 
-        if (canRotate == true)
+        if (canRotate == true && shot == true && switchUse == false)
         {
             shotPos.transform.position = mousePosition;
             Shoot();
 
             for (int i = 0; i < numberOfPoints; i++)
             {
+                points[i].GetComponent<SpriteRenderer>().enabled = true;
+
                 points[i].transform.position = PonitPosition(i * spaceBetweenPoints);
             }
         }
@@ -108,6 +136,27 @@ public class Bow : MonoBehaviour
         {
             this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
+
+    private void shotHook()
+    {
+            if (ropeActive == false)
+            {
+                Vector2 destiny = camera.ScreenToWorldPoint(Input.mousePosition);
+
+                curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+
+                curHook.GetComponent<RopeScript>().destiny = destiny;
+
+                ropeActive = true;
+            }
+            else
+            {
+                // delete rope
+                Destroy(curHook);
+
+                ropeActive = false;
+            }
     }
 
     Vector2 PonitPosition(float t)
@@ -163,5 +212,5 @@ public class Bow : MonoBehaviour
 
         for (int i = 0; i < numberOfPoints; i++)
             points[i].GetComponent<SpriteRenderer>().enabled = false;
-    }
+    }   
 }
