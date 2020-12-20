@@ -36,7 +36,7 @@ public class Bow : MonoBehaviour
     public bool ropeActive;
     GameObject curHook;
 
-    public bowstatus status;
+    public  bowstatus status;
 
     private void Awake()
     {
@@ -62,20 +62,32 @@ public class Bow : MonoBehaviour
             status = bowstatus.normal;
             StartCoroutine("bowUse");
         }
-        if (Input.GetMouseButtonDown(0) && GameStatus.gameStatus.status == GameStatus.Status.onRope)
-        {               
-            shotHook();
-            //if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    for (int i = 0; i < numberOfPoints; i++)
-            //        points[i].GetComponent<SpriteRenderer>().enabled = false;
-            //}
-        }
 
+        if(GameStatus.gameStatus.status == GameStatus.Status.onRope)
+        {
+            for (int i = 0; i < numberOfPoints; i++)
+                points[i].GetComponent<SpriteRenderer>().enabled = false;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                shotHook();               
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {            
+                GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+            }
+        }
+        
         if (GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
             faceMouse();
             rotateLim();
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {         
+
+                GameStatus.gameStatus.status = GameStatus.Status.onRope;
+            }
 
             if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
             {
@@ -94,6 +106,7 @@ public class Bow : MonoBehaviour
                 shotPos.transform.position = mousePosition;
                 Shoot();
 
+                // 畫預判線
                 for (int i = 0; i < numberOfPoints; i++)
                 {
                     points[i].GetComponent<SpriteRenderer>().enabled = true;

@@ -17,9 +17,9 @@ public class LineDrawer : MonoBehaviour
 
     bool lineActive = false;
 
-
     void Start()
     {
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
     }
@@ -31,26 +31,26 @@ public class LineDrawer : MonoBehaviour
 
     void drawLine()
     {
-
-        if (hasHit == true && lineActive == false )
-        {
-            endPos = an.transform.position;
-            float dis = (startPos - endPos).sqrMagnitude;
-
-            if (dis > 0 && dis < 900)
+        if (hasHit == true && lineActive == false)
             {
-                linePositions.Add(new Vector2(startPos.x, startPos.y));
-                linePositions.Add(new Vector2(endPos.x, endPos.y));
-                lineRenderer.SetPosition(0, linePositions[0]);
-                lineRenderer.SetPosition(1, linePositions[1]);
-                addColliderToLine();
-                linePositions.Clear();
+                endPos = an.transform.position;
+                float dis = (startPos - endPos).sqrMagnitude;
 
-                lineActive = true;
-                hasHit = false;
-            }          
+                if (dis > 0 && dis < 900)
+                {
+                    linePositions.Add(new Vector2(startPos.x, startPos.y));
+                    linePositions.Add(new Vector2(endPos.x, endPos.y));
+                    lineRenderer.SetPosition(0, linePositions[0]);
+                    lineRenderer.SetPosition(1, linePositions[1]);
+                    addColliderToLine();
+                    linePositions.Clear();
+
+                    lineActive = true;
+                    hasHit = false;
+                }
         }
-        else if(lineActive == true &&Input.GetMouseButtonDown(0))
+       
+        if(lineActive == true &&Input.GetMouseButtonDown(0))
         {
             Destroy(GameObject.Find("Collider"));
             lineRenderer.SetPosition(0,new Vector2(0, 0));
