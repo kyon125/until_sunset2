@@ -31,7 +31,9 @@ public class LineDrawer : MonoBehaviour
 
     void drawLine()
     {
-        if (hasHit == true && lineActive == false)
+        if (Bow.bowset.status == Bow.bowstatus.bridge && GameStatus.gameStatus.status == GameStatus.Status.onBowing)
+        {
+            if (hasHit == true && lineActive == false)
             {
                 endPos = an.transform.position;
                 float dis = (startPos - endPos).sqrMagnitude;
@@ -48,14 +50,19 @@ public class LineDrawer : MonoBehaviour
                     lineActive = true;
                     hasHit = false;
                 }
+            }
+
+            if (lineActive == true && Input.GetMouseButtonDown(0))
+            {
+                Destroy(GameObject.Find("Collider"));
+                lineRenderer.SetPosition(0, new Vector2(0, 0));
+                lineRenderer.SetPosition(1, new Vector2(0, 0));
+                lineActive = false;
+            }
         }
-       
-        if(lineActive == true &&Input.GetMouseButtonDown(0))
+        else if (Bow.bowset.status == Bow.bowstatus.normal && GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
-            Destroy(GameObject.Find("Collider"));
-            lineRenderer.SetPosition(0,new Vector2(0, 0));
-            lineRenderer.SetPosition(1, new Vector2(0, 0));
-            lineActive = false;
+            
         }
     }
 

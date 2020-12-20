@@ -72,10 +72,10 @@ public class Bow : MonoBehaviour
             {
                 shotHook();               
             }
-            if (Input.GetKeyDown(KeyCode.C))
-            {            
-                GameStatus.gameStatus.status = GameStatus.Status.onBowing;
-            }
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{            
+            //    GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+            //}
         }
         
         if (GameStatus.gameStatus.status == GameStatus.Status.onBowing)
@@ -83,10 +83,16 @@ public class Bow : MonoBehaviour
             faceMouse();
             rotateLim();
 
-            if (Input.GetKeyDown(KeyCode.Z))
-            {         
-
+            if (Input.GetKeyDown(KeyCode.C))
+            {
                 GameStatus.gameStatus.status = GameStatus.Status.onRope;
+            }
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (status == bowstatus.normal)
+                    status = bowstatus.bridge;
+                else if (status == bowstatus.bridge)
+                    status = bowstatus.normal;
             }
 
             if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))

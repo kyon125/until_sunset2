@@ -6,13 +6,14 @@ using DG.Tweening;
 public class S2_plot : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static S2_plot2 sp2;
     public int s, e , s2 , e2;
     public SpriteRenderer Sp;
     bool isplayer;
     bool start = true;
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
