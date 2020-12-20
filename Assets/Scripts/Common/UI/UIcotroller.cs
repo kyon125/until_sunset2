@@ -53,4 +53,14 @@ public class UIcotroller : MonoBehaviour
         blockUp.transform.DOBlendableMoveBy(new Vector3(0, -700, 0), 0.5F);
         blockDown.transform.DOBlendableMoveBy(new Vector3(0, 700, 0), 0.5F);
     }
+    public void fullblock()
+    {
+        StartCoroutine(fullBlock());
+    }
+    IEnumerator fullBlock()
+    {
+        fulloff();
+        yield return new WaitForSeconds(0.5f);
+        fullon();
+    }
 }

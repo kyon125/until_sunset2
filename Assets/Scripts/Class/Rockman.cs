@@ -6,6 +6,7 @@ public class Rockman : MonoBehaviour
 {
     // Start is called before the first frame update
     Animator ani;
+    public float time;
     void Start()
     {
         ani = this.transform.GetComponent<Animator>();
@@ -18,20 +19,31 @@ public class Rockman : MonoBehaviour
     }
     void aniset()
     {
+        StartCoroutine(waitfornai());
+    }
+    IEnumerator waitfornai()
+    {
         switch (GameStatus.gameStatus.gametime)
         {
             case (GameStatus.Gametime.morning):
                 {
-                    ani.SetBool("isMorning", true);
+                    yield return new WaitForSeconds(time);
+                    ani.SetBool("isMorning", true);                    
+                    ani.SetBool("isEvening", false);
+                    ani.SetBool("isNight", false);
                     break;
                 }
             case (GameStatus.Gametime.evening):
                 {
+                    yield return new WaitForSeconds(time);
+                    ani.SetBool("isMorning", false);                    
                     ani.SetBool("isEvening", true);
+                    ani.SetBool("isNight", false);
                     break;
                 }
             case (GameStatus.Gametime.night):
                 {
+                    yield return new WaitForSeconds(time);
                     ani.SetBool("isMorning", false);
                     ani.SetBool("isEvening", false);
                     ani.SetBool("isNight", true);

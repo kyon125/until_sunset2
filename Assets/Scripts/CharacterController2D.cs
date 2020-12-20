@@ -54,6 +54,7 @@ public class CharacterController2D : MonoBehaviour
     [Header("跳躍")]
     public float jumpForce = 4.5f;
     public float hangingJumpForce = 5f; // 懸掛後往前跳的力
+    bool inground;
 
     public bool isHided;
     public LayerMask hideLayers;
@@ -139,6 +140,7 @@ public class CharacterController2D : MonoBehaviour
         if (gameStatus.status == GameStatus.Status.onPloting)
         {
             playerAni.SetBool("isplot", true);
+            run();
         }
         else
         {
@@ -368,7 +370,7 @@ public class CharacterController2D : MonoBehaviour
             speed_X = beforespeed_X;
             isRun = false;
             playerAni.SetInteger("Run", 0);
-        }
+        }        
     }
     void hide()
     {
@@ -389,7 +391,7 @@ public class CharacterController2D : MonoBehaviour
             playerAni.SetBool("JumpUp", true);
             Rigidbody.AddForce(new Vector2(0, 10 * jumpspeed), ForceMode2D.Impulse);
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && isClimb == true)
+        else if (Input.GetKeyDown(KeyCode.Space) && isClimb == true && inground == false)
         {
             isClimb = false;
             playerAni.SetBool("JumpUp", true);
@@ -434,11 +436,20 @@ public class CharacterController2D : MonoBehaviour
         RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset+0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
         RaycastHit2D centerCheck = Raycast(new Vector2(0, footOffset_high), Vector2.down, groundDistance, groundLaters);
         RaycastHit2D rightCheck = Raycast(new Vector2(footOffset-0.8f, footOffset_high), Vector2.down, groundDistance, groundLaters);
+        RaycastHit2D ingroundCheck = Raycast(new Vector2(0, 4.25f), Vector2.down, 3.5f, groundLaters);
 
         if (leftCheck || rightCheck || centerCheck)
             isGrounded = true;
         else
             isGrounded = false;
+        if (ingroundCheck)
+        {
+            inground = true;
+        }
+        else
+        {
+            inground = false;
+        }
 
         //RaycastHit2D headCheck = Raycast(new Vector2(0f, bCol.size.y - 1.5f), Vector2.up, headClearance, groundLaters);
 
@@ -690,11 +701,13 @@ public class CharacterController2D : MonoBehaviour
             if (timestatus < 2)
             {
                 timestatus++;
+                UIcotroller.uicotroller.fullblock();
                 GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
             }
             else
             {
                 timestatus = 0;
+                UIcotroller.uicotroller.fullblock();
                 GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
             }
             GameStatus.gameStatus.energyController(-1);
@@ -704,11 +717,13 @@ public class CharacterController2D : MonoBehaviour
             if (timestatus > 0)
             {
                 timestatus--;
+                UIcotroller.uicotroller.fullblock();
                 GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
             }
             else
             {
                 timestatus = 2;
+                UIcotroller.uicotroller.fullblock();
                 GameStatus.gameStatus.gametime = (GameStatus.Gametime)timestatus;
             }
             GameStatus.gameStatus.energyController(-1);
