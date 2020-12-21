@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3187943965826351585}
   - component: {fileID: -7234259643025534568}
   - component: {fileID: -8913512636532614647}
+  - component: {fileID: 5815992305886225912}
   m_Layer: 11
   m_Name: arrowBriage
   m_TagString: bullet
@@ -149,3 +150,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0.48556745, y: -0.016743504}
   m_Size: {x: 1.5692905, y: 0.11817072}
   m_Direction: 1
+--- !u!114 &5815992305886225912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883644706813869819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e60688602b0cba4fbbee9a3b9c73a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
