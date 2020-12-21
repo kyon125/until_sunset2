@@ -69,14 +69,38 @@ public class Bow : MonoBehaviour
             StartCoroutine("bowUse");
         }
 
-        if(GameStatus.gameStatus.status == GameStatus.Status.onRope)
+        if (Input.GetKeyDown(KeyCode.C))
+        {            
+            GameStatus.gameStatus.status = GameStatus.Status.onRope;
+        }
+
+        if (GameStatus.gameStatus.status == GameStatus.Status.onRope)
         {
             for (int i = 0; i < numberOfPoints; i++)
                 points[i].GetComponent<SpriteRenderer>().enabled = false;
 
             if (Input.GetMouseButtonDown(0))
             {
-                shotHook();               
+                shotHook();
+            }
+            else if (ropeActive == true && Input.GetKeyDown(KeyCode.Space))
+            {
+                GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+
+                Destroy(curHook);
+                Rigidbody2D playerVel = player.GetComponent<Rigidbody2D>();
+
+                playerVel.velocity = new Vector2(playerVel.velocity.x, 50);
+
+                ropeActive = false;
+            }
+            else if (ropeActive == true && Input.GetKeyDown(KeyCode.S))
+            {
+                GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+
+                Destroy(curHook);
+
+                ropeActive = false;
             }
         }
         
@@ -85,11 +109,8 @@ public class Bow : MonoBehaviour
             faceMouse();
             rotateLim();
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameStatus.gameStatus.status = GameStatus.Status.onRope;
-            }
-            else if (Input.GetKeyDown(KeyCode.Z))
+           
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (status == bowstatus.normal)
                 {
@@ -175,23 +196,39 @@ public class Bow : MonoBehaviour
 
     private void shotHook()
     {
-            if (ropeActive == false)
+        Vector2 destiny = camera.ScreenToWorldPoint(Input.mousePosition);
+
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            Debug.DrawLine(ray.origin, hitInfo.point);
+
+            if (hitInfo.collider.gameObject.tag == "box")
             {
-                Vector2 destiny = camera.ScreenToWorldPoint(Input.mousePosition);
+                Debug.Log("hook");
 
-                curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+                if (ropeActive == false)
+                {
+                    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
 
-                curHook.GetComponent<RopeScript>().destiny = destiny;
+                    curHook.GetComponent<RopeScript>().destiny = destiny;
 
-                ropeActive = true;
+                    ropeActive = true;
+                }
             }
-            else
-            {
-                // delete rope
-                Destroy(curHook);
+        }
 
-                ropeActive = false;
-            }
+        else
+        {
+            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+
+            Destroy(curHook);
+
+            ropeActive = false;
+        }       
     }
 
     Vector2 PonitPosition(float t)
