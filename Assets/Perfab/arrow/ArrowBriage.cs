@@ -12,12 +12,13 @@ public class ArrowBriage : MonoBehaviour
     private void Awake()
     {
         this.gameObject.GetComponent<Collider2D>().enabled = true;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        Destroy(this.gameObject, 2.0f);
+        
+        //Destroy(this.gameObject, 2.0f);
 
         startPos = LineDrawer.startPos;
         hasHit = LineDrawer.hasHit;
