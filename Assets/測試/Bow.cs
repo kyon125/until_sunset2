@@ -53,7 +53,7 @@ public class Bow : MonoBehaviour
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
         {
-            points[i] = Instantiate(point, shotPoint.position, Quaternion.identity);
+            points[i] = Instantiate(point, shotPoint.position, Quaternion.identity , an.transform);
         }
 
         StartCoroutine("hidePoints");
