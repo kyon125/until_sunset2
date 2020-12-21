@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31edf3252054a7a4eac912023f00ef6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  main: 9
+  main: 10
 --- !u!61 &163830245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8042,9 +8042,10 @@ GameObject:
   - component: {fileID: 1099075226}
   - component: {fileID: 1099075225}
   - component: {fileID: 1099075224}
+  - component: {fileID: 1099075227}
   m_Layer: 0
-  m_Name: ShikiRyougi(saber)
-  m_TagString: Npc
+  m_Name: (saber)
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8070,13 +8071,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099075222}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29fd9b0bd2bc58542a0e067ab31640d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dia: {fileID: 0}
-  name: ShikiRyougi(saber)
+  name: (saber)
   firstdia: {x: 315, y: 316}
   Status: 1
   c_quest: {fileID: 0}
@@ -8171,6 +8172,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1099075227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099075222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b242969204c031249b4eca34da5640f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s: 315
+  s1: 345
+  s2: 411
+  s3: 415
+  e: 345
+  e1: 345
+  e2: 416
+  e3: 415
 --- !u!1 &1103979317
 GameObject:
   m_ObjectHideFlags: 0
@@ -16116,7 +16137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playepos: {x: 11.4, y: 17.4, z: -0.6}
   isobj: 0
-  quest: 9
+  quest: 10
   scenename: s1
   UI: {fileID: 0}
 --- !u!61 &2076753160

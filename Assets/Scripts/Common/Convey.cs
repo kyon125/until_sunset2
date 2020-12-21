@@ -8,6 +8,7 @@ public class Convey : MonoBehaviour
     public float distant, timer;
     public GameObject An, cam1, cam2, ele;
     public bool godown;
+    public bool isuse;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +56,9 @@ public class Convey : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return new WaitForSeconds(1.5f);
 
-        An.transform.SetParent(null);
+        An.transform.SetParent(GameObject.Find("GameController").transform);
         GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+        isuse = false;
     }
     IEnumerator down()
     {
@@ -72,8 +74,9 @@ public class Convey : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         yield return new WaitForSeconds(1.5f);
 
-        An.transform.SetParent(null);
+        An.transform.SetParent(GameObject.Find("GameController").transform);
         GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+        isuse = false;
     }
     void save()
     {

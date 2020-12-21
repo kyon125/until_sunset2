@@ -16062,7 +16062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348426156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.793335, y: 119.6, z: -10.64156}
+  m_LocalPosition: {x: -63.793335, y: 119.76, z: -10.64156}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -27493,6 +27493,7 @@ MonoBehaviour:
   cam2: {fileID: 1817672094}
   ele: {fileID: 598070414}
   godown: 0
+  isuse: 0
 --- !u!1 &598583806
 GameObject:
   m_ObjectHideFlags: 0
@@ -45655,7 +45656,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!212 &1032125291
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -65130,11 +65131,10 @@ GameObject:
   - component: {fileID: 1351480663}
   - component: {fileID: 1351480667}
   - component: {fileID: 1351480666}
-  - component: {fileID: 1351480668}
   - component: {fileID: 1351480665}
   m_Layer: 0
   m_Name: Sapaya
-  m_TagString: Npc
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65216,6 +65216,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68b5af5b55a16445be7d430f01218b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s: 376
+  s1: 367
+  e: 376
+  e1: 372
 --- !u!114 &1351480666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65255,37 +65259,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45794845, y: 1.9377172}
   m_EdgeRadius: 0
---- !u!114 &1351480668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351480662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29fd9b0bd2bc58542a0e067ab31640d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dia: {fileID: 0}
-  name: Sapaya
-  firstdia: {x: 376, y: 376}
-  Status: 1
-  c_quest: {fileID: 0}
-  quest:
-  - name: "\u4EFB\u52D9\uFF1A\u63A2\u7D22\u53E4\u4E954"
-    start_plot: {x: 367, y: 372}
-    accept: 0
-    haveitem: 1
-    accept_plot: {x: 0, y: 0}
-    refuse_plot: {x: 0, y: 0}
-    goal: 1
-    status: 1
-    itemid: 9
-    itemnum: 1
-    traget_NPC: Sapaya
-    next_quest:
-    - {fileID: 11400000, guid: a1ff09b2b0fde574895556bbf4f0c68b, type: 2}
 --- !u!1 &1355297142
 GameObject:
   m_ObjectHideFlags: 0
@@ -71218,7 +71191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470592213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -266.1323, y: 135.97612, z: 193.36626}
+  m_LocalPosition: {x: -266.1323, y: 136.13612, z: 193.36626}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1880381187}

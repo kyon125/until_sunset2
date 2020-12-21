@@ -195,7 +195,7 @@ public class simplot : MonoBehaviour
     IEnumerator getitem(string itemName , int itemNum)
     {
         Tween i = i_item.transform.DOMoveX(1870F, 0.3f);
-        gameStatus.status = GameStatus.Status.onPlaying;
+        //gameStatus.status = GameStatus.Status.onPlaying;
 
         itemcontext.text = "獲得了" + itemName + " * " + itemNum;
         float speed = 1f + itemcontext.text.Length * playspeed;

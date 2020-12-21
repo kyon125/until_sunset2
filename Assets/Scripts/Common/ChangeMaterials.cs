@@ -18,7 +18,7 @@ public class ChangeMaterials : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && isplayer == true)
+        if (Input.GetKeyDown(KeyCode.F) && isplayer == true && convey.isuse == false)
         {
             cheackitem();
             dia();

@@ -139,12 +139,26 @@ public class CharacterController2D : MonoBehaviour
         beforepos = this.transform.position;
         if (gameStatus.status == GameStatus.Status.onPloting)
         {
-            playerAni.SetBool("isplot", true);
+            Rigidbody.velocity = new Vector2(0, 0);
+            playerAni.SetInteger("Run", 0);
+            playerAni.SetBool("isClimbup", false);
+            playerAni.SetBool("Walk", false);
+            playerAni.SetBool("Fulldown", false);
+            playerAni.SetBool("JumpUp", false);
             run();
         }
         else
         {
             playerAni.SetBool("isplot", false);
+        }
+        if (SceneManager.GetActiveScene().name == "Loading")
+        {
+            Rigidbody.velocity = new Vector2(0,0);
+            playerAni.SetInteger("Run", 0);
+            playerAni.SetBool("isClimbup", false);
+            playerAni.SetBool("Walk", false);
+            playerAni.SetBool("Fulldown", false);
+            playerAni.SetBool("JumpUp", false);
         }
     }
 

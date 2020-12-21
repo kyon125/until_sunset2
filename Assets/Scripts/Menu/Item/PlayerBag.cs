@@ -38,7 +38,7 @@ public class PlayerBag : MonoBehaviour
         }
         for (int i = 0; i <= bg.I_num.Count - 1; i++)
         {
-            if (bg.I_num[i] == 0)
+            if (bg.I_num[i] == 0 && tsf.transform.childCount >= bg.I_num.Count)
             {
                 bg.I_item.RemoveAt(i);
                 bg.I_num.RemoveAt(i);
@@ -108,17 +108,20 @@ public class PlayerBag : MonoBehaviour
         {
             int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
             bg.I_num[id_num] -= count;
-            for (int i = 0; i <= bg.I_num.Count - 1; i++)
+            if (tsf.activeSelf== false)
             {
-                if (bg.I_num[i] == 0)
+                for (int i = 0; i <= bg.I_num.Count - 1; i++)
                 {
-                    bg.I_item.RemoveAt(i);
-                    bg.I_num.RemoveAt(i);
-                    GameObject go = tsf.transform.GetChild(i).gameObject;
-                    Destroy(go);
+                    if (bg.I_num[i] == 0 && tsf.transform.childCount >= bg.I_num.Count)
+                    {
+                        bg.I_item.RemoveAt(i);
+                        bg.I_num.RemoveAt(i);
+                        GameObject go = tsf.transform.GetChild(i).gameObject;
+                        Destroy(go);
+                    }
                 }
-            }
-            creatitem();
+                creatitem();
+            }           
         }
     }
 }

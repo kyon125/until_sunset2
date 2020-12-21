@@ -145,7 +145,9 @@ public class GameStatus : MonoBehaviour
         well4,
         well5,
         well6,
-        wellend
+        wellend,
+        frost1,
+        frost2
     }
     public enum ArchiveStatus
     { 
