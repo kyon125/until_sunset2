@@ -26,12 +26,12 @@ public class Loadscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        potarl();
-        if (CharacterController2D.chara == true)
+        //potarl();
+        if (SceneManager.GetActiveScene().name != "Start" && SceneManager.GetActiveScene().name != "Loading")
         {
             UI.SetActive(true);
         }
-        else if (CharacterController2D.chara == false)
+        else if (SceneManager.GetActiveScene().name == "Start" || SceneManager.GetActiveScene().name == "Loading")
         {
             UI.SetActive(false);
         }
@@ -45,15 +45,22 @@ public class Loadscene : MonoBehaviour
     {        
         SceneManager.LoadScene("Loading");        
     }
-    void potarl()
+     public void potarl()
     {
-        if (Loadscene.loadcontroller.isportal == true && Loading.loading.loadstatus == Loading.Status.completed)
-        {
-            GameObject.Find("An").transform.position = Loadscene.loadcontroller.pos;
-            print("chan");
-            print(GameObject.Find("An").transform.position);
-            Loadscene.loadcontroller.isportal = false;
-        }
+        //if (Loadscene.loadcontroller.isportal == true && Loading.loading.loadstatus == Loading.Status.completed)
+        //{
+
+        //}
+        StartCoroutine(test());
+    }
+    IEnumerator test()
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject.Find("An").transform.position = Loadscene.loadcontroller.pos;
+        print("chan");
+        print(GameObject.Find("An").transform.position);
+        Loadscene.loadcontroller.isportal = false;
+        CharacterController2D.chara.Rigidbody.isKinematic = false;
     }
 
 }

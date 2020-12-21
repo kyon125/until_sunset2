@@ -74,14 +74,14 @@ public class changeScene : MonoBehaviour
         UI.transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         m.SetFloat("outLine", 0);
     }
-    void change()
+    public void change()
     {
-        Loading.loading.loadstatus = Loading.Status.loading;
+        //Loading.loading.loadstatus = Loading.Status.loading;
+        CharacterController2D.chara.Rigidbody.isKinematic = true;
         Loadscene.loadcontroller.isportal = true;
         Loadscene.loadcontroller.loadName = scenename;
         Loadscene.loadcontroller.pos = playepos;
-        //saveGame.savecontroller.save();      
-        
         SceneManager.LoadScene("Loading");
+        //saveGame.savecontroller.save();            
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class trap : MonoBehaviour
 {
     // Start is called before the first frame update
+    public bool istrigger;
     void Start()
     {
         
@@ -17,7 +18,14 @@ public class trap : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Player" && GameStatus.gameStatus.hurtstatus != GameStatus.Hurtstatus.ishurt)
+        if (collision.transform.tag == "Player" && GameStatus.gameStatus.hurtstatus != GameStatus.Hurtstatus.ishurt && istrigger == false)
+        {
+            hurtplayer();
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Player" && GameStatus.gameStatus.hurtstatus != GameStatus.Hurtstatus.ishurt && istrigger == true)
         {
             hurtplayer();
         }

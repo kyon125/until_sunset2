@@ -9295,6 +9295,7 @@ GameObject:
   - component: {fileID: 206072684}
   - component: {fileID: 206072686}
   - component: {fileID: 206072685}
+  - component: {fileID: 206072687}
   m_Layer: 0
   m_Name: CM vcam3
   m_TagString: Untagged
@@ -9369,6 +9370,18 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2052237296}
+--- !u!114 &206072687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206072683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36fcbe00db8a03542aeaa7d42b8daaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &206999107
 GameObject:
   m_ObjectHideFlags: 0
@@ -15932,7 +15945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &348426157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16053,7 +16066,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &348426161
 AudioListener:
@@ -18538,7 +18551,7 @@ Transform:
   - {fileID: 1358615487}
   - {fileID: 1783087340}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &393715555
 GameObject:
@@ -30848,7 +30861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662431541}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -192.4, y: 177, z: 0}
+  m_LocalPosition: {x: -192.4, y: 177, z: 174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 807189537}
@@ -41252,6 +41265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28c08d86dec7ee46915665febb1ad75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  istrigger: 0
 --- !u!61 &932924023
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -63955,6 +63969,7 @@ MonoBehaviour:
   camera: {fileID: 348426159}
   shotPos: {fileID: 1324981315}
   arrow: {fileID: 8883644706813869819, guid: 62c3701a6e6a5e441a85a79cb2ea6011, type: 3}
+  arrowBridge: {fileID: 0}
   launchForce: 60
   shotPoint: {fileID: 1059095180}
   bow: {fileID: 1059095179}
@@ -63967,6 +63982,10 @@ MonoBehaviour:
   body: {fileID: 1324981318}
   bow_h: {fileID: 1324981320}
   leg: {fileID: 1324981316}
+  hook: {fileID: 0}
+  ropeActive: 0
+  lineRenderer: {fileID: 0}
+  status: 0
 --- !u!1 &1325396841
 GameObject:
   m_ObjectHideFlags: 0
@@ -70897,7 +70916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1465122965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70913,6 +70932,7 @@ MonoBehaviour:
   speed: 30
   jumpspeed: 15
   jumpoutspeed: 2.5
+  Rigidbody: {fileID: 0}
   speed_X: 18
   slowdown: 0
   playeraction: 0
@@ -70999,7 +71019,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465122964}
   m_LocalRotation: {x: 0, y: 0, z: -0.0091828955, w: 0.99995786}
-  m_LocalPosition: {x: -75, y: 110, z: -0.64155984}
+  m_LocalPosition: {x: -75, y: 110.16, z: -0.64155984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 222440382}
@@ -71182,6 +71202,7 @@ GameObject:
   - component: {fileID: 1470592216}
   - component: {fileID: 1470592215}
   - component: {fileID: 1470592217}
+  - component: {fileID: 1470592218}
   m_Layer: 0
   m_Name: CM vcam0
   m_TagString: Untagged
@@ -71271,6 +71292,18 @@ MonoBehaviour:
   m_FocusTracksTarget: 0
   m_FocusOffset: 0
   m_Profile: {fileID: 11400000, guid: c6b76ba3d1c1ae049a9b9207781be234, type: 2}
+--- !u!114 &1470592218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470592213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36fcbe00db8a03542aeaa7d42b8daaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1475707963
 GameObject:
   m_ObjectHideFlags: 0
@@ -73955,6 +73988,7 @@ GameObject:
   - component: {fileID: 1541875520}
   - component: {fileID: 1541875522}
   - component: {fileID: 1541875521}
+  - component: {fileID: 1541875523}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -74029,6 +74063,18 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1878418686}
+--- !u!114 &1541875523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541875519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36fcbe00db8a03542aeaa7d42b8daaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545517498
 GameObject:
   m_ObjectHideFlags: 0
@@ -75392,7 +75438,7 @@ Transform:
   - {fileID: 1780420338}
   - {fileID: 1443103412}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580065117
 GameObject:
@@ -87358,6 +87404,7 @@ GameObject:
   - component: {fileID: 1817672097}
   - component: {fileID: 1817672096}
   - component: {fileID: 1817672095}
+  - component: {fileID: 1817672098}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -87432,6 +87479,18 @@ Transform:
   m_Father: {fileID: 1676566197}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1817672098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817672094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36fcbe00db8a03542aeaa7d42b8daaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1820308511
 GameObject:
   m_ObjectHideFlags: 0

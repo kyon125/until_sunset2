@@ -7,6 +7,7 @@ public class S_Button : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject set;
+    public changeScene cs;
     void Start()
     {
         
@@ -19,8 +20,9 @@ public class S_Button : MonoBehaviour
     }
     public void p_start()
     {
-        Loadscene.loadcontroller.loadName = "Viliage";
-        Loadscene.loadcontroller.changescene();
+        cs.change();
+        //Loadscene.loadcontroller.loadName = "Viliage";
+        //Loadscene.loadcontroller.changescene();
     }
     public void p_end()
     {

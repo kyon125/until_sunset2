@@ -17,11 +17,12 @@ public class Loading : MonoBehaviour
     private void Awake()
     {
         loading = this;
+        loadstatus = Status.loading;
         complete();
     }
     void Start()
     {
-        loadstatus = Status.loading;
+        
         Loadscene.loadcontroller.async = SceneManager.LoadSceneAsync(Loadscene.loadcontroller.loadName);
         Loadscene.loadcontroller.async.allowSceneActivation = false;
         
@@ -73,7 +74,11 @@ public class Loading : MonoBehaviour
         Loadscene.loadcontroller.async.allowSceneActivation = true;
         
         Soundcontroller.soundcontroller.playbgm();
-        
+
+        if (Loadscene.loadcontroller.isportal == true)
+        {
+            Loadscene.loadcontroller.potarl();
+        }
         loadstatus = Status.completed;             
     }
     public enum Status

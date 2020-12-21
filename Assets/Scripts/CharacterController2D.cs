@@ -11,7 +11,7 @@ public class CharacterController2D : MonoBehaviour
     
     public static CharacterController2D chara;
     public float speed, jumpspeed ,jumpoutspeed;
-    private Rigidbody2D Rigidbody;
+    public Rigidbody2D Rigidbody;
     private Collider2D Collider;
     public float speed_X;
     float beforespeed_X;
@@ -107,7 +107,7 @@ public class CharacterController2D : MonoBehaviour
 
     void Update()
     {
-        if (gameStatus.status == GameStatus.Status.onPlaying)
+        if (gameStatus.status == GameStatus.Status.onPlaying && SceneManager.GetActiveScene().name != "Start" && SceneManager.GetActiveScene().name != "Loading")
         {                    
             CrouchDown = false;
 
