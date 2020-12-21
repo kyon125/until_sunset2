@@ -63,7 +63,7 @@ public class S1_plotman : MonoBehaviour
         simplot.plotPlay.playdia(s, e);
         status = Status.waitforwell;
         PlayerBag.playerbag.getitem(1, 1);
-        GameStatus.gameStatus.mainquest = GameStatus.MainQuest.Viliage2;
+        GameStatus.gameStatus.mainquest = GameStatus.MainQuest.Viliage3;
     }
     void wait()
     {
