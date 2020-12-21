@@ -2276,7 +2276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22168260, y: -0.000009536743}
+  m_AnchoredPosition: {x: -22170398, y: -0.000009536743}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &372219444
@@ -5379,7 +5379,7 @@ MonoBehaviour:
   quest: {fileID: 11400000, guid: 5b646a8105e6eab4fbec88dcfd8e532b, type: 2}
   startplot: 347
   endplot: 348
-  trigger: 1
+  trigger: 12
   change: 2
   scenename: NewWell
 --- !u!1 &994007870
