@@ -12,7 +12,10 @@ public class Bow : MonoBehaviour
 
     public Camera camera;
     public GameObject shotPos;
+
     public GameObject arrow;
+    public GameObject arrowBridge;
+
     public float launchForce;
     public Transform shotPoint;
 
@@ -36,6 +39,8 @@ public class Bow : MonoBehaviour
     public bool ropeActive;
     GameObject curHook;
 
+    public LineRenderer lineRenderer;
+
     public  bowstatus status;
 
     private void Awake()
@@ -44,6 +49,7 @@ public class Bow : MonoBehaviour
     }
     void Start()
     {
+
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
         {
@@ -72,10 +78,6 @@ public class Bow : MonoBehaviour
             {
                 shotHook();               
             }
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{            
-            //    GameStatus.gameStatus.status = GameStatus.Status.onBowing;
-            //}
         }
         
         if (GameStatus.gameStatus.status == GameStatus.Status.onBowing)
@@ -90,9 +92,17 @@ public class Bow : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (status == bowstatus.normal)
+                {
                     status = bowstatus.bridge;
+                }
                 else if (status == bowstatus.bridge)
+                {
+                    Destroy(GameObject.Find("Collider"));
+                    lineRenderer.SetPosition(0, new Vector2(0, 0));
+                    lineRenderer.SetPosition(1, new Vector2(0, 0));
+
                     status = bowstatus.normal;
+                }                  
             }
 
             if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
@@ -110,7 +120,11 @@ public class Bow : MonoBehaviour
             if (canRotate == true && shot == true)
             {
                 shotPos.transform.position = mousePosition;
-                Shoot();
+
+                if (status == bowstatus.normal)
+                    Shoot(arrow);
+                else if (status == bowstatus.bridge)
+                    Shoot(arrowBridge);
 
                 // 畫預判線
                 for (int i = 0; i < numberOfPoints; i++)
@@ -134,7 +148,7 @@ public class Bow : MonoBehaviour
         transform.right = direction;
     }
 
-    private void Shoot()
+    private void Shoot(GameObject arrow)
     {
         if (Input.GetMouseButtonDown(0) && shot)
         {
@@ -230,7 +244,7 @@ public class Bow : MonoBehaviour
 
     IEnumerator hidePoints()
     {
-        yield return (1);
+        yield return (0.5f);
 
         for (int i = 0; i < numberOfPoints; i++)
             points[i].GetComponent<SpriteRenderer>().enabled = false;

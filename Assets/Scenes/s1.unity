@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3958,7 +3958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -42039260, y: -0.000009536743}
+  m_AnchoredPosition: {x: -42043116, y: -0.000009536743}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &139767789
@@ -31927,7 +31927,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1829456680}
   shotPos: {fileID: 1442035650}
-  arrow: {fileID: 8883644706813869819, guid: 62c3701a6e6a5e441a85a79cb2ea6011, type: 3}
+  arrow: {fileID: 5427303649543441120, guid: ed60b0bf20270fa42b95201c33d44fa8, type: 3}
+  arrowBridge: {fileID: 8883644706813869819, guid: 62c3701a6e6a5e441a85a79cb2ea6011,
+    type: 3}
   launchForce: 60
   shotPoint: {fileID: 1362262565}
   bow: {fileID: 1362262564}
@@ -31942,6 +31944,7 @@ MonoBehaviour:
   leg: {fileID: 1442035651}
   hook: {fileID: 3669210076224716995, guid: 24ba0f438ac580b4590091f78b56bac1, type: 3}
   ropeActive: 0
+  lineRenderer: {fileID: 835338443}
   status: 0
 --- !u!1 &1453759538
 GameObject:

@@ -19,7 +19,6 @@ public class LineDrawer : MonoBehaviour
 
     void Start()
     {
-
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
     }
@@ -31,6 +30,14 @@ public class LineDrawer : MonoBehaviour
 
     void drawLine()
     {
+        if (lineActive == true && Input.GetMouseButtonDown(0))
+        {
+            Destroy(GameObject.Find("Collider"));
+            lineRenderer.SetPosition(0, new Vector2(0, 0));
+            lineRenderer.SetPosition(1, new Vector2(0, 0));
+            lineActive = false;
+        }
+
         if (Bow.bowset.status == Bow.bowstatus.bridge && GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
             if (hasHit == true && lineActive == false)
@@ -38,7 +45,7 @@ public class LineDrawer : MonoBehaviour
                 endPos = an.transform.position;
                 float dis = (startPos - endPos).sqrMagnitude;
 
-                if (dis > 0 && dis < 900)
+                if (dis > 0 && dis < 950)
                 {
                     linePositions.Add(new Vector2(startPos.x, startPos.y));
                     linePositions.Add(new Vector2(endPos.x, endPos.y));
