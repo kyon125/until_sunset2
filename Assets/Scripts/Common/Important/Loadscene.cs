@@ -57,8 +57,6 @@ public class Loadscene : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         GameObject.Find("An").transform.position = Loadscene.loadcontroller.pos;
-        print("chan");
-        print(GameObject.Find("An").transform.position);
         Loadscene.loadcontroller.isportal = false;
         CharacterController2D.chara.Rigidbody.isKinematic = false;
     }

@@ -52,41 +52,41 @@ public class Mainmenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && gameStatus.status == GameStatus.Status.onPlaying)
         {
-            gameStatus.status = GameStatus.Status.onMenu;
+            //gameStatus.status = GameStatus.Status.onBaging;
             //GameObject.Find("GameController").GetComponent<PlayerBag>().creatitem();
-
-            Tween t = menu.transform.DOScaleX(1, 0.2f).SetEase(Ease.OutBack);
-            Tween t2 = menu.transform.DOScaleY(1, 0.2f).SetEase(Ease.OutBack);
-            button.gameObject.SetActive(true);
-
-            intialquest();
+            //PlayerBag.playerbag.creatitem();
+            //Tween t = bag.transform.DOScaleX(1, 0.2f).SetEase(Ease.OutBack);
+            //Tween t2 = bag.transform.DOScaleY(1, 0.2f).SetEase(Ease.OutBack);
+            //button.gameObject.SetActive(true);
+            open_bag();
+            //intialquest();
         }
     }
-    void intialquest()
-    {
-        //新增進行中任務
-        Instantiate(s_quest, questcontent.transform);
-        for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
-        {
-            if (Quest_controller.questcontroller.questlisting[i].status == queststatus.questing)
-            {
-                GameObject b = Instantiate(questbutton, questcontent.transform);
-                b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
-                b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
-            }               
-        }
-        //新增完成的任務
-        Instantiate(e_quest, questcontent.transform);
-        for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
-        {
-            if (Quest_controller.questcontroller.questlisting[i].status == queststatus.quested)
-            {
-                GameObject b = Instantiate(questbutton, questcontent.transform);
-                b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
-                b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
-            }
-        }
-    }
+    //void intialquest()
+    //{
+    //    //新增進行中任務
+    //    Instantiate(s_quest, questcontent.transform);
+    //    for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
+    //    {
+    //        if (Quest_controller.questcontroller.questlisting[i].status == queststatus.questing)
+    //        {
+    //            GameObject b = Instantiate(questbutton, questcontent.transform);
+    //            b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
+    //            b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
+    //        }               
+    //    }
+    //    //新增完成的任務
+    //    Instantiate(e_quest, questcontent.transform);
+    //    for (int i = 0; i < Quest_controller.questcontroller.questlisting.Count; i++)
+    //    {
+    //        if (Quest_controller.questcontroller.questlisting[i].status == queststatus.quested)
+    //        {
+    //            GameObject b = Instantiate(questbutton, questcontent.transform);
+    //            b.GetComponent<m_quest>().questvalue = Quest_controller.questcontroller.questlisting[i];
+    //            b.transform.GetChild(0).GetComponent<Text>().text = Quest_controller.questcontroller.questlisting[i].name;
+    //        }
+    //    }
+    //}
     public void close()
     {
         print("close");
@@ -105,8 +105,9 @@ public class Mainmenu : MonoBehaviour
                 }
             case GameStatus.Status.onBaging:
                 {
-                    gameStatus.status = GameStatus.Status.onMenu;
+                    gameStatus.status = GameStatus.Status.onPlaying;
                     Tween t = GameObject.Find("Bag").transform.DOScale(new Vector3(0, 0, 1), 0.01f).SetEase(Ease.OutSine);
+                    GameObject.Find("Bag").SetActive(false);
                     clear();
                     break;
                 }

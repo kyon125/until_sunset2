@@ -29,7 +29,7 @@ public class bagusing : MonoBehaviour
     {
         gameStatus = GameObject.Find("GameController").GetComponent<GameStatus>();
 
-        if (gameStatus.status == GameStatus.Status.onBaging)
+        if (gameStatus.status == GameStatus.Status.onBaging && player.select_itemid < 999)
         {
             print(Itemdateset.itemdate[player.select_itemid].effect);
             //if (Itemdateset.itemdate[player.select_itemid].effect.ToString() != "life")
@@ -46,30 +46,21 @@ public class bagusing : MonoBehaviour
                         print("UESEESSEEESSES");
                         GameStatus.gameStatus.lifeController(Itemdateset.itemdate[player.select_itemid].life);
                         PlayerBag.playerbag.removeitem(player.select_itemid, 1);
-                        player.select_itemid = 9999;
+                        for (int i = 0; i < player.bg.I_item.Count; i++)
+                        {
+                            print(PlayerBag.playerbag.select_itemid);
+                            if (player.bg.I_item[i].id == PlayerBag.playerbag.select_itemid)
+                            {
+                                print("ususuususususu");
+                                GameObject.Find("Itemname").GetComponent<Text>().text = Itemdateset.itemdate[PlayerBag.playerbag.select_itemid].show_name;
+                                GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + PlayerBag.playerbag.select_itemid); ;
+                                GameObject.Find("itemdescrip").GetComponent<Text>().text = Itemdateset.itemdate[PlayerBag.playerbag.select_itemid].depiction;
+                                GameObject.Find("itemnumtext").GetComponent<Text>().text = "剩餘" + PlayerBag.playerbag.bg.I_num[i];
+                            }
+                        }
                         break;
                     }
             }
-        }
-        else if (gameStatus.status == GameStatus.Status.onComposition)
-        {
-
-            if (player.comitem.Count < 2)
-            {
-                player.comitem.Add(Itemdateset.itemdate[num_select]);
-
-                GameObject item = Instantiate(player.itemsource, GameObject.Find("ct").transform);
-
-                Image im = item.GetComponent<Image>();
-                Sprite p = Resources.Load<Sprite>("Itemsprite/" + num_select.ToString());
-                im.sprite = p;
-
-                item.name = Itemdateset.itemdate[num_select].show_name;               
-            }
-        }
-        else
-        {
-
         }
     }
     
@@ -122,6 +113,13 @@ public class bagusing : MonoBehaviour
             GameObject.Find("Itemname").GetComponent<Text>().text = Itemdateset.itemdate[num_select].show_name;
             GameObject.Find("Itemimage").GetComponent<Image>().sprite = this.gameObject.GetComponent<Image>().sprite;
             GameObject.Find("itemdescrip").GetComponent<Text>().text = Itemdateset.itemdate[num_select].depiction;
+            for (int i = 0; i < player.bg.I_item.Count; i++)
+            {
+                if (player.bg.I_item[i].id == num_select)
+                {
+                    GameObject.Find("itemnumtext").GetComponent<Text>().text = "剩餘" + PlayerBag.playerbag.bg.I_num[i];
+                }
+            }           
         }
     }
     public void composite()

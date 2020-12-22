@@ -2542,6 +2542,8 @@ MonoBehaviour:
   - {fileID: 314051443}
   - {fileID: 645417263}
   - {fileID: 1341914279}
+  sound: {fileID: 0}
+  start: 0
 --- !u!114 &275726721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7627,7 +7629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -34656096, y: -0.000009536743}
+  m_AnchoredPosition: {x: -34669560, y: -0.000009536743}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &828518081

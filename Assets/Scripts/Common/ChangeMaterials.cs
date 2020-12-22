@@ -46,7 +46,7 @@ public class ChangeMaterials : MonoBehaviour
         }
         else if (haskey == true)
         {
-            simplot.plotPlay.playdia(s2, e2);
+            //simplot.plotPlay.playdia(s2, e2);
         }        
     }
     void cheackitem()
@@ -59,8 +59,10 @@ public class ChangeMaterials : MonoBehaviour
         {
             if (PlayerBag.playerbag.bg.I_item[i].id == cheakitem)
             {
-                haskey = true;                
-                yield return new WaitUntil(() => { return simplot.plotPlay.play;});
+                haskey = true;
+                convey.isuse = true;
+                GameStatus.gameStatus.status = GameStatus.Status.onPloting;
+                yield return StartCoroutine(simplot.plotPlay.playplot(s2, e2));                
                 convey.go();
             }
         }

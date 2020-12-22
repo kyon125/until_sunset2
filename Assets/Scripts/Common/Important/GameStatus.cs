@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameStatus : MonoBehaviour
 {
     // Start is called before the first frame update
-    private static GameObject GM;
+    public static GameObject GM;
     public static GameStatus gameStatus;
     public ArchiveStatus archivestatus;
     public plaeyrStatus plaeyrstatus;
@@ -38,6 +38,10 @@ public class GameStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Start")
+        {
+            GM.GetComponent<GameStatus>().status = GameStatus.Status.onStart;
+        }
         if (plaeyrstatus.life <= 0 && status != GameStatus.Status.onGameover)
         {
             status = GameStatus.Status.onDead;
@@ -50,6 +54,7 @@ public class GameStatus : MonoBehaviour
         {
             status = GameStatus.Status.onGameover;
 
+            Soundcontroller.soundcontroller.stopbgm();
             SceneManager.LoadScene("Gameover");            
         }
     }
@@ -116,6 +121,12 @@ public class GameStatus : MonoBehaviour
         }
         //statusShow.statusUI.showlife();
     }
+    public void intialplayer()
+    {
+        plaeyrstatus.life = 5;
+        plaeyrstatus.endurance = 5;
+        plaeyrstatus.energy = 0;
+    }
 
     public enum Status
     {
@@ -132,7 +143,8 @@ public class GameStatus : MonoBehaviour
         onSaving,
         onLoading,
         onBowing,
-        onRope
+        onRope,
+        onStart
     }
     public enum MainQuest
     {

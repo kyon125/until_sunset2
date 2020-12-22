@@ -108,7 +108,7 @@ public class PlayerBag : MonoBehaviour
         {
             int id_num = bg.I_item.IndexOf(Itemdateset.itemdate[id]);
             bg.I_num[id_num] -= count;
-            if (tsf.activeSelf== false)
+            if (tsf.activeSelf== true)
             {
                 for (int i = 0; i <= bg.I_num.Count - 1; i++)
                 {
@@ -117,6 +117,8 @@ public class PlayerBag : MonoBehaviour
                         bg.I_item.RemoveAt(i);
                         bg.I_num.RemoveAt(i);
                         GameObject go = tsf.transform.GetChild(i).gameObject;
+                        select_itemid = 9999;
+                        GameObject.Find("itemnumtext").GetComponent<Text>().text = "剩餘";
                         Destroy(go);
                     }
                 }

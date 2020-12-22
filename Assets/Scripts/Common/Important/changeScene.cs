@@ -77,7 +77,7 @@ public class changeScene : MonoBehaviour
     public void change()
     {
         //Loading.loading.loadstatus = Loading.Status.loading;
-        CharacterController2D.chara.Rigidbody.isKinematic = true;
+        GameObject.Find("An").GetComponent<CharacterController2D>().Rigidbody.isKinematic = true;
         Loadscene.loadcontroller.isportal = true;
         Loadscene.loadcontroller.loadName = scenename;
         Loadscene.loadcontroller.pos = playepos;

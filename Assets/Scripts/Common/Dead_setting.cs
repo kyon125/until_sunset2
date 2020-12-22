@@ -29,10 +29,15 @@ public class Dead_setting : MonoBehaviour
     }
     public void restatgame()
     {
-        SceneManager.LoadScene("Well_01");
+        GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+        GameStatus.gameStatus.intialplayer();
+        saveGame.savecontroller.load();
+        GameStatus.gameStatus.archivestatus = GameStatus.ArchiveStatus.isLoad;
     }
     public void endgame()
     {
+        Destroy(GameObject.Find("GameController"));
+        GameStatus.gameStatus.intialplayer();
         SceneManager.LoadScene("Start");
     }
 
