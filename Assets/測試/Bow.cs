@@ -62,17 +62,8 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            GameStatus.gameStatus.status = GameStatus.Status.onBowing;
-            status = bowstatus.normal;
-            StartCoroutine("bowUse");
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {            
-            GameStatus.gameStatus.status = GameStatus.Status.onRope;
-        }
+        openBowRope();
+        
 
         if (GameStatus.gameStatus.status == GameStatus.Status.onRope)
         {
@@ -158,7 +149,24 @@ public class Bow : MonoBehaviour
         }       
         //print(direction);
     }
+    public void openBowRope()
+    {
+        if (GameStatus.gameStatus.status == GameStatus.Status.onPlaying)
+        {
+            if (Input.GetMouseButtonDown(1) && CharacterController2D.chara.isGrounded == true && CharacterController2D.chara.isHanging ==false)
+            {
+                GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+                CharacterController2D.chara.Rigidbody.isKinematic = true;
+                status = bowstatus.normal;
+                StartCoroutine("bowUse");
+            }
 
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                GameStatus.gameStatus.status = GameStatus.Status.onRope;
+            }
+        }        
+    }
     void faceMouse()
     {
         mousePosition = Input.mousePosition;
@@ -256,7 +264,7 @@ public class Bow : MonoBehaviour
         }
         else if (shot == true)
         {
-            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+            GameStatus.gameStatus.status = GameStatus.Status.onBowing;
             shot = false;
             bow.SetActive(false);
             for (int i = 0; i < numberOfPoints; i++)
