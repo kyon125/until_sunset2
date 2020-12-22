@@ -418,7 +418,8 @@ public class CharacterController2D : MonoBehaviour
                 anObj.GetComponent<SpriteRenderer>().enabled = true;
                 hangObj.GetComponent<SpriteRenderer>().enabled = false;
 
-                Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                //Rigidbody.bodyType = RigidbodyType2D.Dynamic;         
+                Rigidbody.gravityScale = 10;
                 Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, hangingJumpForce);
                 isHanging = false;
             }
@@ -429,7 +430,8 @@ public class CharacterController2D : MonoBehaviour
                 anObj.GetComponent<SpriteRenderer>().enabled = true;
                 hangObj.GetComponent<SpriteRenderer>().enabled = false;
 
-                Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                //Rigidbody.bodyType = RigidbodyType2D.Dynamic;  
+                
                 isHanging = false;
             }
         }
@@ -500,7 +502,9 @@ public class CharacterController2D : MonoBehaviour
 
                 transform.position = pos;
 
-                Rigidbody.bodyType = RigidbodyType2D.Static;
+                //Rigidbody.bodyType = RigidbodyType2D.Static;
+                Rigidbody.gravityScale =0;
+                Rigidbody.velocity =new Vector3(Rigidbody.velocity.x, 0);
                 isHanging = true;
             }
         }
@@ -640,7 +644,12 @@ public class CharacterController2D : MonoBehaviour
         {
             if (playerAni.GetInteger("Climb") == 1)
                 playerAni.SetInteger("Climb", 0);
-            Rigidbody.gravityScale = 10;
+            if (isHanging)
+            {
+                Rigidbody.gravityScale = 0;
+            }    
+            else
+                Rigidbody.gravityScale = 10;
         }
     }
     void call_quest()
