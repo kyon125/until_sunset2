@@ -17,11 +17,12 @@ public class ArrowBriage : MonoBehaviour
 
     void Start()
     {
-        
-        //Destroy(this.gameObject, 2.0f);
+
+        Destroy(this.gameObject, 4.0f);
 
         startPos = LineDrawer.startPos;
         hasHit = LineDrawer.hasHit;
+        hasHit = false;
     }
 
     void Update()
