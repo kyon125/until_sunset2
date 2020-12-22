@@ -16,8 +16,7 @@ public class Arrow : MonoBehaviour
 
     void Start()
     {
-      
-        Destroy(this.gameObject, 2.0f);
+
     }
 
     void Update()
@@ -36,5 +35,6 @@ public class Arrow : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.isKinematic = true;
         this.gameObject.GetComponent<Collider2D>().enabled = false;
+        Destroy(this.gameObject, 0.5f);
     }
 }

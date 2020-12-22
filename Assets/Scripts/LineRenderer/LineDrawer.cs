@@ -32,7 +32,9 @@ public class LineDrawer : MonoBehaviour
     {
         if (lineActive == true && Input.GetMouseButtonDown(0))
         {
+            print("SSS");
             Destroy(GameObject.Find("Collider"));
+            Destroy(GameObject.Find("arrowBriage(Clone)"));
             lineRenderer.SetPosition(0, new Vector2(0, 0));
             lineRenderer.SetPosition(1, new Vector2(0, 0));
             lineActive = false;
@@ -58,18 +60,10 @@ public class LineDrawer : MonoBehaviour
                     hasHit = false;
                 }
             }
-
-            if (lineActive == true && Input.GetMouseButtonDown(0))
-            {
-                Destroy(GameObject.Find("Collider"));
-                lineRenderer.SetPosition(0, new Vector2(0, 0));
-                lineRenderer.SetPosition(1, new Vector2(0, 0));
-                lineActive = false;
-            }
         }
         else if (Bow.bowset.status == Bow.bowstatus.normal && GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
-            
+
         }
     }
 

@@ -41,7 +41,7 @@ public class Bow : MonoBehaviour
 
     public LineRenderer lineRenderer;
 
-    public  bowstatus status;
+    public bowstatus status;
 
     private void Awake()
     {
@@ -53,7 +53,7 @@ public class Bow : MonoBehaviour
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
         {
-            points[i] = Instantiate(point, shotPoint.position, Quaternion.identity , an.transform);
+            points[i] = Instantiate(point, shotPoint.position, Quaternion.identity, an.transform);
         }
 
         StartCoroutine("hidePoints");
@@ -62,8 +62,17 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        openBowRope();
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+            status = bowstatus.normal;
+            StartCoroutine("bowUse");
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameStatus.gameStatus.status = GameStatus.Status.onRope;
+        }
 
         if (GameStatus.gameStatus.status == GameStatus.Status.onRope)
         {
@@ -94,13 +103,13 @@ public class Bow : MonoBehaviour
                 ropeActive = false;
             }
         }
-        
+
         if (GameStatus.gameStatus.status == GameStatus.Status.onBowing)
-        {
-            faceMouse();
+        {        
             rotateLim();
 
-           
+            faceMouse();
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (status == bowstatus.normal)
@@ -114,10 +123,10 @@ public class Bow : MonoBehaviour
                     lineRenderer.SetPosition(1, new Vector2(0, 0));
 
                     status = bowstatus.normal;
-                }                  
+                }
             }
 
-            if ((player.transform.localScale.x > 0 && direction.x < 2) || (player.transform.localScale.x < 0 && direction.x > -2))
+            if ((player.transform.localScale.x > 0 && direction.x < 3) || (player.transform.localScale.x < 0 && direction.x > -3))
             {
                 canRotate = false;
 
@@ -132,7 +141,7 @@ public class Bow : MonoBehaviour
             if (canRotate == true && shot == true)
             {
                 shotPos.transform.position = mousePosition;
-
+             
                 if (status == bowstatus.normal)
                     Shoot(arrow);
                 else if (status == bowstatus.bridge)
@@ -146,27 +155,10 @@ public class Bow : MonoBehaviour
                     points[i].transform.position = PonitPosition(i * spaceBetweenPoints);
                 }
             }
-        }       
+        }
         //print(direction);
     }
-    public void openBowRope()
-    {
-        if (GameStatus.gameStatus.status == GameStatus.Status.onPlaying || GameStatus.gameStatus.status == GameStatus.Status.onBowing)
-        {
-            if (Input.GetMouseButtonDown(1) && CharacterController2D.chara.isGrounded == true && CharacterController2D.chara.isHanging ==false)
-            {
-                GameStatus.gameStatus.status = GameStatus.Status.onBowing;
-                CharacterController2D.chara.Rigidbody.velocity= new Vector2(0,0);
-                status = bowstatus.normal;
-                StartCoroutine("bowUse");
-            }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameStatus.gameStatus.status = GameStatus.Status.onRope;
-            }
-        }        
-    }
     void faceMouse()
     {
         mousePosition = Input.mousePosition;
@@ -232,7 +224,7 @@ public class Bow : MonoBehaviour
             Destroy(curHook);
 
             ropeActive = false;
-        }       
+        }
     }
 
     Vector2 PonitPosition(float t)
