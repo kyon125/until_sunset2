@@ -9,6 +9,7 @@ public class cloudMove2 : MonoBehaviour
     public Direction direction;
     public float distant, time;
     SpriteRenderer sp;
+    float bepos;
     float timer;
     void Start()
     {
@@ -28,6 +29,7 @@ public class cloudMove2 : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        bepos = transform.position.x;
     }
     void move()
     {
@@ -36,12 +38,12 @@ public class cloudMove2 : MonoBehaviour
         {
             case (Direction.Horizontal):
                 {
-                    transform.DOBlendableMoveBy(new Vector3(distant, 0, 0), time);
+                    transform.parent.DOBlendableMoveBy(new Vector3(distant, 0, 0), time).SetEase(Ease.InOutSine);
                     break;
                 }
             case (Direction.vertical):
                 {
-                    transform.DOBlendableMoveBy(new Vector3(0, distant, 0), time);
+                    transform.parent.DOBlendableMoveBy(new Vector3(0, distant, 0), time).SetEase(Ease.InOutSine);
                     break;
                 }
         }
@@ -50,14 +52,14 @@ public class cloudMove2 : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.parent = transform;
+            collision.transform.SetParent(transform.parent, true);           
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.parent = GameObject.Find("GameController").transform;
+            collision.transform.SetParent(GameObject.Find("GameController").transform, true);
         }
     }
     public enum Direction

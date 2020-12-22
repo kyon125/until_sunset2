@@ -11,7 +11,7 @@ public class cloudBasic : MonoBehaviour
     LayerMask player;
     void Start()
     {
-        pos = transform.position.y;
+        pos = transform.localPosition.y;
     }
 
     // Update is called once per frame
@@ -24,6 +24,7 @@ public class cloudBasic : MonoBehaviour
         if (collision.transform.tag == "Player" && ismove == false)
         {
             Boing();
+            collision.transform.SetParent(transform.parent, true);
             ismove = true;
         }
     }
@@ -31,6 +32,7 @@ public class cloudBasic : MonoBehaviour
     {
         if (collision.transform.tag == "Player" && ismove == false)
         {
+            collision.transform.SetParent(GameObject.Find("GameController").transform, true);
             transform.DOLocalMoveY(pos, 0.5f);
         }
     }
