@@ -36,7 +36,7 @@ public class Soundcontroller : MonoBehaviour
         stopbgm();
         adList[0].Play();
         adList[0].volume = 0;
-        DOTween.To(() => adList[0].volume, x => adList[0].volume = x, 0.5f, 1.5f).SetEase(Ease.Linear);
+        DOTween.To(() => adList[0].volume, x => adList[0].volume = x, 0.3f, 1.5f).SetEase(Ease.Linear);
     }
     public void playbgm()
     {        
@@ -53,7 +53,7 @@ public class Soundcontroller : MonoBehaviour
         }
         adList[num].Play();
         adList[num].volume = 0;
-        DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.4f, 1.5f).SetEase(Ease.Linear);
+        DOTween.To(() => adList[num].volume, x => adList[num].volume = x, 0.3f, 1.5f).SetEase(Ease.Linear);
     }
     public void stopbgm()
     {
