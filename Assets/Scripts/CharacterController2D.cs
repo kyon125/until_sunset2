@@ -154,6 +154,7 @@ public class CharacterController2D : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Loading")
         {
             Rigidbody.velocity = new Vector2(0,0);
+            isClimb = false;
             playerAni.SetInteger("Run", 0);
             playerAni.SetBool("isClimbup", false);
             playerAni.SetBool("Walk", false);
@@ -161,7 +162,15 @@ public class CharacterController2D : MonoBehaviour
             playerAni.SetBool("JumpUp", false);
         }
     }
-
+    public void intialstatus()
+    {
+        Rigidbody.velocity = new Vector2(0, 0);
+        playerAni.SetInteger("Run", 0);
+        playerAni.SetBool("isClimbup", false);
+        playerAni.SetBool("Walk", false);
+        playerAni.SetBool("Fulldown", false);
+        playerAni.SetBool("JumpUp", false);
+    }
     private void FixedUpdate()
     {
         PhysicsCheck();

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class wq_1 : MonoBehaviour
 {
-    public simplot dia;
     public int start, end;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +21,7 @@ public class wq_1 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             print("a");
-            dia.playdia(start, end);
+            simplot.plotPlay.playdia(start, end);
         }
     }
 }

@@ -43,8 +43,9 @@ public class Mainmenu : MonoBehaviour
         gameStatus.status = GameStatus.Status.onBaging;
 
         all_off();
-        bag.gameObject.SetActive(true);
         bg.creatitem();
+        bag.gameObject.SetActive(true);
+        
 
         Tween t = GameObject.Find("Bag").transform.DOScale(new Vector3(1, 1, 1), 0.01f);
     }

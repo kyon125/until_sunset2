@@ -77,7 +77,7 @@ public class saveGame : MonoBehaviour
             PlayerPrefs.SetInt("itemNum" + i, bagsave.itemNum[i]);
         }
         yield return new WaitForEndOfFrame();
-        GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+        //GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
     }
     public void load()
     {       
