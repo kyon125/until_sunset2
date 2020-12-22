@@ -12,6 +12,7 @@ public class ParallaxBackground : MonoBehaviour
     private Vector3 lastcampos;
     void Start()
     {
+        cam = GameObject.Find("Bigcamera");
         camtransfrom = cam.transform;
         lastcampos = camtransfrom.position;
     }
