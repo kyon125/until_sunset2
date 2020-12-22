@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class S2_plot2 : MonoBehaviour
 {
     public static S2_plot2 sp2;
-    public int s, s1, s2,s3, e, e1, e2,e3;
+    public int s, s1, s2,s3,s4, e, e1, e2,e3,e4;
     public GameObject col;
+    public SpriteRenderer sprite;
     // Start is called before the first frame update
     bool isplayer;
     bool ok;
@@ -64,7 +66,16 @@ public class S2_plot2 : MonoBehaviour
     }
     void firstsee()
     {
-        simplot.plotPlay.playdia(s, e);
+        StartCoroutine(f());
+    }
+    IEnumerator f()
+    {
+        GameStatus.gameStatus.status = GameStatus.Status.onPloting;
+        yield return StartCoroutine(simplot.plotPlay.playplot(s, e));
+        sprite.DOFade(1,0.5f);
+        GameStatus.gameStatus.status = GameStatus.Status.onPloting;
+        yield return StartCoroutine(simplot.plotPlay.playplot(s4, e4));
+        sprite.DOFade(0, 0.1f);
         status = Status.clean;
     }
     void inclean()
