@@ -27,6 +27,7 @@ public class saveGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F11))
         {
             save();
+            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
         }
         if (Input.GetKeyDown(KeyCode.F12))
         {
