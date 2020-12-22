@@ -43,12 +43,15 @@ public class Bow : MonoBehaviour
 
     public bowstatus status;
 
+    Rigidbody2D playerVel;
+
     private void Awake()
     {
         bowset = this;
     }
     void Start()
     {
+        playerVel = player.GetComponent<Rigidbody2D>();
 
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
@@ -82,7 +85,7 @@ public class Bow : MonoBehaviour
                 Destroy(curHook);
                 Rigidbody2D playerVel = player.GetComponent<Rigidbody2D>();
 
-                playerVel.velocity = new Vector2(playerVel.velocity.x, 50);
+                playerVel.velocity = new Vector2(playerVel.velocity.x, 20);
 
                 ropeActive = false;
             }
@@ -208,23 +211,25 @@ public class Bow : MonoBehaviour
     {
         Vector2 destiny = camera.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-        //Debug.Log(hit.collider.name);
-
-        if (hit.collider.tag == "box")
+        if (ropeActive == false)
         {
-            if (ropeActive == false)
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
             {
-                curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+                if (hit.collider.gameObject.tag == "box")
+                {
+                    Debug.Log("hook ! ");
 
-                curHook.GetComponent<RopeScript>().destiny = destiny;
+                    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
 
-                ropeActive = true;
+                    curHook.GetComponent<RopeScript>().destiny = destiny;
+
+                    ropeActive = true;
+                }
             }
         }
         else
