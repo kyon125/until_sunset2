@@ -5,13 +5,18 @@ using UnityEngine;
 public class test : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Camera camera;
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray mousePos = camera.ScreenPointToRay(Input.mousePosition);
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-       
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        print("GURO");
+            RaycastHit2D hit = Physics2D.Raycast(mousePos.origin, mousePos.direction, 1 << 13);
+            if (hit.transform.tag == "Player")
+            {
+                Debug.Log(hit.transform.name);
+            }           
+        }
     }
 }
