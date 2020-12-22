@@ -151,12 +151,12 @@ public class Bow : MonoBehaviour
     }
     public void openBowRope()
     {
-        if (GameStatus.gameStatus.status == GameStatus.Status.onPlaying)
+        if (GameStatus.gameStatus.status == GameStatus.Status.onPlaying || GameStatus.gameStatus.status == GameStatus.Status.onBowing)
         {
             if (Input.GetMouseButtonDown(1) && CharacterController2D.chara.isGrounded == true && CharacterController2D.chara.isHanging ==false)
             {
                 GameStatus.gameStatus.status = GameStatus.Status.onBowing;
-                CharacterController2D.chara.Rigidbody.isKinematic = true;
+                CharacterController2D.chara.Rigidbody.velocity= new Vector2(0,0);
                 status = bowstatus.normal;
                 StartCoroutine("bowUse");
             }
@@ -264,7 +264,7 @@ public class Bow : MonoBehaviour
         }
         else if (shot == true)
         {
-            GameStatus.gameStatus.status = GameStatus.Status.onBowing;
+            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
             shot = false;
             bow.SetActive(false);
             for (int i = 0; i < numberOfPoints; i++)

@@ -20,6 +20,7 @@ public class S_Button : MonoBehaviour
     }
     public void p_start()
     {
+        GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
         cs.change();
         //Loadscene.loadcontroller.loadName = "Viliage";
         //Loadscene.loadcontroller.changescene();

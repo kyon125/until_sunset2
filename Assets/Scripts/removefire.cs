@@ -18,9 +18,9 @@ public class removefire : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && fire != null) 
+        if (collision.tag == "Player" ) 
         {
-            Destroy(fire);
+             Destroy(GameObject.Find("newfire"));
         }
     }
 }

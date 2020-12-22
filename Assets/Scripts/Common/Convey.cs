@@ -24,11 +24,13 @@ public class Convey : MonoBehaviour
     {
         if (godown == false)
         {
+            GameStatus.gameStatus.status = GameStatus.Status.onPloting;
             convey();
             godown = true;
         }
         else if (godown == true)
         {
+            GameStatus.gameStatus.status = GameStatus.Status.onPloting;
             returnconvey();
             godown = false;
         }
@@ -43,8 +45,7 @@ public class Convey : MonoBehaviour
     }
 
     IEnumerator up()
-    {
-        GameStatus.gameStatus.status = GameStatus.Status.onPloting;
+    {       
         An.transform.SetParent(ele.transform);
         ele.transform.DOBlendableMoveBy(new Vector3(0, distant, 0), timer);
         yield return new WaitForSeconds(0.5f);
@@ -62,9 +63,8 @@ public class Convey : MonoBehaviour
     }
     IEnumerator down()
     {
-        GameStatus.gameStatus.status = GameStatus.Status.onPloting;
         An.transform.SetParent(ele.transform);
-        ele.transform.DOBlendableMoveBy(new Vector3(0, -distant, 0), timer);
+        ele.transform.DOBlendableMoveBy(new Vector3(0, -distant, 0), timer);        
         yield return new WaitForSeconds(1f);
         UIcotroller.uicotroller.fulloff();
         yield return new WaitForSeconds(0.6f);
