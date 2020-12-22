@@ -198,29 +198,25 @@ public class Bow : MonoBehaviour
     {
         Vector2 destiny = camera.ScreenToWorldPoint(Input.mousePosition);
 
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
 
-        RaycastHit hitInfo;
+        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-        if (Physics.Raycast(ray, out hitInfo))
+        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+        //Debug.Log(hit.collider.name);
+
+        if (hit.collider.tag == "box")
         {
-            Debug.DrawLine(ray.origin, hitInfo.point);
-
-            if (hitInfo.collider.gameObject.tag == "box")
+            if (ropeActive == false)
             {
-                Debug.Log("hook");
+                curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
 
-                if (ropeActive == false)
-                {
-                    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+                curHook.GetComponent<RopeScript>().destiny = destiny;
 
-                    curHook.GetComponent<RopeScript>().destiny = destiny;
-
-                    ropeActive = true;
-                }
+                ropeActive = true;
             }
         }
-
         else
         {
             GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
@@ -236,7 +232,6 @@ public class Bow : MonoBehaviour
         Vector2 position = (Vector2)shotPoint.position + (direction.normalized * launchForce * t) + 0.5f * Physics2D.gravity * (t * t);
         return position;
     }
-
 
     IEnumerator bowUse()
     {
