@@ -43,7 +43,8 @@ public class Loadscene : MonoBehaviour
     }
     public void changescene()
     {        
-        SceneManager.LoadScene("Loading");        
+        SceneManager.LoadScene("Loading");
+        CharacterController2D.chara.intialstatus();
     }
      public void potarl()
     {

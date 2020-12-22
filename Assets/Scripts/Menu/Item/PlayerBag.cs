@@ -58,9 +58,18 @@ public class PlayerBag : MonoBehaviour
             Destroy(obj);
         }
         //清空選擇圖示
-        GameObject.Find("Itemname").GetComponent<Text>().text = "";
-        GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0") ;
-        GameObject.Find("itemdescrip").GetComponent<Text>().text = "";
+        if (GameObject.Find("Itemname") != null) 
+        {
+            GameObject.Find("Itemname").GetComponent<Text>().text = "";           
+        }
+        if (GameObject.Find("Itemimage") != null)
+        {
+            GameObject.Find("Itemimage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Itemsprite/" + "0");
+        }
+        if (GameObject.Find("itemdescrip") != null)
+        {
+            GameObject.Find("itemdescrip").GetComponent<Text>().text = "";
+        }
 
         for (int i = 0 ; i <= bg.I_item.Count - 1;i++)
         {
@@ -118,6 +127,7 @@ public class PlayerBag : MonoBehaviour
                         bg.I_num.RemoveAt(i);
                         GameObject go = tsf.transform.GetChild(i).gameObject;
                         select_itemid = 9999;
+                        if (GameObject.Find("itemnumtext") != null) 
                         GameObject.Find("itemnumtext").GetComponent<Text>().text = "剩餘";
                         Destroy(go);
                     }
