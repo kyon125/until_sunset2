@@ -31,10 +31,10 @@ public class AutoSave : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            saveGame.savecontroller.save();
-            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
-        }
+        //if (collision.tag == "Player")
+        //{
+        //    saveGame.savecontroller.save();
+        //    GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+        //}
     }
 }
