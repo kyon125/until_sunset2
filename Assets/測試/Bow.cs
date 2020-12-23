@@ -67,7 +67,11 @@ public class Bow : MonoBehaviour
     {
         openBowRope();
 
-
+        if (GameStatus.gameStatus.status == GameStatus.Status.onRope && CharacterController2D.chara.isGrounded == true)
+        {
+            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
+            CharacterController2D.chara.intialstatus();
+        }
 
         if (GameStatus.gameStatus.status == GameStatus.Status.onRope)
         {
@@ -80,12 +84,10 @@ public class Bow : MonoBehaviour
             }
             else if (ropeActive == true && Input.GetKeyDown(KeyCode.Space))
             {
-                GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
-
                 Destroy(curHook);
                 Rigidbody2D playerVel = player.GetComponent<Rigidbody2D>();
 
-                playerVel.velocity = new Vector2(playerVel.velocity.x, 20);
+                playerVel.velocity = new Vector2(playerVel.velocity.x, 40);
 
                 ropeActive = false;
             }
@@ -96,6 +98,14 @@ public class Bow : MonoBehaviour
                 Destroy(curHook);
 
                 ropeActive = false;
+            }
+            else if (ropeActive == true && Input.GetKeyDown(KeyCode.A))
+            {
+                playerVel.AddForce(new Vector2(-20, 0), ForceMode2D.Impulse);
+            }
+            else if (ropeActive == true && Input.GetKeyDown(KeyCode.D))
+            {
+                playerVel.AddForce(new Vector2(20, 0), ForceMode2D.Impulse);
             }
         }
 
@@ -165,11 +175,11 @@ public class Bow : MonoBehaviour
                 status = bowstatus.normal;
                 StartCoroutine("bowUse");
             }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameStatus.gameStatus.status = GameStatus.Status.onRope;
-            }
+        }
+        if (GameStatus.gameStatus.status == GameStatus.Status.onPlaying)
+        {
+            if(Input.GetKeyDown(KeyCode.C))
+            GameStatus.gameStatus.status = GameStatus.Status.onRope;
         }
     }
     void faceMouse()
@@ -232,7 +242,29 @@ public class Bow : MonoBehaviour
                 }
             }
         }
-        else
+        else if (ropeActive = true && CharacterController2D.chara.isGrounded == false)
+        {
+            Destroy(curHook);
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.tag == "box")
+                {
+                    Debug.Log("hook ! ");
+
+                    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+
+                    curHook.GetComponent<RopeScript>().destiny = destiny;
+
+                    ropeActive = true;
+                }
+            }
+            
+        }
+        else if (ropeActive = true && CharacterController2D.chara.isGrounded == true)
         {
             GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
 

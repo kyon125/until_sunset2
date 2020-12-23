@@ -18,7 +18,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 324e7fed0963ddf41b1506baac4bdf45, type: 2}
+  - {fileID: 2100000, guid: 1a034063746a7fc4b866f7b92fdb34f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destiny: {x: 0, y: 0}
-  speed: 4
+  speed: 9
   distance: 2
   nodePrefab: {fileID: 7606202308683987456, guid: 7dc9258d813d0c64cb85946982d36eea,
     type: 3}
@@ -144,13 +144,28 @@ PrefabInstance:
     - target: {fileID: 1525469634176013542, guid: 7dc9258d813d0c64cb85946982d36eea,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.97164285
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1525469634176013542, guid: 7dc9258d813d0c64cb85946982d36eea,
         type: 3}
       propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525469634176013542, guid: 7dc9258d813d0c64cb85946982d36eea,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525469634176013542, guid: 7dc9258d813d0c64cb85946982d36eea,
+        type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1525469634176013542, guid: 7dc9258d813d0c64cb85946982d36eea,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b9bcb9083dd2a8468dd40bc0a9b0dc2, type: 2}
     - target: {fileID: 3201876112496962275, guid: 7dc9258d813d0c64cb85946982d36eea,
         type: 3}
       propertyPath: m_LocalPosition.x

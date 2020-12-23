@@ -11,6 +11,7 @@ public class S2_plot : MonoBehaviour
     public SpriteRenderer Sp;
     bool isplayer;
     bool start = true;
+    public bool another;
     void Start()
     {
         
@@ -19,10 +20,14 @@ public class S2_plot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isplayer == true&& start == true)
+        if (isplayer == true && start == true && another == false)
         {
             start = false;
             StartCoroutine(plot());
+        }
+        else if (isplayer == true && start == true && another == true)
+        {
+            simplot.plotPlay.playdia(s,e);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

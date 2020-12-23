@@ -6,9 +6,11 @@ public class showOBJ : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject morning, evening, night;
+    public Color M, E, N;
+    Camera cam;
     void Start()
     {
-        
+        cam = GameObject.Find("Bigcamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -22,16 +24,18 @@ public class showOBJ : MonoBehaviour
         {
             case (GameStatus.Gametime.morning):
                 {
-                    morning.SetActive(true);
                     evening.SetActive(false);
                     night.SetActive(false);
+                    morning.SetActive(true);
+                    cam.backgroundColor = M;
                     break;
                 }
             case (GameStatus.Gametime.evening):
                 {
-                    morning.SetActive(false);
-                    evening.SetActive(true);
+                    morning.SetActive(false);                    
                     night.SetActive(false);
+                    evening.SetActive(true);
+                    cam.backgroundColor = E;
                     break;
                 }
             case (GameStatus.Gametime.night):
@@ -39,8 +43,9 @@ public class showOBJ : MonoBehaviour
                     morning.SetActive(false);
                     evening.SetActive(false);
                     night.SetActive(true);
+                    cam.backgroundColor = N;
                     break;
                 }
         }
-    }
+    }    
 }
