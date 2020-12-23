@@ -4117,7 +4117,7 @@ MonoBehaviour:
     maxlife: 5
     endurance: 5
     maxendurance: 5
-    energy: 5
+    energy: 0
     maxenergy: 5
     pos: {x: 0, y: 0, z: 0}
   status: 0
@@ -9408,7 +9408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -35129224, y: -0.0000041127205}
+  m_AnchoredPosition: {x: -35129724, y: -0.0000041127205}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1601200196
