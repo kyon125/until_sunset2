@@ -27,6 +27,7 @@ public class S2_plot : MonoBehaviour
         }
         else if (isplayer == true && start == true && another == true)
         {
+            start = false;
             simplot.plotPlay.playdia(s,e);
         }
     }
