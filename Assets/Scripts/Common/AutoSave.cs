@@ -26,7 +26,6 @@ public class AutoSave : MonoBehaviour
         if (collision.tag == "Player")
         {
             saveGame.savecontroller.save();
-            GameStatus.gameStatus.status = GameStatus.Status.onPlaying;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

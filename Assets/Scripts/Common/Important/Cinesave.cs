@@ -34,6 +34,7 @@ public class Cinesave : MonoBehaviour
                 group[i].SetActive(false);
             }
             group[PlayerPrefs.GetInt(s_name + "cinenum")].SetActive(true);
+            print(PlayerPrefs.GetInt(s_name + "cinenum"));
             isload = true;
         }
     }
