@@ -7,6 +7,7 @@ public class GameStatus : MonoBehaviour
 {
     // Start is called before the first frame update
     public static GameObject GM;
+    public static bool GmInstand;
     public static GameStatus gameStatus;
     public ArchiveStatus archivestatus;
     public plaeyrStatus plaeyrstatus;
@@ -17,9 +18,10 @@ public class GameStatus : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.transform.gameObject);
-        if (GM == null)
+        if (GM == null && GmInstand == false)
         {
             GM = this.gameObject;
+            GmInstand = true;
         }
         else
         {
