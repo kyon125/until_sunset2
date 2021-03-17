@@ -24,11 +24,13 @@ public class Quest_set
 }
 public enum goal_type
 { 
-    kill,
-    search
+    searchNpc,
+    haveItem
 }
 public enum queststatus
 {
-    questing,
-    quested
+    noStart,
+    isQuesting,
+    isQuestedButNoFinshed,
+    isFinshed
 }
